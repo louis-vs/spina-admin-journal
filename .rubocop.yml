@@ -5,3 +5,5 @@ require:
 AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
+  Exclude:
+    - test/dummy/db/schema.rb
