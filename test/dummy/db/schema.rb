@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_213741) do
+ActiveRecord::Schema.define(version: 2020_12_16_161122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,11 +29,48 @@ ActiveRecord::Schema.define(version: 2020_12_15_213741) do
   end
 
   create_table "spina_admin_journal_articles", force: :cascade do |t|
-    t.text "title"
+    t.integer "order", null: false
+    t.string "title", null: false
+    t.string "url"
+    t.string "doi"
     t.text "abstract"
-    t.datetime "date"
+    t.bigint "issue_id", null: false
+    t.bigint "file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["file_id"], name: "index_spina_admin_journal_articles_on_file_id"
+    t.index ["issue_id"], name: "index_spina_admin_journal_articles_on_issue_id"
+  end
+
+  create_table "spina_admin_journal_issues", force: :cascade do |t|
+    t.integer "number", null: false
+    t.string "title"
+    t.date "date", null: false
+    t.string "description"
+    t.bigint "volume_id", null: false
+    t.bigint "cover_img_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cover_img_id"], name: "index_spina_admin_journal_issues_on_cover_img_id"
+    t.index ["volume_id"], name: "index_spina_admin_journal_issues_on_volume_id"
+  end
+
+  create_table "spina_admin_journal_journals", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.bigint "logo_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["logo_id"], name: "index_spina_admin_journal_journals_on_logo_id"
+  end
+
+  create_table "spina_admin_journal_volumes", force: :cascade do |t|
+    t.integer "number", null: false
+    t.string "title"
+    t.bigint "journal_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["journal_id"], name: "index_spina_admin_journal_volumes_on_journal_id"
   end
 
   create_table "spina_attachment_collections", id: :serial, force: :cascade do |t|
@@ -249,4 +286,10 @@ ActiveRecord::Schema.define(version: 2020_12_15_213741) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "spina_admin_journal_articles", "spina_admin_journal_issues", column: "issue_id"
+  add_foreign_key "spina_admin_journal_articles", "spina_attachments", column: "file_id", on_delete: :nullify
+  add_foreign_key "spina_admin_journal_issues", "spina_admin_journal_volumes", column: "volume_id"
+  add_foreign_key "spina_admin_journal_issues", "spina_images", column: "cover_img_id"
+  add_foreign_key "spina_admin_journal_journals", "spina_images", column: "logo_id"
+  add_foreign_key "spina_admin_journal_volumes", "spina_admin_journal_journals", column: "journal_id"
 end

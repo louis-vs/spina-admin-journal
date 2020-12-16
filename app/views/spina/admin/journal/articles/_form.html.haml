@@ -10,11 +10,6 @@
             Title
           %td
             = f.text_field :title
-        %tr
-          %td
-            Date
-          %td
-            = f.text_field :date, value: (@article.date.strftime("%d-%m-%Y") unless @article.new_record?), class: 'datepicker'
 
   %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
     Save

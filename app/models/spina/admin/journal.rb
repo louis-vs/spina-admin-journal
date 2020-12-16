@@ -2,7 +2,7 @@
 
 module Spina
   module Admin
-    module Journal
+    module Journal # rubocop:disable Style/Documentation
       def self.table_name_prefix
         'spina_admin_journal_'
       end
