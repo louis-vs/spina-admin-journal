@@ -1,0 +1,25 @@
+= form_for @article, html: {autocomplete: "off"} do |f|
+  - content_for :notification_alert do
+    error
+
+  #page_content
+    .table-container
+      %table.table.table-form
+        %tr
+          %td
+            Title
+          %td
+            = f.text_field :title
+        %tr
+          %td
+            Date
+          %td
+            = f.text_field :date, value: (@article.date.strftime("%d-%m-%Y") unless @article.new_record?), class: 'datepicker'
+
+  %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
+    Save
+
+  = link_to 'Cancel', admin_journal_articles_path, class: 'button button-link'
+
+  - unless @article.new_record?
+    .pull-right= link_to 'Delete', admin_journal_article_path(@article), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'

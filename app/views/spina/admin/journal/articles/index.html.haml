@@ -1,0 +1,27 @@
+.filters
+  = link_to 'New article', spina.new_admin_journal_article_path, class: 'button button-primary', data: {icon: 't'}
+
+.table-container
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Date
+        %th
+
+    %tbody
+      - if @articles.any?
+        - @articles.each do |article|
+          %tr
+            %td
+              = article.title
+            %td
+              = l(article.date)
+            %td.nowrap.align-right
+              = link_to spina.edit_admin_journal_article_path(article), class: 'button button-link' do
+                = icon('pencil-outline')
+
+      - else
+        %tr
+          %td.align-center{colspan: 3}
+            %em There are no articles

@@ -1,0 +1,4 @@
+dummy:
+  name: MyJournal
+  preferences:
+    :theme: default
