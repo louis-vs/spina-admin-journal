@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_161122) do
+ActiveRecord::Schema.define(version: 2020_12_16_230816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2020_12_16_161122) do
     t.boolean "robots_allowed", default: false
   end
 
+  create_table "spina_admin_journal_affiliations", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "institution_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "author_id", null: false
+    t.index ["author_id"], name: "index_spina_admin_journal_affiliations_on_author_id"
+    t.index ["institution_id"], name: "index_spina_admin_journal_affiliations_on_institution_id"
+  end
+
   create_table "spina_admin_journal_articles", force: :cascade do |t|
     t.integer "order", null: false
     t.string "title", null: false
@@ -40,6 +51,36 @@ ActiveRecord::Schema.define(version: 2020_12_16_161122) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["file_id"], name: "index_spina_admin_journal_articles_on_file_id"
     t.index ["issue_id"], name: "index_spina_admin_journal_articles_on_issue_id"
+  end
+
+  create_table "spina_admin_journal_author_names", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "author_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_spina_admin_journal_author_names_on_author_id"
+  end
+
+  create_table "spina_admin_journal_authors", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "spina_admin_journal_authorships", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.bigint "author_name_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id", "author_name_id"], name: "index_authorships_on_article_id_and_author_name_id", unique: true
+    t.index ["article_id"], name: "index_spina_admin_journal_authorships_on_article_id"
+    t.index ["author_name_id", "article_id"], name: "index_authorships_on_author_name_id_and_article_id", unique: true
+    t.index ["author_name_id"], name: "index_spina_admin_journal_authorships_on_author_name_id"
+  end
+
+  create_table "spina_admin_journal_institutions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "spina_admin_journal_issues", force: :cascade do |t|
@@ -286,8 +327,13 @@ ActiveRecord::Schema.define(version: 2020_12_16_161122) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_authors", column: "author_id"
+  add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_institutions", column: "institution_id"
   add_foreign_key "spina_admin_journal_articles", "spina_admin_journal_issues", column: "issue_id"
   add_foreign_key "spina_admin_journal_articles", "spina_attachments", column: "file_id", on_delete: :nullify
+  add_foreign_key "spina_admin_journal_author_names", "spina_admin_journal_authors", column: "author_id"
+  add_foreign_key "spina_admin_journal_authorships", "spina_admin_journal_articles", column: "article_id"
+  add_foreign_key "spina_admin_journal_authorships", "spina_admin_journal_author_names", column: "author_name_id"
   add_foreign_key "spina_admin_journal_issues", "spina_admin_journal_volumes", column: "volume_id"
   add_foreign_key "spina_admin_journal_issues", "spina_images", column: "cover_img_id"
   add_foreign_key "spina_admin_journal_journals", "spina_images", column: "logo_id"

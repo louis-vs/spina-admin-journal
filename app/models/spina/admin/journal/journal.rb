@@ -12,6 +12,8 @@ module Spina
         # @!attribute [rw] volumes
         #   @return [ActiveRecord::Relation] directly associated volumes
         has_many :volumes, dependent: :destroy
+
+        validates :name, presence: true
       end
     end
   end

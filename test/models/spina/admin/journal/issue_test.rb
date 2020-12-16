@@ -11,6 +11,11 @@ module Spina
           @new_issue = Issue.new
         end
 
+        test 'issue has associated articles' do
+          assert_not_nil @issue.articles
+          assert @new_issue.articles.empty?
+        end
+
         test 'issue has associated volume' do
           assert_not_nil @issue.volume
           assert_nil @new_issue.volume
@@ -19,6 +24,13 @@ module Spina
         test 'issue has associated cover image' do
           assert_not_nil @issue.cover_img
           assert_nil @new_issue.cover_img
+        end
+
+        test 'should destroy dependent articles when destroyed' do
+          assert_difference 'Article.count', -1 * Article.where(issue_id: @issue.id).count do
+            @issue.destroy
+          end
+          assert_empty @issue.errors[:base]
         end
 
         test 'number should not be empty' do
@@ -51,6 +63,14 @@ module Spina
           @issue.description = nil
           assert @issue.valid?
           assert_empty @issue.errors[:description]
+        end
+
+        test 'cover_img may be empty' do
+          assert @issue.valid?
+          assert_empty @issue.errors[:cover_img]
+          @issue.cover_img = nil
+          assert @issue.valid?
+          assert_empty @issue.errors[:cover_img]
         end
       end
     end
