@@ -27,7 +27,7 @@ module Spina
         end
 
         test 'should destroy dependent articles when destroyed' do
-          assert_difference 'Article.count', -1 * Article.where(issue_id: @issue.id).count do
+          assert_difference 'Article.count', -1 * @issue.articles.count do
             @issue.destroy
           end
           assert_empty @issue.errors[:base]

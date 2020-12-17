@@ -5,10 +5,21 @@ module Spina
     module Journal
       # Record for an issue of a journal.
       # Belongs to a particular volume of a journal. Has many articles.
+      #
+      # - Validates
+      # Presence:: {#number}, {#date}
       class Issue < ApplicationRecord
+        # @!attribute [rw] number
+        #   @return [Integer]
+        # @!attribute [rw] issue
+        #   @return [ActiveRecord::Relation] the volume that contains this issue
         belongs_to :volume
+        # @!attribute [rw] cover_img
+        #   @return [Spina::Image, nil] the issue's cover image
         belongs_to :cover_img, class_name: 'Spina::Image', optional: true
 
+        # @!attribute [rw] issue
+        #   @return [ActiveRecord::Relation] the articles within this issue
         has_many :articles, dependent: :destroy
 
         validates :number, presence: true

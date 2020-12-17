@@ -5,6 +5,8 @@ module Spina
     module Journal
       # Journal records. The top level of the database hierarchy.
       class Journal < ApplicationRecord
+        # @!attribute [rw] name
+        #   @return [String]
         # @!attribute [rw] logo
         #   @return [Spina::Image, nil] directly associated image
         belongs_to :logo, class_name: 'Spina::Image', optional: true

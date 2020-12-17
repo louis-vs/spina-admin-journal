@@ -26,6 +26,13 @@ module Spina
           assert_nil @new_article.file
         end
 
+        test 'should destroy dependent authorships when destroyed' do
+          assert_difference 'Authorship.count', -1 * @article.authorships.count do
+            @article.destroy
+          end
+          assert_empty @article.errors[:base]
+        end
+
         test 'order should not be empty' do
           assert @article.valid?
           assert_empty @article.errors[:order]
