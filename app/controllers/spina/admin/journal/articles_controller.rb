@@ -24,7 +24,7 @@ module Spina
 
           if @article.save
             # TODO: translation
-            redirect_to admin_journal_articles_path, notice: 'Article was successfully created.'
+            redirect_to admin_journal_journal_articles_path(params[:journal_id]), notice: 'Article was successfully created.'
           else
             render :new
           end
@@ -32,7 +32,7 @@ module Spina
 
         def update
           if @article.update(article_params)
-            redirect_to admin_journal_articles_path, notice: 'Article was successfully updated.'
+            redirect_to admin_journal_journal_articles_path(params[:journal_id]), notice: 'Article was successfully updated.'
           else
             render :edit
           end
@@ -42,7 +42,7 @@ module Spina
           @article.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_articles_path, notice: 'Article was successfully destroyed.'
+              redirect_to admin_journal_journal_articles_path(params[:journal_id]), notice: 'Article was successfully destroyed.'
             end
           end
         end
@@ -54,7 +54,7 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Articles', admin_journal_articles_path
+          add_breadcrumb 'Articles', admin_journal_journal_articles_path(params[:journal_id])
         end
 
         def set_article

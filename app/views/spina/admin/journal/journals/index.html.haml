@@ -1,0 +1,24 @@
+.filters
+  = link_to 'New journal', spina.new_admin_journal_journal_path, class: 'button button-primary', data: {icon: 't'}
+
+.table-container
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th
+
+    %tbody
+      - if @journals.any?
+        - @journals.each do |journal|
+          %tr
+            %td
+              = journal.name
+            %td.nowrap.align-right
+              = link_to spina.edit_admin_journal_journal_path(journal), class: 'button button-link' do
+                = icon('pencil-outline')
+
+      - else
+        %tr
+          %td.align-center{colspan: 3}
+            %em There are no journals

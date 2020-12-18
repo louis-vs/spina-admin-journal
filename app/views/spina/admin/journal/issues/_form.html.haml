@@ -1,0 +1,20 @@
+= form_for @issue, url: admin_journal_journal_issues_path(params[:journal_id]), html: {autocomplete: "off"} do |f|
+  - content_for :notification_alert do
+    error
+
+  #page_content
+    .table-container
+      %table.table.table-form
+        %tr
+          %td
+            Title
+          %td
+            = f.text_field :title
+
+  %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
+    Save
+
+  = link_to 'Cancel', admin_journal_journal_issues_path(params[:journal_id]), class: 'button button-link'
+
+  - unless @issue.new_record?
+    .pull-right= link_to 'Delete', admin_journal_journal_issue_path(@issue), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'

@@ -1,0 +1,25 @@
+.filters
+  = link_to 'New volume', spina.new_admin_journal_journal_volume_path(params[:journal_id]), class: 'button button-primary', data: {icon: 't'}
+
+.table-container
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Date
+        %th
+
+    %tbody
+      - if @volumes.any?
+        - @volumes.each do |volume|
+          %tr
+            %td
+              = volume.title
+            %td.nowrap.align-right
+              = link_to spina.edit_admin_journal_journal_volume_path(volume), class: 'button button-link' do
+                = icon('pencil-outline')
+
+      - else
+        %tr
+          %td.align-center{colspan: 3}
+            %em There are no volumes

@@ -1,4 +1,4 @@
-= form_for @article, html: {autocomplete: "off"} do |f|
+= form_for @article, url: admin_journal_journal_articles_path(params[:journal_id]), html: {autocomplete: "off"} do |f|
   - content_for :notification_alert do
     error
 
@@ -14,7 +14,7 @@
   %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
     Save
 
-  = link_to 'Cancel', admin_journal_articles_path, class: 'button button-link'
+  = link_to 'Cancel', admin_journal_journal_articles_path(params[:journal_id]), class: 'button button-link'
 
   - unless @article.new_record?
-    .pull-right= link_to 'Delete', admin_journal_article_path(@article), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'
+    .pull-right= link_to 'Delete', admin_journal_journal_article_path(@article), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'

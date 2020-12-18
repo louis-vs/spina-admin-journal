@@ -1,0 +1,28 @@
+%li{ class: ('active' if %w[journals authors institutions].include? controller_name) }
+  = link_to admin_journal_journals_path do
+    = icon('list')
+    All journals
+    = icon('caret-right')
+
+    %ul
+      %li{ class: ('active' if %w[journals].include? controller_name) }
+        = link_to 'Journals', admin_journal_journals_path
+      %li{ class: ('active' if %w[authors].include? controller_name) }
+        = link_to 'Authors', admin_journal_authors_path
+      %li{ class: ('active' if %w[institutions].include? controller_name) }
+        = link_to 'Institutions', admin_journal_institutions_path
+
+- ::Spina::Admin::Journal::Journal.all.each do |journal|
+  %li{ class: ('active' if current_admin_path.start_with?("/journal/journals/#{journal.id}")) }
+    = link_to admin_journal_journal_volumes_path(journal.id) do
+      = icon('pages')
+      = journal.name
+      = icon('caret-right')
+
+      %ul
+        %li{ class: ('active' if %w[volumes].include? controller_name) }
+          = link_to 'Volumes', admin_journal_journal_volumes_path(journal.id)
+        %li{ class: ('active' if %w[issues].include? controller_name) }
+          = link_to 'Issues', admin_journal_journal_issues_path(journal.id)
+        %li{ class: ('active' if %w[articles].include? controller_name) }
+          = link_to 'Articles', admin_journal_journal_articles_path(journal.id)

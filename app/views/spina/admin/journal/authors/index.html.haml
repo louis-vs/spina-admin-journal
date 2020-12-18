@@ -1,0 +1,24 @@
+.filters
+  = link_to 'New author', spina.new_admin_journal_author_path, class: 'button button-primary', data: {icon: 't'}
+
+.table-container
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Date
+
+    %tbody
+      - if @authors.any?
+        - @authors.each do |author|
+          %tr
+            %td
+              = author.title
+            %td.nowrap.align-right
+              = link_to spina.edit_admin_journal_author_path(author), class: 'button button-link' do
+                = icon('pencil-outline')
+
+      - else
+        %tr
+          %td.align-center{colspan: 3}
+            %em There are no authors

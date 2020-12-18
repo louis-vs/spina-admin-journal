@@ -1,0 +1,25 @@
+.filters
+  = link_to 'New issue', spina.new_admin_journal_journal_issue_path(params[:journal_id]), class: 'button button-primary', data: {icon: 't'}
+
+.table-container
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Date
+        %th
+
+    %tbody
+      - if @issues.any?
+        - @issues.each do |issue|
+          %tr
+            %td
+              = issue.title
+            %td.nowrap.align-right
+              = link_to spina.edit_admin_journal_journal_issue_path(issue), class: 'button button-link' do
+                = icon('pencil-outline')
+
+      - else
+        %tr
+          %td.align-center{colspan: 3}
+            %em There are no issues

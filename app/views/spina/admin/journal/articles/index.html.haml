@@ -1,5 +1,5 @@
 .filters
-  = link_to 'New article', spina.new_admin_journal_article_path, class: 'button button-primary', data: {icon: 't'}
+  = link_to 'New article', spina.new_admin_journal_journal_article_path(params[:journal_id]), class: 'button button-primary', data: {icon: 't'}
 
 .table-container
   %table.table
@@ -16,7 +16,7 @@
             %td
               = article.title
             %td.nowrap.align-right
-              = link_to spina.edit_admin_journal_article_path(article), class: 'button button-link' do
+              = link_to spina.edit_admin_journal_journal_article_path(article), class: 'button button-link' do
                 = icon('pencil-outline')
 
       - else

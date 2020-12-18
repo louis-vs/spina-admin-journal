@@ -1,0 +1,23 @@
+.filters
+  = link_to 'New institution', spina.new_admin_journal_institution_path, class: 'button button-primary', data: {icon: 't'}
+
+.table-container
+  %table.table
+    %thead
+      %tr
+        %th Name
+
+    %tbody
+      - if @institutions.any?
+        - @institutions.each do |institution|
+          %tr
+            %td
+              = institution.name
+            %td.nowrap.align-right
+              = link_to spina.edit_admin_journal_institution_path(institution), class: 'button button-link' do
+                = icon('pencil-outline')
+
+      - else
+        %tr
+          %td.align-center{colspan: 3}
+            %em There are no institutions
