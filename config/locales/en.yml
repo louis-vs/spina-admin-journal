@@ -1,0 +1,32 @@
+en:
+  spina:
+    admin:
+      journal:
+        journals:
+          index:
+            new: New journal
+            no_journals: There are currently no journals saved.
+          new:
+            new: New journal
+          create:
+            created: New journal %{name} created.
+          update:
+            updated: Journal <em>%{name}</em> updated.
+          destroy:
+            destroyed: Journal <em>%{name}</em> deleted.
+          form:
+            name: name
+            save: Save journal
+            delete_confirmation:
+              "Are you sure you want to delete the journal <strong>%{name}</strong>? 
+              This action is irreversible, and will delete all associated volumes, issues, 
+              and articles."
+  activerecord:
+    models:
+      spina/admin/journal/journal:
+        one: Journal
+        other: Journals
+    attributes:
+      spina/admin/journal/journal:
+        name: Name
+        logo: Logo

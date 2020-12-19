@@ -1,20 +1,36 @@
+- if @journal.errors.any?
+  - content_for :notifications do
+    .notification.notification-danger.animated.fadeInRight
+      = icon('exclamation')
+      .notification-message
+        =t 'spina.notifications.alert'
+        %small= @journal.errors.full_messages.join('<br />').html_safe
+      = link_to '#', data: {close_notification: true} do
+        = icon('cross')
+
 = form_for @journal, html: {autocomplete: "off"} do |f|
-  - content_for :notification_alert do
-    error
+  %header#header
+    .breadcrumbs
+      = render_breadcrumbs
+    #header_actions
+      %button.button.button-primary{type: 'submit', style: 'margin-right: 0', data: {disable_with: t('spina.pages.saving')}}
+        = icon('check')
+        =t 'spina.pages.save'
+  .tab-content.active.well
+    .horizontal-form
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Journal.human_attribute_name :name
+        .horizontal-form-content
+          = f.text_field :name
+      = f.fields_for :parts do |ff|
+        = ff.hidden_field :id
+        = ff.hidden_field :title
+        = ff.hidden_field :partable_type
+        = ff.hidden_field :name
 
-  #page_content
-    .table-container
-      %table.table.table-form
-        %tr
-          %td
-            Name
-          %td
-            = f.text_field :name
-
-  %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
-    Save
-
-  = link_to 'Cancel', admin_journal_journals_path, class: 'button button-link'
+        .horizontal-form-group.page-part{ data: { name: ff.object.name } }
+          = render "spina/admin/partables/#{partable_type_partial_namespace(ff.object.partable_type)}/form", f: ff
 
   - unless @journal.new_record?
-    .pull-right= link_to 'Delete', admin_journal_journal_path(@journal), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_journal_path(@journal), method: :delete, data: { confirm: t('.delete_confirmation', name: @journal.name), class: 'button button-link button-danger' }

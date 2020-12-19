@@ -1,24 +1,27 @@
-.filters
-  = link_to 'New journal', spina.new_admin_journal_journal_path, class: 'button button-primary', data: {icon: 't'}
-
-.table-container
-  %table.table
-    %thead
-      %tr
-        %th Name
-        %th
-
-    %tbody
-      - if @journals.any?
-        - @journals.each do |journal|
-          %tr
-            %td
-              = journal.name
-            %td.nowrap.align-right
-              = link_to spina.edit_admin_journal_journal_path(journal), class: 'button button-link' do
-                = icon('pencil-outline')
-
-      - else
+- content_for :header_actions do
+  = link_to new_admin_journal_journal_path, class: %w[button button-primary], style: 'margin-right: 0' do
+    = icon 'plus'
+    = t '.new'
+  
+.well
+  .table-container
+    %table.table
+      %thead
         %tr
-          %td.align-center{colspan: 3}
-            %em There are no journals
+          %th= ::Spina::Admin::Journal::Journal.human_attribute_name :name
+          %th
+
+      %tbody
+        - if @journals.any?
+          - @journals.each do |journal|
+            %tr
+              %td
+                = journal.name
+              %td.nowrap.align-right
+                = link_to spina.edit_admin_journal_journal_path(journal), class: %w[button button-link] do
+                  = icon 'pencil-outline'
+
+        - else
+          %tr
+            %td.align-center{colspan: 2}
+              %em= t '.no_journals'
