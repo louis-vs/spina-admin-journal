@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_230816) do
+ActiveRecord::Schema.define(version: 2020_12_19_143719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "spina_accounts", id: :serial, force: :cascade do |t|
     t.string "name"
@@ -103,6 +124,15 @@ ActiveRecord::Schema.define(version: 2020_12_16_230816) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["logo_id"], name: "index_spina_admin_journal_journals_on_logo_id"
+  end
+
+  create_table "spina_admin_journal_parts", force: :cascade do |t|
+    t.string "title"
+    t.string "name"
+    t.string "partable_type"
+    t.bigint "partable_id"
+    t.string "pageable_type"
+    t.bigint "pageable_id"
   end
 
   create_table "spina_admin_journal_volumes", force: :cascade do |t|
@@ -327,6 +357,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_230816) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_authors", column: "author_id"
   add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_institutions", column: "institution_id"
   add_foreign_key "spina_admin_journal_articles", "spina_admin_journal_issues", column: "issue_id"
