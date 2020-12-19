@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails-i18n', '~> 6.0'
   spec.add_dependency 'spina', '~> 1.1'
 
+  spec.add_development_dependency 'image_processing', '~> 1.2'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'puma', '~> 5.0'
   spec.add_development_dependency 'rubocop', '~> 0.93'
