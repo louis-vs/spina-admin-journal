@@ -3,7 +3,8 @@
 module Spina
   module Admin
     module Journal
-      class ArticlesController < AdminController
+      # Controller for {Article} records
+      class ArticlesController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_article, only: %i[edit update destroy]
 

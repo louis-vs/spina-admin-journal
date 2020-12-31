@@ -5,7 +5,7 @@ require_dependency 'spina/application_controller'
 module Spina
   module Admin
     module Journal
-      # Controller for {Journal} objects
+      # Controller for {Journal} records
       class JournalsController < ApplicationController
         PARTS = [
           { name: 'logo', title: 'Logo', partable_type: 'Spina::Image' }

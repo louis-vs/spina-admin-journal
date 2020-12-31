@@ -5,7 +5,8 @@ require_dependency 'spina/application_controller'
 module Spina
   module Admin
     module Journal
-      class InstitutionsController < AdminController
+      # Controller for {Institution} records
+      class InstitutionsController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_institution, only: %i[edit update destroy]
 

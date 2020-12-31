@@ -5,7 +5,8 @@ require_dependency 'spina/application_controller'
 module Spina
   module Admin
     module Journal
-      class IssuesController < AdminController
+      # Controller for {Issue} records
+      class IssuesController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_issue, only: %i[edit update destroy]
 

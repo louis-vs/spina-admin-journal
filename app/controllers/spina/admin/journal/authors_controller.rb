@@ -5,7 +5,8 @@ require_dependency 'spina/application_controller'
 module Spina
   module Admin
     module Journal
-      class AuthorsController < AdminController
+      # Controller for {Author} records and their corresponding {AuthorName}s.
+      class AuthorsController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_author, only: %i[edit update destroy]
 

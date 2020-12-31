@@ -5,7 +5,8 @@ require_dependency 'spina/application_controller'
 module Spina
   module Admin
     module Journal
-      class VolumesController < AdminController
+      # Controller for {Volume} records
+      class VolumesController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_volume, only: %i[edit update destroy]
 
