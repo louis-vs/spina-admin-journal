@@ -54,7 +54,9 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "author_name_id", null: false
+    t.index ["author_name_id", "institution_id"], name: "index_affiliations_on_institution_id_and_author_name_id", unique: true
     t.index ["author_name_id"], name: "index_spina_admin_journal_affiliations_on_author_name_id"
+    t.index ["institution_id", "author_name_id"], name: "index_affiliations_on_author_name_id_and_institution_id", unique: true
     t.index ["institution_id"], name: "index_spina_admin_journal_affiliations_on_institution_id"
   end
 
