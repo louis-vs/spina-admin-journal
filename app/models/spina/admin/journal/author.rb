@@ -3,9 +3,11 @@
 module Spina
   module Admin
     module Journal
-      # The Author record effectively serves as an inverse join between affiliations
-      # and names. In the entropic flux of reality, this serves as a point of
-      # constancy.
+      # Authors are collections of AuthorNames. 
+      #
+      # Since people can have multiple names, titles, institutions, etc., this is all 
+      # handled by the {AuthorName} record. This record groups said records together,
+      # in order that a coherent oeuvre of a single author be identified.
       class Author < ApplicationRecord
         # @!attribute [rw] author_names
         #   @return [ActiveRecord::Relation] names of the author
@@ -13,9 +15,6 @@ module Spina
         #         destroyed earlier by the program, to confirm that there are no articles that
         #         will be left with single parents.
         has_many :author_names, dependent: :restrict_with_error
-        # @!attribute [rw] affiliations
-        #   @return [ActiveRecord::Relation] the authors institutional affiliations
-        has_many :affiliations, dependent: :destroy
       end
     end
   end

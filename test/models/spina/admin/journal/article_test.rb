@@ -33,12 +33,12 @@ module Spina
           assert_empty @article.errors[:base]
         end
 
-        test 'order should not be empty' do
+        test 'position should not be empty' do
           assert @article.valid?
-          assert_empty @article.errors[:order]
-          @article.order = nil
+          assert_empty @article.errors[:position]
+          @article.position = nil
           assert @article.invalid?
-          assert_not_empty @article.errors[:order]
+          assert_not_empty @article.errors[:position]
         end
 
         test 'title should not be empty' do

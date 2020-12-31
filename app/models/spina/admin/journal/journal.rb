@@ -8,6 +8,8 @@ module Spina
         include Partable
         # @!attribute [rw] name
         #   @return [String]
+        # @!attribute [rw] description
+        #   @return [String]
         # @!attribute [rw] logo
         #   @return [Spina::Image, nil] directly associated image
         belongs_to :logo, class_name: 'Spina::Image', optional: true

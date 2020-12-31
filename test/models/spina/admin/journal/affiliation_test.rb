@@ -11,9 +11,9 @@ module Spina
           @new_affiliation = Affiliation.new
         end
 
-        test 'affiliation has associated author' do
-          assert_not_nil @affiliation.author
-          assert_nil @new_affiliation.author
+        test 'affiliation has associated author name' do
+          assert_not_nil @affiliation.author_name
+          assert_nil @new_affiliation.author_name
         end
 
         test 'affiliation has associated institution' do
@@ -21,12 +21,12 @@ module Spina
           assert_nil @new_affiliation.institution
         end
 
-        test 'author should not be empty' do
+        test 'author name should not be empty' do
           assert @affiliation.valid?
-          assert_empty @affiliation.errors[:author]
-          @affiliation.author = nil
+          assert_empty @affiliation.errors[:author_name]
+          @affiliation.author_name = nil
           assert @affiliation.invalid?
-          assert_not_empty @affiliation.errors[:author]
+          assert_not_empty @affiliation.errors[:author_name]
         end
 
         test 'institution should not be empty' do
@@ -35,22 +35,6 @@ module Spina
           @affiliation.institution = nil
           assert @affiliation.invalid?
           assert_not_empty @affiliation.errors[:institution]
-        end
-
-        test 'start_date should not be empty' do
-          assert @affiliation.valid?
-          assert_empty @affiliation.errors[:start_date]
-          @affiliation.start_date = nil
-          assert @affiliation.invalid?
-          assert_not_empty @affiliation.errors[:start_date]
-        end
-
-        test 'end_date should not be empty' do
-          assert @affiliation.valid?
-          assert_empty @affiliation.errors[:end_date]
-          @affiliation.end_date = nil
-          assert @affiliation.invalid?
-          assert_not_empty @affiliation.errors[:end_date]
         end
       end
     end

@@ -11,6 +11,11 @@ module Spina
           @new_institution = Institution.new
         end
 
+        test 'institution has association author_names' do
+          assert_not_nil @institution.author_names
+          assert @new_institution.author_names.empty?
+        end
+
         test 'name should not be empty' do
           assert @institution.valid?
           assert_empty @institution.errors[:name]

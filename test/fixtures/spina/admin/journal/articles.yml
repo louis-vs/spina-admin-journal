@@ -1,7 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  order: 1
+  position: 1
   title: "A new wave: how the tides change"
   url: insert_link
   doi: link
@@ -10,7 +8,7 @@ one:
   file: lipsum
 
 two:
-  order: 2
+  position: 2
   title: Time to stop
   url: insert_link
   abstract: Brief but very interesting abstract.

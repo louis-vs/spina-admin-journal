@@ -3,23 +3,15 @@
 module Spina
   module Admin
     module Journal
-      # Links an author with their institutions.
-      # An author may have many affiliations as they may vary over time.
-      # This record allows author affiliation to be automatically determined,
-      # based on the date of the publication.
-      #
-      # - Validates
-      # Presence:: {#start_date}, {#end_date}
+      # Joins an Institution with a particular AuthorName.
+      # @see Institution, AuthorName
       class Affiliation < ApplicationRecord
-        # @!attribute [rw] author
-        #   @return [ActiveRecord::Relation] the author whose affiliation this record holds
-        belongs_to :author
+        # @!attribute [rw] author_name
+        #   @return [ActiveRecord::Relation] the AuthorName whose affiliation this record holds
+        belongs_to :author_name
         # @!attribute [rw] insttution
-        #   @return [ActiveRecord::Relation] the institution to which the author is affiliated
+        #   @return [ActiveRecord::Relation] the Institution to which the author is affiliated
         belongs_to :institution
-
-        validates :start_date, presence: true
-        validates :end_date, presence: true
       end
     end
   end

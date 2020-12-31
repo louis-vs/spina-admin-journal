@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_19_143719) do
+ActiveRecord::Schema.define(version: 2020_12_31_165231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,18 +50,16 @@ ActiveRecord::Schema.define(version: 2020_12_19_143719) do
   end
 
   create_table "spina_admin_journal_affiliations", force: :cascade do |t|
-    t.date "start_date", null: false
-    t.date "end_date", null: false
     t.bigint "institution_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "author_id", null: false
-    t.index ["author_id"], name: "index_spina_admin_journal_affiliations_on_author_id"
+    t.bigint "author_name_id", null: false
+    t.index ["author_name_id"], name: "index_spina_admin_journal_affiliations_on_author_name_id"
     t.index ["institution_id"], name: "index_spina_admin_journal_affiliations_on_institution_id"
   end
 
   create_table "spina_admin_journal_articles", force: :cascade do |t|
-    t.integer "order", null: false
+    t.integer "position", default: 0, null: false
     t.string "title", null: false
     t.string "url", default: "", null: false
     t.string "doi", default: "", null: false
@@ -358,7 +356,7 @@ ActiveRecord::Schema.define(version: 2020_12_19_143719) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_authors", column: "author_id"
+  add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_author_names", column: "author_name_id"
   add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_institutions", column: "institution_id"
   add_foreign_key "spina_admin_journal_articles", "spina_admin_journal_issues", column: "issue_id"
   add_foreign_key "spina_admin_journal_articles", "spina_attachments", column: "file_id", on_delete: :nullify

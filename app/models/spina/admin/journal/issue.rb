@@ -11,7 +11,11 @@ module Spina
       class Issue < ApplicationRecord
         # @!attribute [rw] number
         #   @return [Integer]
-        # @!attribute [rw] issue
+        # @!attribute [rw] title
+        #   @return [String]
+        # @!attribute [rw] description
+        #   @return [String]
+        # @!attribute [rw] volume
         #   @return [ActiveRecord::Relation] the volume that contains this issue
         belongs_to :volume
         # @!attribute [rw] cover_img

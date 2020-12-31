@@ -3,7 +3,7 @@
 class CreateSpinaAdminJournalArticles < ActiveRecord::Migration[6.0] # :nodoc:
   def change
     create_table :spina_admin_journal_articles do |t|
-      t.integer :order, null: false
+      t.integer :position, null: false, default: 0
       t.string :title, null: false
       t.string :url, null: false, default: ''
       t.string :doi, null: false, default: ''

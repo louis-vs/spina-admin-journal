@@ -1,13 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  start_date: 2018-09-16
-  end_date: 2020-12-16
   institution: rockbottom
-  author: marcus
+  author_name: marcus
 
 two:
-  start_date: 2020-12-16
-  end_date: 2021-12-16
   institution: rockbottom
-  author: marcus
+  author_name: marcus

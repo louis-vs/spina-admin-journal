@@ -8,7 +8,7 @@ module Spina
       # - Validators
       # Presence:: {#order}, {#title}
       class Article < ApplicationRecord
-        # @!attribute [rw] order
+        # @!attribute [rw] position
         #   @return [Integer]
         # @!attribute [rw] title
         #   @return [String]
@@ -16,6 +16,7 @@ module Spina
         #   @return [String]
         # @!attribute [rw] doi
         #   @return [String]
+        # TODO: change abstract to a Spina::Text part
         # @!attribute [rw] abstract
         #   @return [String]
         # @!attribute [rw] issue
@@ -31,7 +32,7 @@ module Spina
         #   @return [ActiveRecord::Relation] the authors of the article
         has_many :author_names, through: :authorships
 
-        validates :order, presence: true
+        validates :position, presence: true
         validates :title, presence: true
       end
     end
