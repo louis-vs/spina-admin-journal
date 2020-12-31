@@ -52,7 +52,7 @@ module Spina
         private
 
         def author_params
-          params.require(:admin_journal_author).permit(:title, :abstract, :date)
+          params.require(:admin_journal_author).permit(:name)
         end
 
         def set_breadcrumb
@@ -61,7 +61,7 @@ module Spina
 
         def set_author
           @author = Author.find(params[:id])
-          add_breadcrumb @author.name
+          add_breadcrumb @author.author_names.first
         end
       end
     end

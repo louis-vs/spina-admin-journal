@@ -9,23 +9,24 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
+          @journal = spina_admin_journal_journals :journal
           @article = spina_admin_journal_articles :one
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
         test 'should get index' do
-          get admin_journal_articles_url
+          get admin_journal_journal_articles_url(@journal.id)
           assert_response :success
         end
 
         test 'should get new' do
-          get new_admin_journal_article_url
+          get new_admin_journal_journal_article_url(@journal.id)
           assert_response :success
         end
 
         test 'should get edit' do
-          get edit_admin_journal_article_url(@article.id)
+          get edit_admin_journal_journal_article_url(@journal.id, @article.id)
           assert_response :success
         end
       end

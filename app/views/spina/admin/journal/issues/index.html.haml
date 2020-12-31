@@ -16,7 +16,7 @@
             %td
               = issue.title
             %td.nowrap.align-right
-              = link_to spina.edit_admin_journal_journal_issue_path(issue), class: 'button button-link' do
+              = link_to spina.edit_admin_journal_journal_issue_path(params[:journal_id], issue.id), class: 'button button-link' do
                 = icon('pencil-outline')
 
       - else

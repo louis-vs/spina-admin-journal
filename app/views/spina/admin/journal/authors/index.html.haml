@@ -5,15 +5,15 @@
   %table.table
     %thead
       %tr
-        %th Title
-        %th Date
+        %th Name
+        %th 
 
     %tbody
       - if @authors.any?
         - @authors.each do |author|
           %tr
             %td
-              = author.title
+              = author.author_names.first
             %td.nowrap.align-right
               = link_to spina.edit_admin_journal_author_path(author), class: 'button button-link' do
                 = icon('pencil-outline')

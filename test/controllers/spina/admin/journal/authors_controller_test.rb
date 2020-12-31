@@ -6,20 +6,26 @@ module Spina
   module Admin
     module Journal
       class AuthorsControllerTest < ActionDispatch::IntegrationTest
-        include Engine.routes.url_helpers
+        include ::Spina::Engine.routes.url_helpers
+
+        setup do
+          @author = spina_admin_journal_authors :marcus
+          @user = spina_users :admin
+          post admin_sessions_url, params: { email: @user.email, password: 'password' }
+        end
 
         test 'should get index' do
-          get admin_journal_authors_index_url
+          get admin_journal_authors_url
           assert_response :success
         end
 
         test 'should get new' do
-          get admin_journal_authors_new_url
+          get new_admin_journal_author_url
           assert_response :success
         end
 
         test 'should get edit' do
-          get admin_journal_authors_edit_url
+          get edit_admin_journal_author_url(@author.id)
           assert_response :success
         end
       end

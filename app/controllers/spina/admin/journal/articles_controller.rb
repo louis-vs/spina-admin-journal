@@ -50,7 +50,7 @@ module Spina
         private
 
         def article_params
-          params.require(:admin_journal_article).permit(:title, :abstract, :date)
+          params.require(:admin_journal_article).permit(:title, :abstract)
         end
 
         def set_breadcrumb

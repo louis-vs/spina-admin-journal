@@ -78,8 +78,6 @@ module Spina
             @journal.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
                     .tap { |part| part.partable ||= part.partable_type.constantize.new }
           end
-          print '*********'
-          puts @journal.parts
         end
 
         def journal_params

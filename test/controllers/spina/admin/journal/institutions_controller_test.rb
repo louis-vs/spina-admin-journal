@@ -6,20 +6,26 @@ module Spina
   module Admin
     module Journal
       class InstitutionsControllerTest < ActionDispatch::IntegrationTest
-        include Engine.routes.url_helpers
+        include ::Spina::Engine.routes.url_helpers
+
+        setup do
+          @institution = spina_admin_journal_institutions :rockbottom
+          @user = spina_users :admin
+          post admin_sessions_url, params: { email: @user.email, password: 'password' }
+        end
 
         test 'should get index' do
-          get admin_journal_institutions_index_url
+          get admin_journal_institutions_url
           assert_response :success
         end
 
         test 'should get new' do
-          get admin_journal_institutions_new_url
+          get new_admin_journal_institution_url
           assert_response :success
         end
 
         test 'should get edit' do
-          get admin_journal_institutions_edit_url
+          get edit_admin_journal_institution_url(@institution.id)
           assert_response :success
         end
       end
