@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'image_processing', '~> 1.2'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'puma', '~> 5.0'
-  spec.add_development_dependency 'rubocop', '~> 0.93'
+  spec.add_development_dependency 'rubocop', '~> 1.8'
   spec.add_development_dependency 'rubocop-performance', '~> 1.8'
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
 end
