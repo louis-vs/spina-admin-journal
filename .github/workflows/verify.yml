@@ -57,7 +57,6 @@ jobs:
       PGHOST: 127.0.0.1
       PGUSER: postgres
       PGPASSWORD: postgres
-    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres
