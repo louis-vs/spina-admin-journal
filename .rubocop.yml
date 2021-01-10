@@ -7,3 +7,8 @@ AllCops:
   NewCops: enable
   Exclude:
     - test/dummy/db/schema.rb
+    - test/dummy/db/migrate/*.rb
+    - node_modules/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - .git/**/*
