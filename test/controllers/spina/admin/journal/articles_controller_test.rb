@@ -16,17 +16,17 @@ module Spina
         end
 
         test 'should get index' do
-          get admin_journal_journal_articles_url(@journal.id)
+          get admin_journal_articles_url
           assert_response :success
         end
 
         test 'should get new' do
-          get new_admin_journal_journal_article_url(@journal.id)
+          get new_admin_journal_article_url
           assert_response :success
         end
 
         test 'should get edit' do
-          get edit_admin_journal_journal_article_url(@journal.id, @article.id)
+          get edit_admin_journal_article_url(@article.id)
           assert_response :success
         end
       end

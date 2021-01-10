@@ -6,8 +6,7 @@ module Spina
 
   module Admin
     module Journal
-      Journal.first_or_create name: 'The Best Journal',
-                              description: 'Serving you the best academic content on the daily.'
+      Journal.first_or_create name: 'The Best Journal'
     end
   end
 end

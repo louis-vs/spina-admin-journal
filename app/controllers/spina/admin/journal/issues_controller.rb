@@ -27,7 +27,7 @@ module Spina
 
           if @issue.save
             # TODO: translation
-            redirect_to admin_journal_journal_issues_path(params[:journal_id]), notice: 'Issue was successfully created.'
+            redirect_to admin_journal_issues_path, notice: 'Issue was successfully created.'
           else
             render :new
           end
@@ -35,7 +35,7 @@ module Spina
 
         def update
           if @issue.update(issue_params)
-            redirect_to admin_journal_journal_issues_path(params[:journal_id]), notice: 'Issue was successfully updated.'
+            redirect_to admin_journal_issues_path, notice: 'Issue was successfully updated.'
           else
             render :edit
           end
@@ -45,7 +45,7 @@ module Spina
           @issue.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_journal_issues_path(params[:journal_id]), notice: 'Issue was successfully destroyed.'
+              redirect_to admin_journal_issues_path, notice: 'Issue was successfully destroyed.'
             end
           end
         end
@@ -57,7 +57,7 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Issues', admin_journal_journal_issues_path(params[:journal_id])
+          add_breadcrumb 'Issues', admin_journal_issues_path
         end
 
         def set_issue

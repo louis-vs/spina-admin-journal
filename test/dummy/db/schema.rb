@@ -118,8 +118,7 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
   end
 
   create_table "spina_admin_journal_journals", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
+    t.string "name", default: "Unnamed Journal", null: false
     t.bigint "logo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

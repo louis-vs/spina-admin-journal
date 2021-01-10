@@ -14,16 +14,6 @@ module Spina
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
-        test 'should get index' do
-          get admin_journal_journals_url
-          assert_response :success
-        end
-
-        test 'should get new' do
-          get new_admin_journal_journal_url
-          assert_response :success
-        end
-
         test 'should get edit' do
           get edit_admin_journal_journal_url(@journal.id)
           assert_response :success

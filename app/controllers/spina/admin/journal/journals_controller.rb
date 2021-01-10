@@ -5,44 +5,27 @@ require_dependency 'spina/application_controller'
 module Spina
   module Admin
     module Journal
-      # Controller for {Journal} records
+      # Controller for {Journal} records.
+      # A site only ever has a single journal, so only the {#edit} and {#update} actions
+      # are needed.
       class JournalsController < ApplicationController
         PARTS = [
-          { name: 'logo', title: 'Logo', partable_type: 'Spina::Image' }
+          { name: 'logo', title: 'Logo', partable_type: 'Spina::Image' },
+          { name: 'description', title: 'Description', partable_type: 'Spina::Text' }
         ].freeze
 
-        before_action :set_journal, only: %i[edit update destroy]
+        before_action :set_journal
         before_action :set_breadcrumb
-        before_action :set_parts_attributes, only: %i[new edit]
+        before_action :set_parts_attributes
         before_action :build_parts, only: %i[edit]
-
-        def index
-          @journals = Journal.all
-        end
-
-        def new
-          @journal = Journal.new
-          build_parts
-          add_breadcrumb t('.new')
-        end
 
         def edit
           add_breadcrumb @journal.name
         end
 
-        def create
-          @journal = Journal.new(journal_params)
-
-          if @journal.save
-            redirect_to admin_journal_journals_path, notice: t('.created', name: @journal.name)
-          else
-            render :new
-          end
-        end
-
         def update
           if @journal.update(journal_params)
-            redirect_to admin_journal_journals_path, notice: t('.updated', name: @journal.name)
+            redirect_to edit_admin_journal_journal_path(@journal.id), notice: t('.updated', name: @journal.name)
           else
             render :edit
           end
@@ -52,7 +35,7 @@ module Spina
           @journal.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_journals_path, notice: t('.destroyed', name: @journal.name)
+              redirect_to edit_admin_journal_journal_path, notice: 'Journal was successfully destroyed.'
             end
           end
         end
@@ -60,11 +43,11 @@ module Spina
         private
 
         def set_breadcrumb
-          add_breadcrumb Journal.model_name.human(count: :many), admin_journal_journals_path
+          add_breadcrumb Journal.model_name.human(count: :many), edit_admin_journal_journal_path(@journal.id)
         end
 
         def set_journal
-          @journal = Journal.find(params[:id])
+          @journal = Journal.instance
         end
 
         def set_parts_attributes
@@ -81,16 +64,7 @@ module Spina
         end
 
         def journal_params
-          params.require(:admin_journal_journal).permit(:name,
-                                                        parts_attributes:
-                                                          [:id, :title, :name, :partable_type, :partable_id,
-                                                           { partable_attributes:
-                                                               [:id, :content, :image_tokens, :image_positions, :date, :time,
-                                                                { structure_items_attributes:
-                                                                    [:id, :position, :_destroy,
-                                                                     { structure_parts_attributes:
-                                                                         [:id, :title, :structure_partable_type, :name, :partable_id,
-                                                                          { partable_attributes: {} }] }] }] }])
+          params.require(:admin_journal_journal).permit!
         end
       end
     end

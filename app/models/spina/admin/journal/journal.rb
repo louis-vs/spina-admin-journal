@@ -8,8 +8,6 @@ module Spina
         include Partable
         # @!attribute [rw] name
         #   @return [String]
-        # @!attribute [rw] description
-        #   @return [String]
         # @!attribute [rw] logo
         #   @return [Spina::Image, nil] directly associated image
         belongs_to :logo, class_name: 'Spina::Image', optional: true
@@ -18,10 +16,14 @@ module Spina
         #   @return [ActiveRecord::Relation] directly associated volumes
         has_many :volumes, dependent: :destroy
 
+        # @!attribute [rw] parts
+        #   @return [ActiveRecord::Relation] page parts, see {JournalsController}
         has_many :parts, as: :pageable, dependent: :destroy
         accepts_nested_attributes_for :parts, allow_destroy: true
 
-        validates :name, presence: true
+        def self.instance
+          Journal.first_or_create!
+        end
       end
     end
   end

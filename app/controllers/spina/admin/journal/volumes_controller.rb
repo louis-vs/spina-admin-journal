@@ -27,7 +27,7 @@ module Spina
 
           if @volume.save
             # TODO: translation
-            redirect_to admin_journal_journal_volumes_path(params[:journal_id]), notice: 'Volume was successfully created.'
+            redirect_to admin_journal_volumes_path, notice: 'Volume was successfully created.'
           else
             render :new
           end
@@ -35,7 +35,7 @@ module Spina
 
         def update
           if @volume.update(volume_params)
-            redirect_to admin_journal_journal_volumes_path(params[:journal_id]), notice: 'Volume was successfully updated.'
+            redirect_to admin_journal_volumes_path, notice: 'Volume was successfully updated.'
           else
             render :edit
           end
@@ -45,7 +45,7 @@ module Spina
           @volume.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_journal_volumes_path(params[:journal_id]), notice: 'Volume was successfully destroyed.'
+              redirect_to admin_journal_volumes_path, notice: 'Volume was successfully destroyed.'
             end
           end
         end
@@ -57,7 +57,7 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Volumes', admin_journal_journal_volumes_path(params[:journal_id])
+          add_breadcrumb 'Volumes', admin_journal_volumes_path
         end
 
         def set_volume
