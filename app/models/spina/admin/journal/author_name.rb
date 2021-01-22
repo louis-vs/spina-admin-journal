@@ -3,9 +3,10 @@
 module Spina
   module Admin
     module Journal
-      # Record for the names and corresponding affiliations of authors. This is the record that is associated with Articles themselves.
+      # Record for the names and corresponding affiliations of authors.
       #
-      # An AuthorName is associated with a particular author and a particular institution 
+      # This is the record that is associated with Articles themselves.
+      # An AuthorName is associated with a particular author and a particular institution
       # (via an affiliation).
       #
       # - Validators

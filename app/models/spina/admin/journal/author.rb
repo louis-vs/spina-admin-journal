@@ -3,9 +3,9 @@
 module Spina
   module Admin
     module Journal
-      # Authors are collections of AuthorNames. 
+      # Authors are collections of AuthorNames.
       #
-      # Since people can have multiple names, titles, institutions, etc., this is all 
+      # Since people can have multiple names, titles, institutions, etc., this is all
       # handled by the {AuthorName} record. This record groups said records together,
       # in order that a coherent oeuvre of a single author be identified.
       class Author < ApplicationRecord
