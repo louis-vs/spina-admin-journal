@@ -49,14 +49,6 @@ module Spina
           assert_not_empty @article.errors[:title]
         end
 
-        test 'abstract may be empty' do
-          assert @article.valid?
-          assert_empty @article.errors[:abstract]
-          @article.abstract = nil
-          assert @article.valid?
-          assert_empty @article.errors[:abstract]
-        end
-
         test 'url may be empty' do
           assert @article.valid?
           assert_empty @article.errors[:url]

@@ -8,6 +8,7 @@ module Spina
       # - Validators
       # Presence:: {#position}, {#title}
       class Article < ApplicationRecord
+        include Partable
         # @!attribute [rw] position
         #   @return [Integer]
         # @!attribute [rw] title
@@ -15,9 +16,6 @@ module Spina
         # @!attribute [rw] url
         #   @return [String]
         # @!attribute [rw] doi
-        #   @return [String]
-        # TODO: change abstract to a Spina::Text part
-        # @!attribute [rw] abstract
         #   @return [String]
         # @!attribute [rw] issue
         #   @return [ActiveRecord::Relation] the issue that contains this article
@@ -31,6 +29,11 @@ module Spina
         # @!attribute [rw] author_names
         #   @return [ActiveRecord::Relation] the authors of the article
         has_many :author_names, through: :authorships
+
+        # @!attribute [rw] parts
+        #   @return [ActiveRecord::Relation] page parts, see {ArticlesController}
+        has_many :parts, as: :pageable, dependent: :destroy
+        accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :position, presence: true
         validates :title, presence: true

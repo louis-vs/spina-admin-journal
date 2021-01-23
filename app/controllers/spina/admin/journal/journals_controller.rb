@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'spina/application_controller'
-
 module Spina
   module Admin
     module Journal
@@ -42,12 +40,12 @@ module Spina
 
         private
 
-        def set_breadcrumb
-          add_breadcrumb Journal.model_name.human(count: :many), edit_admin_journal_journal_path(@journal.id)
-        end
-
         def set_journal
           @journal = Journal.instance
+        end
+
+        def set_breadcrumb
+          add_breadcrumb Journal.model_name.human(count: :many), edit_admin_journal_journal_path(@journal.id)
         end
 
         def set_parts_attributes

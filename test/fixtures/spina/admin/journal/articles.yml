@@ -3,7 +3,6 @@ one:
   title: "A new wave: how the tides change"
   url: insert_link
   doi: link
-  abstract: Long and incredibly boring abstract.
   issue: one
   file: lipsum
 
@@ -11,7 +10,6 @@ two:
   position: 2
   title: Time to stop
   url: insert_link
-  abstract: Brief but very interesting abstract.
   doi: link
   issue: one
   file: lipsum

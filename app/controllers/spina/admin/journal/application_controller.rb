@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'spina/application_controller'
-
 module Spina
   module Admin
     module Journal

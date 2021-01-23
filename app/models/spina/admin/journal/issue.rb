@@ -9,12 +9,10 @@ module Spina
       # - Validates
       # Presence:: {#number}, {#date}
       class Issue < ApplicationRecord
+        include Partable
         # @!attribute [rw] number
         #   @return [Integer]
         # @!attribute [rw] title
-        #   @return [String]
-        # TODO: use Spina::Text for description
-        # @!attribute [rw] description
         #   @return [String]
         # @!attribute [rw] volume
         #   @return [ActiveRecord::Relation] the volume that contains this issue
@@ -26,6 +24,11 @@ module Spina
         # @!attribute [rw] issue
         #   @return [ActiveRecord::Relation] the articles within this issue
         has_many :articles, dependent: :destroy
+
+        # @!attribute [rw] parts
+        #   @return [ActiveRecord::Relation] page parts, see {ArticlesController}
+        has_many :parts, as: :pageable, dependent: :destroy
+        accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :number, presence: true
         validates :date, presence: true

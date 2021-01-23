@@ -2,7 +2,6 @@ one:
   number: 1
   title: An interesting title
   date: 1980-12-15 21:37:41
-  description: blah blah
   volume: one
   cover_img: como
 
@@ -10,6 +9,5 @@ two:
   number: 2
   title: An empty issue
   date: 1980-12-15 21:37:41
-  description: blah blah
   volume: two
   cover_img: como

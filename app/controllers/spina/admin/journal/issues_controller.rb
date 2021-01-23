@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-require_dependency 'spina/application_controller'
-
 module Spina
   module Admin
     module Journal
       # Controller for {Issue} records
       class IssuesController < ApplicationController
+        PARTS = [
+          { name: 'description', title: 'Description', partable_type: 'Spina::Text' }
+        ].freeze
+
         before_action :set_breadcrumb
         before_action :set_issue, only: %i[edit update destroy]
 
@@ -50,6 +52,11 @@ module Spina
 
         private
 
+        def set_issue
+          @issue = Issue.find(params[:id])
+          add_breadcrumb @issue.title
+        end
+
         def issue_params
           params.require(:admin_journal_issue).permit(:number, :title, :date, :description, :volume_id, :cover_img_id)
         end
@@ -58,9 +65,17 @@ module Spina
           add_breadcrumb 'Issues', admin_journal_issues_path
         end
 
-        def set_issue
-          @issue = Issue.find(params[:id])
-          add_breadcrumb @issue.title
+        def set_parts_attributes
+          @parts_attributes = PARTS
+        end
+
+        def build_parts
+          return unless @parts_attributes.is_a? Array
+
+          @issue.parts = @parts_attributes.map do |part_attributes|
+            @issue.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
+                  .tap { |part| part.partable ||= part.partable_type.constantize.new }
+          end
         end
       end
     end

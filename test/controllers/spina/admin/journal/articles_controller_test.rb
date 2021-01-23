@@ -31,8 +31,10 @@ module Spina
         end
 
         test 'should create article' do
-          attributes = @article.attributes
+          attributes = {}
           attributes[:title] = 'New Article'
+          attributes[:position] = 2
+          attributes[:issue_id] = @article.issue_id
           assert_difference 'Article.count' do
             post admin_journal_articles_url, params: { admin_journal_article: attributes }
           end

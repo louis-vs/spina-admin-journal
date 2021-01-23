@@ -30,6 +30,7 @@ module Spina
         def self.instance
           Journal.first_or_create!
         rescue ActiveRecord::RecordNotUnique
+          # prevent race conditions leading to multiple records being created
           retry
         end
       end

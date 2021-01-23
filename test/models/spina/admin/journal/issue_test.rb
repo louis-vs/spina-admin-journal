@@ -57,14 +57,6 @@ module Spina
           assert_empty @issue.errors[:title]
         end
 
-        test 'description may be empty' do
-          assert @issue.valid?
-          assert_empty @issue.errors[:description]
-          @issue.description = nil
-          assert @issue.valid?
-          assert_empty @issue.errors[:description]
-        end
-
         test 'cover_img may be empty' do
           assert @issue.valid?
           assert_empty @issue.errors[:cover_img]
