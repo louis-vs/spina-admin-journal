@@ -8,8 +8,6 @@ module Spina
         before_action :set_breadcrumb
         before_action :set_article, only: %i[edit update destroy]
 
-        layout 'spina/admin/admin'
-
         def index
           @articles = Article.all
         end
@@ -22,10 +20,9 @@ module Spina
 
         def create
           @article = Article.new(article_params)
-
           if @article.save
             # TODO: translation
-            redirect_to admin_journal_articles_path, notice: 'Article was successfully created.'
+            redirect_to admin_journal_articles_path, success: 'Article saved.'
           else
             render :new
           end
@@ -33,7 +30,7 @@ module Spina
 
         def update
           if @article.update(article_params)
-            redirect_to admin_journal_articles_path, notice: 'Article was successfully updated.'
+            redirect_to admin_journal_articles_path, success: 'Article saved.'
           else
             render :edit
           end
@@ -43,7 +40,7 @@ module Spina
           @article.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_articles_path, notice: 'Article was successfully destroyed.'
+              redirect_to admin_journal_articles_path, success: 'Article deleted.'
             end
           end
         end
@@ -51,7 +48,7 @@ module Spina
         private
 
         def article_params
-          params.require(:admin_journal_article).permit(:title, :abstract)
+          params.require(:admin_journal_article).permit(:title, :issue_id)
         end
 
         def set_breadcrumb

@@ -10,8 +10,6 @@ module Spina
         before_action :set_breadcrumb
         before_action :set_volume, only: %i[edit update destroy]
 
-        layout 'spina/admin/admin'
-
         def index
           @volumes = Volume.all
         end
@@ -27,7 +25,7 @@ module Spina
 
           if @volume.save
             # TODO: translation
-            redirect_to admin_journal_volumes_path, notice: 'Volume was successfully created.'
+            redirect_to admin_journal_volumes_path, success: 'Volume saved.'
           else
             render :new
           end
@@ -35,7 +33,7 @@ module Spina
 
         def update
           if @volume.update(volume_params)
-            redirect_to admin_journal_volumes_path, notice: 'Volume was successfully updated.'
+            redirect_to admin_journal_volumes_path, success: 'Volume saved.'
           else
             render :edit
           end
@@ -45,7 +43,7 @@ module Spina
           @volume.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_volumes_path, notice: 'Volume was successfully destroyed.'
+              redirect_to admin_journal_volumes_path, success: 'Volume deleted.'
             end
           end
         end
@@ -53,7 +51,7 @@ module Spina
         private
 
         def volume_params
-          params.require(:admin_journal_volume).permit(:title, :abstract, :date)
+          params.require(:admin_journal_volume).permit(:number, :journal_id)
         end
 
         def set_breadcrumb

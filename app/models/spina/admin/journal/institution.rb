@@ -13,7 +13,7 @@ module Spina
         #   @return [String]
         # @!attribute [rw] affiliations
         #   @return [ActiveRecord::Relation] the affiliations held at the institution
-        has_many :affiliations, dependent: :nullify
+        has_many :affiliations, dependent: :destroy
         # @!attribute [rw] author_names
         #   @return [ActiveRecord::Relation] associated author names
         has_many :author_names, through: :affiliations

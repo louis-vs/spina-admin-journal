@@ -28,6 +28,23 @@ module Spina
           get edit_admin_journal_author_url(@author.id)
           assert_response :success
         end
+
+        test 'should create author' do
+          attributes = @author.attributes
+          assert_difference 'Author.count' do
+            post admin_journal_authors_url, params: { admin_journal_author: attributes }
+          end
+          assert_redirected_to admin_journal_authors_url
+          assert_equal 'Author saved.', flash[:success]
+        end
+
+        test 'should update author' do
+          attributes = @author.attributes
+          attributes[:author_name_id] = spina_admin_journal_author_names(:toope).id
+          patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
+          assert_redirected_to admin_journal_authors_url
+          assert_equal 'Author saved.', flash[:success]
+        end
       end
     end
   end

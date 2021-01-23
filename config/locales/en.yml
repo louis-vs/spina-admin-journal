@@ -6,14 +6,10 @@ en:
           index:
             new: New journal
             no_journals: There are currently no journals saved.
-          new:
-            new: New journal
-          create:
-            created: New journal %{name} created.
           update:
-            updated: Journal <em>%{name}</em> updated.
+            saved: Journal saved.
           destroy:
-            destroyed: Journal <em>%{name}</em> deleted.
+            deleted: Journal deleted.
           form:
             name: name
             save: Save journal

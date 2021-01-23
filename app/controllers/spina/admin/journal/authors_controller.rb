@@ -10,8 +10,6 @@ module Spina
         before_action :set_breadcrumb
         before_action :set_author, only: %i[edit update destroy]
 
-        layout 'spina/admin/admin'
-
         def index
           @authors = Author.all
         end
@@ -27,7 +25,7 @@ module Spina
 
           if @author.save
             # TODO: translation
-            redirect_to admin_journal_authors_path, notice: 'Author was successfully created.'
+            redirect_to admin_journal_authors_path, success: 'Author saved.'
           else
             render :new
           end
@@ -35,7 +33,7 @@ module Spina
 
         def update
           if @author.update(author_params)
-            redirect_to admin_journal_authors_path, notice: 'Author was successfully updated.'
+            redirect_to admin_journal_authors_path, success: 'Author saved.'
           else
             render :edit
           end
@@ -45,7 +43,7 @@ module Spina
           @author.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_authors_path, notice: 'Author was successfully destroyed.'
+              redirect_to admin_journal_authors_path, success: 'Author deleted.'
             end
           end
         end

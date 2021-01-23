@@ -10,8 +10,6 @@ module Spina
         before_action :set_breadcrumb
         before_action :set_institution, only: %i[edit update destroy]
 
-        layout 'spina/admin/admin'
-
         def index
           @institutions = Institution.all
         end
@@ -27,7 +25,7 @@ module Spina
 
           if @institution.save
             # TODO: translation
-            redirect_to admin_journal_institutions_path, notice: 'Institution was successfully created.'
+            redirect_to admin_journal_institutions_path, success: 'Institution saved.'
           else
             render :new
           end
@@ -35,7 +33,7 @@ module Spina
 
         def update
           if @institution.update(institution_params)
-            redirect_to admin_journal_institutions_path, notice: 'Institution was successfully updated.'
+            redirect_to admin_journal_institutions_path, success: 'Institution saved.'
           else
             render :edit
           end
@@ -45,7 +43,7 @@ module Spina
           @institution.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_institutions_path, notice: 'Institution was successfully destroyed.'
+              redirect_to admin_journal_institutions_path, success: 'Institution deleted.'
             end
           end
         end

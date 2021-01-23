@@ -29,6 +29,50 @@ module Spina
           get edit_admin_journal_article_url(@article.id)
           assert_response :success
         end
+
+        test 'should create article' do
+          attributes = @article.attributes
+          attributes[:title] = 'New Article'
+          assert_difference 'Article.count' do
+            post admin_journal_articles_url, params: { admin_journal_article: attributes }
+          end
+          assert_redirected_to admin_journal_articles_url
+          assert_equal 'Article saved.', flash[:success]
+        end
+
+        test 'should not create invalid article' do
+          attributes = @article.attributes
+          attributes[:title] = nil
+          assert_no_difference 'Article.count' do
+            post admin_journal_articles_url, params: { admin_journal_article: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Article saved.', flash[:success]
+        end
+
+        test 'should update article' do
+          attributes = @article.attributes
+          attributes[:title] = 'New name'
+          patch admin_journal_article_url(@article), params: { admin_journal_article: attributes }
+          assert_redirected_to admin_journal_articles_url
+          assert_equal 'Article saved.', flash[:success]
+        end
+
+        test 'should not update invalid article' do
+          attributes = @article.attributes
+          attributes[:title] = nil
+          patch admin_journal_article_url(@article), params: { admin_journal_article: attributes }
+          assert_response :success
+          assert_not_equal 'Article saved.', flash[:success]
+        end
+
+        test 'should destroy article' do
+          assert_difference 'Article.count', -1 do
+            delete admin_journal_article_url(@article)
+          end
+          assert_redirected_to admin_journal_articles_url
+          assert_equal 'Article deleted.', flash[:success]
+        end
       end
     end
   end

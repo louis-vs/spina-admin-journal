@@ -4,6 +4,10 @@ module Spina
   module Admin
     module Journal
       # Journal records. The top level of the database hierarchy.
+      #
+      # - Validates
+      # Presence:: {#name}
+      # Uniqueness:: {#name}
       class Journal < ApplicationRecord
         include Partable
         # @!attribute [rw] name
@@ -21,8 +25,12 @@ module Spina
         has_many :parts, as: :pageable, dependent: :destroy
         accepts_nested_attributes_for :parts, allow_destroy: true
 
+        validates :name, presence: true, uniqueness: true
+
         def self.instance
           Journal.first_or_create!
+        rescue ActiveRecord::RecordNotUnique
+          retry
         end
       end
     end

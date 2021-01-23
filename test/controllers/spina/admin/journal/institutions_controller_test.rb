@@ -28,6 +28,50 @@ module Spina
           get edit_admin_journal_institution_url(@institution.id)
           assert_response :success
         end
+
+        test 'should create institution' do
+          attributes = @institution.attributes
+          attributes[:name] = 'New Institution'
+          assert_difference 'Institution.count' do
+            post admin_journal_institutions_url, params: { admin_journal_institution: attributes }
+          end
+          assert_redirected_to admin_journal_institutions_url
+          assert_equal 'Institution saved.', flash[:success]
+        end
+
+        test 'should not create invalid institution' do
+          attributes = @institution.attributes
+          attributes[:name] = nil
+          assert_no_difference 'Institution.count' do
+            post admin_journal_institutions_url, params: { admin_journal_institution: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Institution saved.', flash[:success]
+        end
+
+        test 'should update institution' do
+          attributes = @institution.attributes
+          attributes[:name] = 'New name'
+          patch admin_journal_institution_url(@institution), params: { admin_journal_institution: attributes }
+          assert_redirected_to admin_journal_institutions_url
+          assert_equal 'Institution saved.', flash[:success]
+        end
+
+        test 'should not update invalid institution' do
+          attributes = @institution.attributes
+          attributes[:name] = nil
+          patch admin_journal_institution_url(@institution), params: { admin_journal_institution: attributes }
+          assert_response :success
+          assert_not_equal 'Institution saved.', flash[:success]
+        end
+
+        test 'should destroy institution' do
+          assert_difference 'Institution.count', -1 do
+            delete admin_journal_institution_url(@institution)
+          end
+          assert_redirected_to admin_journal_institutions_url
+          assert_equal 'Institution deleted.', flash[:success]
+        end
       end
     end
   end

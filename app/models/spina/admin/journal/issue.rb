@@ -13,6 +13,7 @@ module Spina
         #   @return [Integer]
         # @!attribute [rw] title
         #   @return [String]
+        # TODO: use Spina::Text for description
         # @!attribute [rw] description
         #   @return [String]
         # @!attribute [rw] volume

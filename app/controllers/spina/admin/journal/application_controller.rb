@@ -7,6 +7,8 @@ module Spina
     module Journal
       # Custom controller for journal plugin
       class ApplicationController < AdminController
+        add_flash_types :success
+
         layout :admin_layout, only: %i[new edit]
 
         private

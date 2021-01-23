@@ -25,7 +25,7 @@ module Spina
 
         def update
           if @journal.update(journal_params)
-            redirect_to edit_admin_journal_journal_path(@journal.id), notice: t('.updated', name: @journal.name)
+            redirect_to edit_admin_journal_journal_path(@journal), success: t('.saved')
           else
             render :edit
           end
@@ -35,7 +35,7 @@ module Spina
           @journal.destroy
           respond_to do |format|
             format.html do
-              redirect_to edit_admin_journal_journal_path, notice: 'Journal was successfully destroyed.'
+              redirect_to edit_admin_journal_journal_path(Journal.instance), success: t('.deleted')
             end
           end
         end

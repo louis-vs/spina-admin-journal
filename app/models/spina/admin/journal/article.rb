@@ -6,7 +6,7 @@ module Spina
       # Record for an individual article.
       #
       # - Validators
-      # Presence:: {#order}, {#title}
+      # Presence:: {#position}, {#title}
       class Article < ApplicationRecord
         # @!attribute [rw] position
         #   @return [Integer]
