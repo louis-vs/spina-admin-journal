@@ -12,8 +12,10 @@ module Spina
       # - Validators
       # Presence:: {#name}
       class AuthorName < ApplicationRecord
-        # @!attribute [rw] name
-        #   @return [String] the name of the author
+        # @!attribute [rw] first_name
+        #   @return [String] the first name(s) of the author
+        # @!attribute [rw] surname
+        #   @return [String] the last name(s) of the author
         # @!attribute [rw] author
         #   @return [ActiveRecord::Relation] the author of whom this is a(/the) name
         belongs_to :author
@@ -35,7 +37,16 @@ module Spina
         #   @return [ActiveRecord::Relation] the institutions corresponding to this AuthorName's affiliations
         has_many :institutions, through: :affiliations
 
-        validates :name, presence: true
+        validates :first_name, presence: true
+        validates :surname, presence: true
+
+        def name
+          "#{first_name} #{surname}"
+        end
+
+        def reversed_name
+          "#{surname}, #{first_name}"
+        end
       end
     end
   end

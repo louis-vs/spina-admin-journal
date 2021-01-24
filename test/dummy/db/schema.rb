@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
   end
 
   create_table "spina_admin_journal_articles", force: :cascade do |t|
-    t.integer "position", default: 0, null: false
+    t.integer "number", default: 0, null: false
     t.string "title", null: false
     t.string "url", default: "", null: false
     t.string "doi", default: "", null: false
@@ -74,7 +74,8 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
   end
 
   create_table "spina_admin_journal_author_names", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "first_name", null: false
+    t.string "surname", null: false
     t.bigint "author_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -107,7 +108,6 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
     t.integer "number", null: false
     t.string "title", default: "", null: false
     t.date "date", null: false
-    t.string "description", default: "", null: false
     t.bigint "volume_id", null: false
     t.bigint "cover_img_id"
     t.datetime "created_at", precision: 6, null: false

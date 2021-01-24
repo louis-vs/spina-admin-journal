@@ -6,12 +6,13 @@ module Spina
       # Controller for {Article} records
       class ArticlesController < ApplicationController
         PARTS = [
-          { name: 'abstract', title: 'Abstract', partable_type: 'Spina::Text' }
+          { name: 'abstract', title: 'Abstract', partable_type: 'Spina::Text' },
+          { name: 'attachment', title: 'Attachment', partable_type: 'Spina::Attachment' }
         ].freeze
 
         before_action :set_breadcrumb
         before_action :set_article, only: %i[edit update destroy]
-        before_action :set_parts_attributes
+        before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
         def index
@@ -20,6 +21,7 @@ module Spina
 
         def new
           @article = Article.new
+          build_parts
         end
 
         def edit; end
@@ -27,8 +29,7 @@ module Spina
         def create
           @article = Article.new(article_params)
           if @article.save
-            # TODO: translation
-            redirect_to admin_journal_articles_path, success: 'Article saved.'
+            redirect_to admin_journal_articles_path, success: t('.saved')
           else
             render :new
           end
@@ -36,7 +37,7 @@ module Spina
 
         def update
           if @article.update(article_params)
-            redirect_to admin_journal_articles_path, success: 'Article saved.'
+            redirect_to admin_journal_articles_path, success: t('.saved')
           else
             render :edit
           end
@@ -46,7 +47,7 @@ module Spina
           @article.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_articles_path, success: 'Article deleted.'
+              redirect_to admin_journal_articles_path, success: t('.deleted')
             end
           end
         end
@@ -59,7 +60,7 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Articles', admin_journal_articles_path
+          add_breadcrumb Article.model_name.human(count: :many), admin_journal_articles_path
         end
 
         def article_params

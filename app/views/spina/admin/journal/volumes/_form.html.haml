@@ -1,20 +1,15 @@
-= form_for @volume, url: admin_journal_volumes_path(params[:journal_id]), html: {autocomplete: "off"} do |f|
-  - content_for :notification_alert do
-    error
+= form_for @volume, html: { autocomplete: 'off' } do |f|
+  %header#header
+    = render partial: 'spina/admin/shared/breadcrumbs'
 
-  #page_content
-    .table-container
-      %table.table.table-form
-        %tr
-          %td
-            Title
-          %td
-            = f.text_field :title
+    #header_actions
+      .button{ style: 'margin-right: 0' }= link_to t('spina.cancel'), admin_journal_volumes_path
 
-  %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
-    Save
+    %nav#secondary.tabs
+      %ul
+        - @tabs.each_with_index do |tab, i|
+          %li{ class: ('active' if i == 0) }
+            = link_to t(".#{tab}"), "##{tab}"
 
-  = link_to 'Cancel', admin_journal_volumes_path, class: 'button button-link'
-
-  - unless @volume.new_record?
-    .pull-right= link_to 'Delete', admin_journal_volume_path(@volume), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'
+  - @tabs.each do |tab|
+    = render "form_#{tab}", f: f

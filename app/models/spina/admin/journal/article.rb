@@ -6,10 +6,10 @@ module Spina
       # Record for an individual article.
       #
       # - Validators
-      # Presence:: {#position}, {#title}
+      # Presence:: {#number}, {#title}
       class Article < ApplicationRecord
         include Partable
-        # @!attribute [rw] position
+        # @!attribute [rw] number
         #   @return [Integer]
         # @!attribute [rw] title
         #   @return [String]
@@ -35,7 +35,7 @@ module Spina
         has_many :parts, as: :pageable, dependent: :destroy
         accepts_nested_attributes_for :parts, allow_destroy: true
 
-        validates :position, presence: true
+        validates :number, presence: true
         validates :title, presence: true
       end
     end

@@ -1,25 +1,16 @@
-.filters
-  = link_to 'New volume', spina.new_admin_journal_volume_path, class: 'button button-primary', data: {icon: 't'}
+- content_for(:header_actions) do
+  = link_to admin_journal_volumes_path, method: :post, class: 'button button-primary' do
+    = icon 'plus'
+    = t '.new'
 
-.table-container
-  %table.table
-    %thead
-      %tr
-        %th Title
-        %th Date
-        %th
-
-    %tbody
-      - if @volumes.any?
-        - @volumes.each do |volume|
-          %tr
-            %td
-              = volume.title
-            %td.nowrap.align-right
-              = link_to spina.edit_admin_journal_volume_path(volume.id), class: 'button button-link' do
-                = icon('pencil-outline')
-
-      - else
+.well
+  .table-container
+    %table.table
+      %thead
         %tr
-          %td.align-center{colspan: 3}
-            %em There are no volumes
+          %th= ::Spina::Admin::Journal::Volume.human_attribute_name :number
+          %th= t '.date'
+          %th
+
+      %tbody
+        = render @volumes.any? ? @volumes : 'empty_list', message: t('.empty')

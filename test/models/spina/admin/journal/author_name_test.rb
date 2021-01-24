@@ -43,12 +43,20 @@ module Spina
           assert_not_empty @author_name.errors[:author]
         end
 
-        test 'name should not be empty' do
+        test 'first name should not be empty' do
           assert @author_name.valid?
-          assert_empty @author_name.errors[:name]
-          @author_name.name = nil
+          assert_empty @author_name.errors[:first_name]
+          @author_name.first_name = nil
           assert @author_name.invalid?
-          assert_not_empty @author_name.errors[:name]
+          assert_not_empty @author_name.errors[:first_name]
+        end
+
+        test 'surname should not be empty' do
+          assert @author_name.valid?
+          assert_empty @author_name.errors[:surname]
+          @author_name.surname = nil
+          assert @author_name.invalid?
+          assert_not_empty @author_name.errors[:surname]
         end
       end
     end

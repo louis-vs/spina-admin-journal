@@ -1,20 +1,29 @@
-= form_for @issue, url: admin_journal_issues_path, html: {autocomplete: "off"} do |f|
-  - content_for :notification_alert do
-    error
+- if @issue.errors.any?
+  - content_for :notifications do
+    .notification.notification-danger.animated.fadeInRight
+      = icon 'exclamation'
+      .notification-message
+        = t 'spina.notifications.alert'
+        %small= @issue.errors.full_messages.join('<br />').html_safe
+      = link_to '#', data: { close_notification: true } do
+        = icon 'cross'
 
-  #page_content
-    .table-container
-      %table.table.table-form
-        %tr
-          %td
-            Title
-          %td
-            = f.text_field :title
+= form_for @issue, html: { autocomplete: 'off' } do |f|
+  %header#header
+    = render partial: 'spina/admin/shared/breadcrumbs'
 
-  %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
-    Save
+    #header_actions
+      %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
+        = icon 'check'
+        = t '.save'
+      
+      .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_institutions_path
 
-  = link_to 'Cancel', admin_journal_issues_path, class: 'button button-link'
+    %nav#secondary.tabs
+      %ul
+        - @tabs.each_with_index do |tab, i|
+          %li{ class: ('active' if i == 0) }
+            = link_to t(".#{tab}"), "##{tab}"
 
-  - unless @issue.new_record?
-    .pull-right= link_to 'Delete', admin_journal_issue_path(@issue), method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'
+  - @tabs.each do |tab|
+    = render "form_#{tab}", f: f

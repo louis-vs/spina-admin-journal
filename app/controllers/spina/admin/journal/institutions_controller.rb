@@ -6,6 +6,7 @@ module Spina
       # Controller for {Institution} records
       class InstitutionsController < ApplicationController
         before_action :set_breadcrumb
+        before_action :set_tabs, except: %i[index destroy]
         before_action :set_institution, only: %i[edit update destroy]
 
         def index
@@ -14,6 +15,7 @@ module Spina
 
         def new
           @institution = Institution.new
+          add_breadcrumb t('.new')
         end
 
         def edit; end
@@ -22,8 +24,7 @@ module Spina
           @institution = Institution.new(institution_params)
 
           if @institution.save
-            # TODO: translation
-            redirect_to admin_journal_institutions_path, success: 'Institution saved.'
+            redirect_to admin_journal_institutions_path, success: t('.saved')
           else
             render :new
           end
@@ -31,7 +32,7 @@ module Spina
 
         def update
           if @institution.update(institution_params)
-            redirect_to admin_journal_institutions_path, success: 'Institution saved.'
+            redirect_to admin_journal_institutions_path, success: t('.saved')
           else
             render :edit
           end
@@ -41,7 +42,7 @@ module Spina
           @institution.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_institutions_path, success: 'Institution deleted.'
+              redirect_to admin_journal_institutions_path, success: t('.deleted')
             end
           end
         end
@@ -53,7 +54,11 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Institutions', admin_journal_institutions_path
+          add_breadcrumb Institution.model_name.human(count: :many), admin_journal_institutions_path
+        end
+
+        def set_tabs
+          @tabs = %w[details view_affiliations]
         end
 
         def set_institution

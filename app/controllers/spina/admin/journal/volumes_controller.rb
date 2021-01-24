@@ -6,32 +6,31 @@ module Spina
       # Controller for {Volume} records
       class VolumesController < ApplicationController
         before_action :set_breadcrumb
+        before_action :set_tabs, except: %i[index destroy]
         before_action :set_volume, only: %i[edit update destroy]
 
         def index
-          @volumes = Volume.all
-        end
-
-        def new
-          @volume = Volume.new
+          @volumes = Volume.sorted_asc
         end
 
         def edit; end
 
         def create
-          @volume = Volume.new(volume_params)
+          @volume = Volume.new
+          @volume.journal_id = Journal.instance.id
+          @volume.number = Volume.any? ? Volume.sorted_desc.first.number + 1 : 1
 
           if @volume.save
-            # TODO: translation
-            redirect_to admin_journal_volumes_path, success: 'Volume saved.'
+            redirect_to admin_journal_volumes_path, success: t('.created', number: @volume.number)
           else
+            # TODO: error flash
             render :new
           end
         end
 
         def update
           if @volume.update(volume_params)
-            redirect_to admin_journal_volumes_path, success: 'Volume saved.'
+            redirect_to admin_journal_volumes_path, success: t('.saved')
           else
             render :edit
           end
@@ -46,6 +45,13 @@ module Spina
           end
         end
 
+        def sort
+          # TODO: add sorting GUI using jquery.nestable.js (see Spina repo)
+          params[:list].each_pair do |volume_id, new_position|
+            Volume.update volume_id, { position: new_position }
+          end
+        end
+
         private
 
         def volume_params
@@ -53,12 +59,16 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Volumes', admin_journal_volumes_path
+          add_breadcrumb Volume.model_name.human(count: :many), admin_journal_volumes_path
         end
 
         def set_volume
           @volume = Volume.find(params[:id])
-          add_breadcrumb @volume.title
+          add_breadcrumb t('spina.admin.journal.volumes.volume_number', number: @volume.number)
+        end
+
+        def set_tabs
+          @tabs = %w[details issues]
         end
       end
     end

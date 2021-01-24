@@ -1,0 +1,9 @@
+%tr
+  %td
+    = link_to institution.name, edit_admin_journal_institution_path(institution)
+  %td
+    = institution.affiliations.count
+  %td.nowrap.align-right
+    = link_to edit_admin_journal_institution_path(institution), class: 'button button-link' do
+      = icon 'pencil-outline'
+      = t '.edit'

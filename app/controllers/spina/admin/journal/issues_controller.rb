@@ -6,11 +6,15 @@ module Spina
       # Controller for {Issue} records
       class IssuesController < ApplicationController
         PARTS = [
+          { name: 'cover_img', title: 'Cover Image', partable_type: 'Spina::Image' },
           { name: 'description', title: 'Description', partable_type: 'Spina::Text' }
         ].freeze
 
         before_action :set_breadcrumb
+        before_action :set_tabs, except: %i[index destroy]
         before_action :set_issue, only: %i[edit update destroy]
+        before_action :set_parts_attributes, only: %i[new edit]
+        before_action :build_parts, only: %i[edit]
 
         def index
           @issues = Issue.all
@@ -18,16 +22,22 @@ module Spina
 
         def new
           @issue = Issue.new
+          build_parts
+          add_breadcrumb t('.new')
         end
 
-        def edit; end
+        def edit
+          add_breadcrumb t('spina.admin.journal.volumes.volume_number', number: @issue.volume.number),
+                         edit_admin_journal_volume_path(@issue.volume)
+          add_breadcrumb t('spina.admin.journal.issues.issue_number', number: @issue.number)
+        end
 
         def create
           @issue = Issue.new(issue_params)
+          @issue.number = Issue.any? ? Issue.sorted_desc.first.number + 1 : 1
 
           if @issue.save
-            # TODO: translation
-            redirect_to admin_journal_issues_path, success: 'Issue saved.'
+            redirect_to admin_journal_issues_path, success: t('.saved')
           else
             render :new
           end
@@ -35,7 +45,7 @@ module Spina
 
         def update
           if @issue.update(issue_params)
-            redirect_to admin_journal_issues_path, success: 'Issue saved.'
+            redirect_to admin_journal_issues_path, success: t('.saved')
           else
             render :edit
           end
@@ -45,7 +55,7 @@ module Spina
           @issue.destroy
           respond_to do |format|
             format.html do
-              redirect_to admin_journal_issues_path, success: 'Issue deleted.'
+              redirect_to admin_journal_issues_path, success: t('.deleted')
             end
           end
         end
@@ -54,7 +64,6 @@ module Spina
 
         def set_issue
           @issue = Issue.find(params[:id])
-          add_breadcrumb @issue.title
         end
 
         def issue_params
@@ -62,7 +71,11 @@ module Spina
         end
 
         def set_breadcrumb
-          add_breadcrumb 'Issues', admin_journal_issues_path
+          add_breadcrumb Issue.model_name.human(count: :many), admin_journal_issues_path
+        end
+
+        def set_tabs
+          @tabs = %w[details articles]
         end
 
         def set_parts_attributes

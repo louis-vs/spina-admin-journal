@@ -1,19 +1,42 @@
-= form_for @author, url: admin_journal_institutions_path, html: {autocomplete: "off"} do |f|
-  - content_for :notification_alert do
-    error
+- if @author_name.errors.any?
+  - content_for :notifications do
+    .notification.notification-danger.animated.fadeInRight
+      = icon 'exclamation'
+      .notification-message
+        = t 'spina.notifications.alert'
+        %small= @author_name.errors.full_messages.join('<br />').html_safe
+      = link_to '#', data: {close_notification: true} do
+        = icon 'cross'
 
-  #page_content
-    .table-container
-      %table.table.table-form
-        %tr
-          %td
-            Name
-          %td
+= form_for @author_name, html: {autocomplete: "off"} do |f|
+  %header#header
+    = render partial: 'spina/admin/shared/breadcrumbs'
 
-  %button.button.button-primary{type: 'submit', data: {icon: 'o'}}
-    Save
+    #header_actions
+      %button.button.button-primary{type: 'submit', style: 'margin-right: 0', data: {disable_with: t('spina.pages.saving')}}
+        = icon 'check'
+        = t '.save'
+      
+      .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_author_names_path
 
-  = link_to 'Cancel', admin_journal_authors_path, class: 'button button-link'
+  .tab-content.active.well
+    .horizontal-form
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::AuthorName.human_attribute_name :first_name
+        .horizontal-form-content
+          = f.text_field :first_name
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::AuthorName.human_attribute_name :surname
+        .horizontal-form-content
+          = f.text_field :surname
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::AuthorName.human_attribute_name :institution
+        .horizontal-form-content
+          .mulitple.select-dropdown= f.collection_select :institution_ids, ::Spina::Admin::Journal::Institution.sorted, :id, :name, {}, { multiple: true, required: true }
 
   - unless @author.new_record?
-    .pull-right= link_to 'Delete', admin_journal_author_path, method: :delete, confirm: 'Are you sure?', class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_author_path(@author), method: :delete, data: { confirm: 'are you sure' }, class: 'button button-link button-danger'
+

@@ -1,24 +1,16 @@
-.filters
-  = link_to 'New author', spina.new_admin_journal_author_path, class: 'button button-primary', data: {icon: 't'}
+- content_for(:header_actions) do
+  = link_to new_admin_journal_author_path, class: 'button button-primary' do
+    = icon 'plus'
+    = t '.new'
 
-.table-container
-  %table.table
-    %thead
-      %tr
-        %th Name
-        %th 
-
-    %tbody
-      - if @authors.any?
-        - @authors.each do |author|
-          %tr
-            %td
-              = author.author_names.first
-            %td.nowrap.align-right
-              = link_to spina.edit_admin_journal_author_path(author), class: 'button button-link' do
-                = icon('pencil-outline')
-
-      - else
+.well
+  .table-container
+    %table.table
+      %thead
         %tr
-          %td.align-center{colspan: 3}
-            %em There are no authors
+          %th= ::Spina::Admin::Journal::AuthorName.model_name.human count: :one
+          %th= ::Spina::Admin::Journal::Institution.model_name.human count: :one
+          %th
+
+      %tbody
+        = render @authors.any? ? @authors : 'empty_list', message: t('.empty')

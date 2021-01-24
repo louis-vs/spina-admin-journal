@@ -1,7 +1,9 @@
 marcus:
-  name: Marcus Atherton
+  first_name: Marcus
+  surname: Atherton
   author: marcus
 
 toope:
-  name: Stephen Toope
+  first_name: Stephen
+  surname: Toope
   author: marcus

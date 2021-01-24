@@ -15,6 +15,10 @@ module Spina
         #         destroyed earlier by the program, to confirm that there are no articles that
         #         will be left with single parents.
         has_many :author_names, dependent: :restrict_with_error
+
+        def primary_author_name
+          author_names.first.name
+        end
       end
     end
   end

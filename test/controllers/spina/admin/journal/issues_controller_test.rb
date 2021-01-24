@@ -60,7 +60,7 @@ module Spina
 
         test 'should not update invalid issue' do
           attributes = @issue.attributes
-          attributes[:date] = nil
+          attributes[:number] = nil
           patch admin_journal_issue_url(@issue), params: { admin_journal_issue: attributes }
           assert_response :success
           assert_not_equal 'Issue saved.', flash[:success]

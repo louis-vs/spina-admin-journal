@@ -19,6 +19,8 @@ module Spina
         has_many :author_names, through: :affiliations
 
         validates :name, presence: true, uniqueness: { case_sensitive: false }
+
+        scope :sorted, -> { order(name: :asc) }
       end
     end
   end

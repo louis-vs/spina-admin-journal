@@ -1,0 +1,8 @@
+#view_affiliations.tab-content.well
+  .table-container
+    %table.table
+      %thead
+        %tr
+          %th= ::Spina::Admin::Journal::AuthorName.model_name.human count: :one
+      %tbody
+        = render @institution.affiliations.any? ? @institution.affiliations : 'empty_list', message: t('.no_affiliations')

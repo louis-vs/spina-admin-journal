@@ -7,6 +7,7 @@ module Spina
       class AuthorsController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_author, only: %i[edit update destroy]
+        before_action :set_author_names, only: %i[edit update destroy]
 
         def index
           @authors = Author.all
@@ -14,6 +15,7 @@ module Spina
 
         def new
           @author = Author.new
+          @author_name = AuthorName.new
         end
 
         def edit; end
@@ -49,7 +51,7 @@ module Spina
         private
 
         def author_params
-          params.require(:admin_journal_author).permit(:name)
+          params.require(:admin_journal_author).permit(:author_names)
         end
 
         def set_breadcrumb

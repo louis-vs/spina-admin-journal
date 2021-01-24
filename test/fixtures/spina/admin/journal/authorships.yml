@@ -1,7 +1,7 @@
 one:
-  article: one
+  article_id: 1
   author_name: marcus
 
 two:
-  article: two
+  article_id: 2
   author_name: marcus

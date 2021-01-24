@@ -3,7 +3,8 @@
 class CreateSpinaAdminJournalAuthorNames < ActiveRecord::Migration[6.0] # :nodoc:
   def change
     create_table :spina_admin_journal_author_names do |t|
-      t.string :name, null: false
+      t.string :first_name, null: false
+      t.string :surname, null: false
       t.references :author, null: false, foreign_key: { to_table: :spina_admin_journal_authors }
 
       t.timestamps

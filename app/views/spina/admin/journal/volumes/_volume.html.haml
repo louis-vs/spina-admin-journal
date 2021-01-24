@@ -1,0 +1,7 @@
+%tr
+  %td= volume.number
+  %td= volume.issues.any? ? time_tag(volume.issues.first.date, format: :year) : t('.no_date')
+  %td.nowrap.align-right
+    = link_to edit_admin_journal_volume_path(volume.id), class: 'button button-link' do
+      = icon 'pencil-outline'
+      = t '.view'

@@ -2,6 +2,7 @@ en:
   spina:
     admin:
       journal:
+        navigation_title: Journal settings
         journals:
           index:
             new: New journal
@@ -17,12 +18,127 @@ en:
               "Are you sure you want to delete the journal <strong>%{name}</strong>? 
               This action is irreversible, and will delete all associated volumes, issues, 
               and articles."
+        volumes:
+          volume_number: "Volume #%{number}"
+          index:
+            new: New volume
+            date: Year
+            view: View
+            empty: There are no volumes.
+          create:
+            created: Volume <strong>%{number}</strong> created.
+          update:
+            saved: Volume saved.
+          form_details:
+            unchangeable: The volume number can be changed by clicking 'Change Order' in the index view.
+          form_issues:
+            volume_number: "Volume #"
+            issue_number: "Issue #"
+          volume:
+            no_date: Unpublished
+        issues:
+          issue_number: "Issue #%{number}"
+          index:
+            new: New issue
+            empty: There are no issues.
+          new:
+            new: New issue
+          create:
+            saved: Issue saved.
+          update: 
+            saved: Issue saved.
+          destroy:
+            deleted: Issue deleted.
+          form:
+            save: Save issue
+          form_details:
+            issue_unchangeable: The issue order can be changed in the 'Volumes' tab.
+        articles:
+          index:
+            new: New article
+            empty: There are no articles.
+          new:
+            new: New article
+          create:
+            saved: Article saved.
+          update: 
+            saved: Article saved.
+          destroy:
+            deleted: Article deleted.
+          form:
+            volume_issue: "Volume %{volume_number} Issue %{issue_number}"
+            unchangeable: Article order can be changed in the issue.
+          article:
+            view: View
+        authors:
+          index:
+            new: New author
+        institutions:
+          index:
+            new: New institution
+            edit: Edit
+            empty: There are no institutions.
+            number_of_affiliations: "# affiliations"
+          new:
+            new: New institution
+          create:
+            saved: Institution saved.
+          update: 
+            saved: Institution saved.
+          destroy:
+            deleted: Institution deleted.
+          form:
+            save: Save institution
+          form_view_affiliations:
+            no_affiliations: This institution has no associated affiliations.
+          form_details:
+            delete_confirmation:
+              "Are you sure you want to delete the institution <strong>%{name}</strong>?
+              This action is irreversible, and will delete all associated affiliations. Authors will not be deleted."
   activerecord:
     models:
       spina/admin/journal/journal:
         one: Journal
         other: Journals
+      spina/admin/journal/volume:
+        one: Volume
+        other: Volumes
+      spina/admin/journal/issue:
+        one: Issue
+        other: Issues
+      spina/admin/journal/article:
+        one: Article
+        other: Articles
+      spina/admin/journal/author:
+        one: Author
+        other: Authors
+      spina/admin/journal/author_name:
+        one: Author name
+        other: Author names
+      spina/admin/journal/institution:
+        one: Institution
+        other: Institutions
     attributes:
       spina/admin/journal/journal:
         name: Name
         logo: Logo
+      spina/admin/journal/volume:
+        number: "Volume #"
+      spina/admin/journal/issue:
+        number: "Issue #"
+        title: Title
+        date: Date
+      spina/admin/journal/article:
+        number: "Article #"
+        title: Title
+        url: URL
+        doi: DOI
+      spina/admin/journal/author:
+      spina/admin/journal/author_name:
+      spina/admin/journal/institution:
+        name: Institution Name
+
+  date:
+    formats:
+      iso8601: "%F"
+      year: "%Y"

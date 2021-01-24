@@ -1,9 +1,4 @@
-- content_for(:header_actions) do
-  = link_to new_admin_journal_article_path, class: 'button button-primary' do
-    = icon 'plus'
-    = t '.new'
-
-.well
+#articles.tab-content.well
   .table-container
     %table.table
       %thead
@@ -14,6 +9,5 @@
           %th= ::Spina::Admin::Journal::Issue.human_attribute_name :date
           %th= ::Spina::Admin::Journal::Article.human_attribute_name :title
           %th
-
       %tbody
-        = render @articles.any? ? @articles : 'empty_list', message: t('.empty')
+        = render @issue.articles.any? ? @issue.articles : 'empty_list', message: t('.no_issues')

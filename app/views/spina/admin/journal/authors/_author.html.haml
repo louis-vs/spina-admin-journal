@@ -1,0 +1,7 @@
+%tr
+  %td= author.primary_author_name.name
+  %td= author.primary_author_name.institution
+  %td.nowrap.align-right
+    = link_to edit_admin_journal_issue_path(issue.id), class: 'button button-link' do
+      = icon 'pencil-outline'
+      = t '.view'

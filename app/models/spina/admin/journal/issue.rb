@@ -32,6 +32,9 @@ module Spina
 
         validates :number, presence: true
         validates :date, presence: true
+
+        scope :sorted_asc, -> { order(number: :asc) }
+        scope :sorted_desc, -> { order(number: :desc) }
       end
     end
   end

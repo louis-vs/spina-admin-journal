@@ -13,7 +13,6 @@ module Spina
         ].freeze
 
         before_action :set_journal
-        before_action :set_breadcrumb
         before_action :set_parts_attributes
         before_action :build_parts, only: %i[edit]
 
@@ -42,10 +41,6 @@ module Spina
 
         def set_journal
           @journal = Journal.instance
-        end
-
-        def set_breadcrumb
-          add_breadcrumb Journal.model_name.human(count: :many), edit_admin_journal_journal_path(@journal.id)
         end
 
         def set_parts_attributes

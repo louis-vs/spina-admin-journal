@@ -1,13 +1,15 @@
 one:
+  id: 1
   number: 1
   title: An interesting title
-  date: 1980-12-15 21:37:41
-  volume: one
+  date: 2000-12-10
+  volume_id: 1
   cover_img: como
 
 two:
+  id: 2
   number: 2
   title: An empty issue
-  date: 1980-12-15 21:37:41
-  volume: two
+  date: 1980-12-10
+  volume_id: 1
   cover_img: como
