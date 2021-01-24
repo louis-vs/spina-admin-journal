@@ -50,13 +50,13 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
   end
 
   create_table "spina_admin_journal_affiliations", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "surname", null: false
     t.bigint "institution_id", null: false
+    t.bigint "author_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "author_name_id", null: false
-    t.index ["author_name_id", "institution_id"], name: "index_affiliations_on_institution_id_and_author_name_id", unique: true
-    t.index ["author_name_id"], name: "index_spina_admin_journal_affiliations_on_author_name_id"
-    t.index ["institution_id", "author_name_id"], name: "index_affiliations_on_author_name_id_and_institution_id", unique: true
+    t.index ["author_id"], name: "index_spina_admin_journal_affiliations_on_author_id"
     t.index ["institution_id"], name: "index_spina_admin_journal_affiliations_on_institution_id"
   end
 
@@ -73,15 +73,6 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
     t.index ["issue_id"], name: "index_spina_admin_journal_articles_on_issue_id"
   end
 
-  create_table "spina_admin_journal_author_names", force: :cascade do |t|
-    t.string "first_name", null: false
-    t.string "surname", null: false
-    t.bigint "author_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["author_id"], name: "index_spina_admin_journal_author_names_on_author_id"
-  end
-
   create_table "spina_admin_journal_authors", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -89,13 +80,13 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
 
   create_table "spina_admin_journal_authorships", force: :cascade do |t|
     t.bigint "article_id", null: false
-    t.bigint "author_name_id", null: false
+    t.bigint "affiliation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["article_id", "author_name_id"], name: "index_authorships_on_article_id_and_author_name_id", unique: true
+    t.index ["affiliation_id", "article_id"], name: "index_authorships_on_affiliation_id_and_article_id", unique: true
+    t.index ["affiliation_id"], name: "index_spina_admin_journal_authorships_on_affiliation_id"
+    t.index ["article_id", "affiliation_id"], name: "index_authorships_on_article_id_and_affiliation_id", unique: true
     t.index ["article_id"], name: "index_spina_admin_journal_authorships_on_article_id"
-    t.index ["author_name_id", "article_id"], name: "index_authorships_on_author_name_id_and_article_id", unique: true
-    t.index ["author_name_id"], name: "index_spina_admin_journal_authorships_on_author_name_id"
   end
 
   create_table "spina_admin_journal_institutions", force: :cascade do |t|
@@ -356,13 +347,12 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_author_names", column: "author_name_id"
+  add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_authors", column: "author_id"
   add_foreign_key "spina_admin_journal_affiliations", "spina_admin_journal_institutions", column: "institution_id"
   add_foreign_key "spina_admin_journal_articles", "spina_admin_journal_issues", column: "issue_id"
   add_foreign_key "spina_admin_journal_articles", "spina_attachments", column: "file_id", on_delete: :nullify
-  add_foreign_key "spina_admin_journal_author_names", "spina_admin_journal_authors", column: "author_id"
+  add_foreign_key "spina_admin_journal_authorships", "spina_admin_journal_affiliations", column: "affiliation_id"
   add_foreign_key "spina_admin_journal_authorships", "spina_admin_journal_articles", column: "article_id"
-  add_foreign_key "spina_admin_journal_authorships", "spina_admin_journal_author_names", column: "author_name_id"
   add_foreign_key "spina_admin_journal_issues", "spina_admin_journal_volumes", column: "volume_id"
   add_foreign_key "spina_admin_journal_issues", "spina_images", column: "cover_img_id"
   add_foreign_key "spina_admin_journal_journals", "spina_images", column: "logo_id"

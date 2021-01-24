@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-class CreateSpinaAdminJournalAuthorNames < ActiveRecord::Migration[6.0] # :nodoc:
+class CreateSpinaAdminJournalAffiliations < ActiveRecord::Migration[6.0] # :nodoc:
   def change
-    create_table :spina_admin_journal_author_names do |t|
+    create_table :spina_admin_journal_affiliations do |t|
       t.string :first_name, null: false
       t.string :surname, null: false
+      t.references :institution, null: false, foreign_key: { to_table: :spina_admin_journal_institutions }
       t.references :author, null: false, foreign_key: { to_table: :spina_admin_journal_authors }
 
       t.timestamps

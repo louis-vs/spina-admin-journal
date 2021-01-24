@@ -11,9 +11,9 @@ module Spina
           @new_article = Article.new
         end
 
-        test 'article has associated author_names' do
-          assert_not_nil @article.author_names
-          assert @new_article.author_names.empty?
+        test 'article has associated affiliations' do
+          assert_not_nil @article.affiliations
+          assert @new_article.affiliations.empty?
         end
 
         test 'article has associated issue' do

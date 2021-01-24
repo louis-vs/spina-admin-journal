@@ -11,9 +11,9 @@ module Spina
           @new_institution = Institution.new
         end
 
-        test 'institution has association author_names' do
-          assert_not_nil @institution.author_names
-          assert @new_institution.author_names.empty?
+        test 'institution has association affiliations' do
+          assert_not_nil @institution.affiliations
+          assert @new_institution.affiliations.empty?
         end
 
         test 'name should not be empty' do

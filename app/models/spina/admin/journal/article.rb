@@ -26,9 +26,9 @@ module Spina
 
         # @!attribute [rw] authorships
         has_many :authorships, dependent: :destroy
-        # @!attribute [rw] author_names
+        # @!attribute [rw] affiliations
         #   @return [ActiveRecord::Relation] the authors of the article
-        has_many :author_names, through: :authorships
+        has_many :affiliations, through: :authorships
 
         # @!attribute [rw] parts
         #   @return [ActiveRecord::Relation] page parts, see {ArticlesController}

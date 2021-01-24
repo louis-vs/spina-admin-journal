@@ -1,7 +1,13 @@
-one:
-  institution: rockbottom
-  author_name: marcus
+marcus:
+  id: 1
+  institution_id: 1
+  author_id: 1
+  first_name: Marcus
+  surname: Atherton
 
-two:
-  institution: rockbottom
-  author_name: toope
+toope:
+  id: 2
+  institution_id: 1
+  author_id: 1
+  first_name: Stephen
+  surname: Toope

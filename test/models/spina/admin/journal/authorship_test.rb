@@ -11,9 +11,9 @@ module Spina
           @new_authorship = Authorship.new
         end
 
-        test 'authorship has associated author_name' do
-          assert_not_nil @authorship.author_name
-          assert_nil @new_authorship.author_name
+        test 'authorship has associated affiliation' do
+          assert_not_nil @authorship.affiliation
+          assert_nil @new_authorship.affiliation
         end
 
         test 'authorship has associated article' do

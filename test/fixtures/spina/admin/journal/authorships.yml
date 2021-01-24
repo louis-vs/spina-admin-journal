@@ -1,7 +1,9 @@
 one:
+  id: 1
   article_id: 1
-  author_name: marcus
+  affiliation_id: 1
 
 two:
+  id: 2
   article_id: 2
-  author_name: marcus
+  affiliation_id: 1
