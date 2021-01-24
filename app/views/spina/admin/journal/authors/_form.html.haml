@@ -1,14 +1,14 @@
-- if @author_name.errors.any?
+- if @author.errors.any?
   - content_for :notifications do
     .notification.notification-danger.animated.fadeInRight
       = icon 'exclamation'
       .notification-message
         = t 'spina.notifications.alert'
-        %small= @author_name.errors.full_messages.join('<br />').html_safe
+        %small= @author.errors.full_messages.join('<br />').html_safe
       = link_to '#', data: {close_notification: true} do
         = icon 'cross'
 
-= form_for @author_name, html: {autocomplete: "off"} do |f|
+= form_for @author, html: {autocomplete: "off"} do |f|
   %header#header
     = render partial: 'spina/admin/shared/breadcrumbs'
 
@@ -17,25 +17,12 @@
         = icon 'check'
         = t '.save'
       
-      .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_author_names_path
+      .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_authors_path
 
   .tab-content.active.well
     .horizontal-form
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::AuthorName.human_attribute_name :first_name
-        .horizontal-form-content
-          = f.text_field :first_name
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::AuthorName.human_attribute_name :surname
-        .horizontal-form-content
-          = f.text_field :surname
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::AuthorName.human_attribute_name :institution
-        .horizontal-form-content
-          .mulitple.select-dropdown= f.collection_select :institution_ids, ::Spina::Admin::Journal::Institution.sorted, :id, :name, {}, { multiple: true, required: true }
+      = f.fields_for :affiliations, @author.affiliations do |ff|
+        = render 'form_affiliation', ff: ff
 
   - unless @author.new_record?
     .pull-right= link_to t('spina.permanently_delete'), admin_journal_author_path(@author), method: :delete, data: { confirm: 'are you sure' }, class: 'button button-link button-danger'

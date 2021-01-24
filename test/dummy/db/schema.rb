@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_12_31_165231) do
   create_table "spina_admin_journal_affiliations", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "surname", null: false
+    t.integer "status", default: 0, null: false
     t.bigint "institution_id", null: false
     t.bigint "author_id", null: false
     t.datetime "created_at", precision: 6, null: false

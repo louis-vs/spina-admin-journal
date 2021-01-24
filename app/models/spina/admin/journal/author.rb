@@ -11,7 +11,8 @@ module Spina
       class Author < ApplicationRecord
         # @!attribute [rw] affiliations
         #   @return [ActiveRecord::Relation] directly associated affiliations
-        has_many :affiliations, dependent: :destroy
+        has_many :affiliations, inverse_of: :author, dependent: :destroy
+        accepts_nested_attributes_for :affiliations
         # @!attribute [rw] institutions
         #   @return [ActiveRecord::Relation] the institutions corresponding to this AuthorName's affiliations
         has_many :institutions, through: :affiliations
@@ -19,8 +20,21 @@ module Spina
         #   @return [ActiveRecord::Relation] articles associated through authorships
         has_many :articles, through: :affiliations
 
-        def primary_author_name
-          author_names.first.name
+        validate :must_have_one_primary_affiliation
+
+        # @!attribute [r] primary_affiliation
+        #   @return [ActiveRecord::Relation] the author's primary affiliation
+        def primary_affiliation
+          affiliations.primary.first
+        end
+
+        private
+
+        def must_have_one_primary_affiliation
+          return if !affiliations.nil? && affiliations.any? \
+            && (affiliations.count { |affiliation| affiliation.status == 'primary' } == 1)
+
+          errors.add :affiliations, 'must have at least one primary affiliation'
         end
       end
     end

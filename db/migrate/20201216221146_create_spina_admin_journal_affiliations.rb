@@ -5,6 +5,7 @@ class CreateSpinaAdminJournalAffiliations < ActiveRecord::Migration[6.0] # :nodo
     create_table :spina_admin_journal_affiliations do |t|
       t.string :first_name, null: false
       t.string :surname, null: false
+      t.integer :status, null: false, default: 0
       t.references :institution, null: false, foreign_key: { to_table: :spina_admin_journal_institutions }
       t.references :author, null: false, foreign_key: { to_table: :spina_admin_journal_authors }
 

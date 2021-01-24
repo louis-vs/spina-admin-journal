@@ -29,10 +29,19 @@ module Spina
         validates :first_name, presence: true
         validates :surname, presence: true
 
+        enum status: { primary: 1, other: 0 }
+
+        scope :sorted, -> { order(surname: :asc) }
+        # Ex:- scope :active, -> {where(:active => true)}
+
+        # @!attribute [r] name
+        #   @return [String] the full name of the author
         def name
           "#{first_name} #{surname}"
         end
 
+        # @!attribute [r] reversed name
+        #   @return [String] the full name of the author, surname first
         def reversed_name
           "#{surname}, #{first_name}"
         end

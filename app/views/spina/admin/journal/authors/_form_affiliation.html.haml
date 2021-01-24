@@ -1,0 +1,20 @@
+.horizontal-form-group
+  .horizontal-form-label
+    = ::Spina::Admin::Journal::Affiliation.human_attribute_name :first_name
+  .horizontal-form-content
+    = ff.text_field :first_name
+.horizontal-form-group
+  .horizontal-form-label
+    = ::Spina::Admin::Journal::Affiliation.human_attribute_name :surname
+  .horizontal-form-content
+    = ff.text_field :surname
+.horizontal-form-group
+  .horizontal-form-label
+    = ::Spina::Admin::Journal::Affiliation.human_attribute_name :institution
+  .horizontal-form-content
+    = ff.collection_select :institution_id, ::Spina::Admin::Journal::Institution.sorted, :id, :name
+.horizontal-form-group
+  .horizontal-form-label
+    = t '.primary'
+  .horizontal-form-content
+    = radio_button_tag 'admin_journal_author[primary_affiliation_index]', ff.index, ff.object.status == 'primary'

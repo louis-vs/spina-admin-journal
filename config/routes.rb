@@ -12,7 +12,6 @@ Spina::Engine.routes.draw do
 
       resources :institutions, except: %i[show]
       resources :authors, except: %i[show]
-      resources :author_names, only: %i[create update destroy]
     end
   end
 end

@@ -1,0 +1,8 @@
+%tr
+  %td= affiliation.name
+  %td= affiliation.institution.name
+  %td= affiliation.articles.count
+  %td.nowrap.align-right
+    = link_to edit_admin_journal_author_path(affiliation.author.id), class: 'button button-link' do
+      = icon 'pencil-outline'
+      = t '.view'

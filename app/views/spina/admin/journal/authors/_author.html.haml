@@ -1,7 +1,8 @@
 %tr
-  %td= author.primary_author_name.name
-  %td= author.primary_author_name.institution
+  %td= author.primary_affiliation.name
+  %td= author.primary_affiliation.institution.name
+  %td= author.articles.count
   %td.nowrap.align-right
-    = link_to edit_admin_journal_issue_path(issue.id), class: 'button button-link' do
+    = link_to edit_admin_journal_author_path(author.id), class: 'button button-link' do
       = icon 'pencil-outline'
       = t '.view'
