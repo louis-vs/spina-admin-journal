@@ -6,6 +6,7 @@ module Spina
       # Controller for {Author} records and their corresponding {Affiliation}s.
       class AuthorsController < ApplicationController
         before_action :set_breadcrumb
+        before_action :set_tabs, except: %i[index destroy]
         before_action :set_author, only: %i[edit update destroy]
 
         def index
@@ -65,6 +66,10 @@ module Spina
 
         def set_breadcrumb
           add_breadcrumb Author.model_name.human(count: :many), admin_journal_authors_path
+        end
+
+        def set_tabs
+          @tabs = %w[details articles]
         end
 
         def set_author

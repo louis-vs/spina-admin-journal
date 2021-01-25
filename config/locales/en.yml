@@ -86,8 +86,12 @@ en:
             saved: Author saved.
           destroy:
             deleted: Author deleted.
+          form_details:
+            delete_confirmation: Are you sure you want to delete this author?
           form_affiliation:
             primary: Primary?
+          form_articles:
+            no_articles: There are no articles.
         institutions:
           index:
             new: New institution

@@ -10,4 +10,10 @@
           %th= ::Spina::Admin::Journal::Article.human_attribute_name :title
           %th
       %tbody
-        = render @issue.articles.any? ? @issue.articles : 'empty_list', message: t('.no_articles')
+        - if @author.affiliations.any?
+          -# render empty list if no affiliation has any articles
+          = render 'empty_list', message: t('.no_articles') if @author.affiliations.reduce(true) do |memo, affiliation|
+            = render affiliation.articles
+            - memo && !affiliation.articles.any?
+        - else
+          = render 'empty_list', message: t('.no_articles')
