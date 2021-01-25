@@ -1,0 +1,46 @@
+#details.tab-content.active
+  .well
+    .horizontal-form
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Issue.model_name.human count: :one
+        .horizontal-form-content
+          = f.collection_select :issue_id, ::Spina::Admin::Journal::Issue.sorted_desc, :id, ->(issue) { t '.volume_issue', volume_number: issue.volume.number, issue_number: issue.number }
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Article.human_attribute_name :number
+          %small= t '.unchangeable'
+        .horizontal-form-content
+          = f.number_field :number, disabled: true
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Article.human_attribute_name :title
+        .horizontal-form-content
+          = f.text_field :title
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Author.model_name.human count: :many
+        .horizontal-form-content
+          .multiple.select-dropdown= f.collection_select :affiliation_ids, ::Spina::Admin::Journal::Affiliation.sorted, :id, :name, {}, multiple: true, required: true
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Article.human_attribute_name :url
+        .horizontal-form-content
+          = f.text_field :url
+      .horizontal-form-group
+        .horizontal-form-label
+          = ::Spina::Admin::Journal::Article.human_attribute_name :doi
+        .horizontal-form-content
+          = f.text_field :doi
+
+      = f.fields_for :parts do |ff|
+        = ff.hidden_field :id
+        = ff.hidden_field :title
+        = ff.hidden_field :partable_type
+        = ff.hidden_field :name
+
+        .horizontal-form-group.page-part{ data: { name: ff.object.name } }
+          = render "spina/admin/partables/#{partable_type_partial_namespace(ff.object.partable_type)}/form", f: ff
+
+  - unless @article.new_record?
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_article_path(@article), method: :delete, data: { confirm: t('.delete_confirmation', name: @article.title) }, class: 'button button-link button-danger'

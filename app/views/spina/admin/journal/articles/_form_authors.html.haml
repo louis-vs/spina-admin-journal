@@ -1,4 +1,4 @@
-#view_affiliations.tab-content.well
+#authors.tab-content.well
   .table-container
     %table.table
       %thead
@@ -8,4 +8,4 @@
           %th= t '.number_of_articles'
           %th
       %tbody
-        = render @institution.affiliations.any? ? @institution.affiliations : 'empty_list', message: t('.no_affiliations')
+        = render @article.affiliations.any? ? @article.affiliations : 'empty_list', message: t('.no_authors')

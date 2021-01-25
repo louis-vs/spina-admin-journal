@@ -18,7 +18,7 @@
         = t '.save'
       
       .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_authors_path
-
+  -# TODO: add tab for articles list
   .tab-content.active.well
     .horizontal-form
       = f.fields_for :affiliations, @author.affiliations do |ff|

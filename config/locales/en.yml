@@ -65,9 +65,13 @@ en:
             saved: Article saved.
           destroy:
             deleted: Article deleted.
-          form:
+          form_details:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
             unchangeable: Article order can be changed in the issue.
+            delete_confirmation: "Are you sure you want to delete '<strong>%{name}</strong>'?"
+          form_authors:
+            no_authors: There are no authors.
+            number_of_articles: "# Articles"
           article:
             view: View
         authors:

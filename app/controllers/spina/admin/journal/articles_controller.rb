@@ -11,6 +11,7 @@ module Spina
         ].freeze
 
         before_action :set_breadcrumb
+        before_action :set_tabs, except: %i[index destroy]
         before_action :set_article, only: %i[edit update destroy]
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
@@ -54,17 +55,21 @@ module Spina
 
         private
 
-        def set_article
-          @article = Article.find(params[:id])
-          add_breadcrumb @article.title
+        def article_params
+          params.require(:admin_journal_article).permit!
         end
 
         def set_breadcrumb
           add_breadcrumb Article.model_name.human(count: :many), admin_journal_articles_path
         end
 
-        def article_params
-          params.require(:admin_journal_article).permit!
+        def set_tabs
+          @tabs = %w[details authors]
+        end
+
+        def set_article
+          @article = Article.find(params[:id])
+          add_breadcrumb @article.title
         end
 
         def set_parts_attributes
