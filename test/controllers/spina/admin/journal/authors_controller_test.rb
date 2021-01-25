@@ -15,37 +15,67 @@ module Spina
         end
 
         test 'should get index' do
-          skip
           get admin_journal_authors_url
           assert_response :success
         end
 
         test 'should get new' do
-          skip
           get new_admin_journal_author_url
           assert_response :success
         end
 
         test 'should get edit' do
-          skip
-          get edit_admin_journal_author_url(@author.id)
+          get edit_admin_journal_author_url(@author)
           assert_response :success
         end
 
         test 'should create author' do
-          skip
-          attributes = @author.attributes
-          assert_difference 'Author.count' do
+          attributes = {
+            primary_affiliation_index: '0',
+            affiliations_attributes: {
+              '0': { institution_id: 1, first_name: 'first', surname: 'last' },
+              '1': { institution_id: 2, first_name: 'first', surname: 'last' }
+            }
+          }
+          assert_difference -> { Author.count } => 1, -> { Affiliation.count } => 2 do
             post admin_journal_authors_url, params: { admin_journal_author: attributes }
           end
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]
         end
 
+        test 'should not create author with no primary affiliation' do
+          attributes = {
+            affiliations_attributes: {
+              '0': { institution_id: 1, first_name: 'first', surname: 'last' },
+              '1': { institution_id: 2, first_name: 'first', surname: 'last' }
+            }
+          }
+          assert_no_difference %w[Author.count Affiliation.count] do
+            post admin_journal_authors_url, params: { admin_journal_author: attributes }
+          end
+          assert_response :success
+          assert_not_equal 'Author saved.', flash[:success]
+        end
+
         test 'should update author' do
-          skip
           attributes = @author.attributes
-          attributes[:author_name_id] = spina_admin_journal_author_names(:toope).id
+          attributes['affiliations_attributes'] = @author.affiliations.to_a.map.with_index do |affiliation, index|
+            [index.to_s, affiliation.attributes]
+          end.to_h
+          attributes['affiliations_attributes']['0']['first_name'] = 'testing name'
+          patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
+          assert_redirected_to admin_journal_authors_url
+          assert_equal 'Author saved.', flash[:success]
+          assert_equal Affiliation.where(first_name: 'testing name', author_id: @author.id).count, 1
+        end
+
+        test 'should update author\'s primary affiliation' do
+          attributes = @author.attributes
+          attributes['primary_affiliation_index'] = '1'
+          attributes['affiliations_attributes'] = @author.affiliations.to_a.map.with_index do |affiliation, index|
+            [index.to_s, affiliation.attributes]
+          end.to_h
           patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]

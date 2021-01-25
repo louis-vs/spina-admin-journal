@@ -20,19 +20,16 @@ module Spina
         end
 
         test 'should get new' do
-          skip
           get new_admin_journal_institution_url
           assert_response :success
         end
 
         test 'should get edit' do
-          skip
           get edit_admin_journal_institution_url(@institution.id)
           assert_response :success
         end
 
         test 'should create institution' do
-          skip
           attributes = @institution.attributes
           attributes[:name] = 'New Institution'
           assert_difference 'Institution.count' do
@@ -43,7 +40,6 @@ module Spina
         end
 
         test 'should not create invalid institution' do
-          skip
           attributes = @institution.attributes
           attributes[:name] = nil
           assert_no_difference 'Institution.count' do
@@ -54,7 +50,6 @@ module Spina
         end
 
         test 'should update institution' do
-          skip
           attributes = @institution.attributes
           attributes[:name] = 'New name'
           patch admin_journal_institution_url(@institution), params: { admin_journal_institution: attributes }
@@ -63,7 +58,6 @@ module Spina
         end
 
         test 'should not update invalid institution' do
-          skip
           attributes = @institution.attributes
           attributes[:name] = nil
           patch admin_journal_institution_url(@institution), params: { admin_journal_institution: attributes }
@@ -72,7 +66,6 @@ module Spina
         end
 
         test 'should destroy institution' do
-          skip
           assert_difference 'Institution.count', -1 do
             delete admin_journal_institution_url(@institution)
           end

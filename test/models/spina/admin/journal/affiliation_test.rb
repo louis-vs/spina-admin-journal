@@ -8,7 +8,6 @@ module Spina
       class AffiliationTest < ActiveSupport::TestCase
         setup do
           @affiliation = spina_admin_journal_affiliations :marcus
-          @affiliation_no_articles = spina_admin_journal_affiliations :toope
           @new_affiliation = Affiliation.new
         end
 
@@ -27,17 +26,18 @@ module Spina
           assert @new_affiliation.articles.empty?
         end
 
-        test 'should not destroy if there exist dependent authorships' do
-          @affiliation.destroy
-          assert @affiliation.persisted?
-          assert_not_empty @affiliation.errors[:base]
+        test 'should destroy if there exist dependent authorships' do
+          assert_difference 'Affiliation.count', -1 do
+            @affiliation.destroy
+          end
+          assert_empty @affiliation.errors[:base]
         end
 
-        test 'should destroy if there are no dependent authorships' do
-          assert_difference 'Authorship.count', -1 * @affiliation_no_articles.authorships.count do
-            @affiliation_no_articles.destroy
+        test 'should destroy dependent authorships' do
+          assert_difference 'Authorship.count', -1 * @affiliation.authorships.count do
+            @affiliation.destroy
           end
-          assert_empty @affiliation_no_articles.errors[:base]
+          assert_empty @affiliation.errors[:base]
         end
 
         test 'first name should not be empty' do

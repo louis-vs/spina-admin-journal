@@ -18,10 +18,7 @@ module Spina
         belongs_to :institution
         # @!attribute [rw] authorships
         #   @return [ActiveRecord::Relation] directly associated authorships
-        #   @note an Affiliation cannot be deleted if it has dependent authorships.
-        #         This scenario must be handled in deletion code, for instance by
-        #         automatically reassigning authors or by prompting the user.
-        has_many :authorships, dependent: :restrict_with_error
+        has_many :authorships, dependent: :destroy
         # @!attribute [rw] articles
         #   @return [ActiveRecord::Relation] articles associated through authorships
         has_many :articles, through: :authorships
@@ -32,7 +29,6 @@ module Spina
         enum status: { primary: 1, other: 0 }
 
         scope :sorted, -> { order(surname: :asc) }
-        # Ex:- scope :active, -> {where(:active => true)}
 
         # @!attribute [r] name
         #   @return [String] the full name of the author

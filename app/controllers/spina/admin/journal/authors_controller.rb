@@ -22,7 +22,6 @@ module Spina
         def create
           @author = Author.new(modified_params)
           if @author.save
-            # TODO: translation
             redirect_to admin_journal_authors_path, success: t('.saved')
           else
             render :new
@@ -56,8 +55,10 @@ module Spina
         def modified_params
           primary_affiliation_index = params[:admin_journal_author][:primary_affiliation_index]
           new_params = author_params
-          unless primary_affiliation_index.nil?
-            new_params[:affiliations_attributes][primary_affiliation_index][:status] = :primary
+          unless new_params[:affiliations_attributes].nil? || primary_affiliation_index.nil?
+            new_params[:affiliations_attributes].each_key do |index|
+              new_params[:affiliations_attributes][index][:status] = index == primary_affiliation_index ? 'primary' : 'other' # rubocop:disable Layout/LineLength
+            end
           end
           new_params
         end
