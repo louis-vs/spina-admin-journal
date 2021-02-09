@@ -17,7 +17,7 @@ module Spina
         before_action :build_parts, only: %i[edit]
 
         def index
-          @issues = Issue.all
+          @issues = Issue.sorted_desc
         end
 
         def new

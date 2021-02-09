@@ -33,8 +33,8 @@ module Spina
         validates :number, presence: true
         validates :date, presence: true
 
-        scope :sorted_asc, -> { order(number: :asc) }
-        scope :sorted_desc, -> { order(number: :desc) }
+        scope :sorted_asc, -> { includes(:volume).order('spina_admin_journal_volumes.number ASC', number: :asc) }
+        scope :sorted_desc, -> { includes(:volume).order('spina_admin_journal_volumes.number DESC', number: :desc) }
       end
     end
   end

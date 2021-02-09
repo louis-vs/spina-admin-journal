@@ -37,6 +37,9 @@ module Spina
 
         validates :number, presence: true
         validates :title, presence: true
+
+        scope :sorted_asc, -> { includes(:issue).order('spina_admin_journal_issues.number ASC', number: :asc) }
+        scope :sorted_desc, -> { includes(:issue).order('spina_admin_journal_issues.number DESC', number: :desc) }
       end
     end
   end

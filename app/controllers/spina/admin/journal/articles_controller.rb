@@ -17,7 +17,7 @@ module Spina
         before_action :build_parts, only: %i[edit]
 
         def index
-          @articles = Article.all
+          @articles = Article.sorted_desc
         end
 
         def new
@@ -29,6 +29,9 @@ module Spina
 
         def create
           @article = Article.new(article_params)
+          sister_articles = Article.where(issue: @article.issue_id)
+          @article.number = sister_articles.any? ? sister_articles.sorted_desc.first.number + 1 : 1
+
           if @article.save
             redirect_to admin_journal_articles_path, success: t('.saved')
           else
