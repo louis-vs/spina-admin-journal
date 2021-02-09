@@ -1,6 +1,6 @@
-%tr
+%tr{ data: { id: issue.id } }
   %td= issue.volume.number
-  %td= issue.number
+  %td.position-display= issue.number
   %td= issue.title
   %td= time_tag issue.date, format: :iso8601
   %td.nowrap.align-right

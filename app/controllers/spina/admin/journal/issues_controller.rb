@@ -34,7 +34,8 @@ module Spina
 
         def create
           @issue = Issue.new(issue_params)
-          @issue.number = Issue.any? ? Issue.sorted_desc.first.number + 1 : 1
+          sister_issues = Issue.where(volume: @issue.volume_id)
+          @issue.number = sister_issues.any? ? sister_issues.sorted_desc.first.number + 1 : 1
 
           if @issue.save
             redirect_to admin_journal_issues_path, success: t('.saved')
@@ -60,6 +61,14 @@ module Spina
           end
         end
 
+        def sort
+          success = true
+          sort_params.each do |id, new_pos|
+            success &&= Issue.update(id.to_i, number: new_pos.to_i)
+          end
+          render json: { success: success, message: success ? t('.sort_success') : t('.sort_error') }
+        end
+
         private
 
         def set_issue
@@ -68,6 +77,10 @@ module Spina
 
         def issue_params
           params.require(:admin_journal_issue).permit(:number, :title, :date, :description, :volume_id, :cover_img_id)
+        end
+
+        def sort_params
+          params.require(:admin_journal_issues).require(:list).permit!
         end
 
         def set_breadcrumb

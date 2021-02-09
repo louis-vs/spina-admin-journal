@@ -5,9 +5,11 @@ Spina::Engine.routes.draw do
     namespace :journal do
       resources :journals, only: %i[edit update destroy]
       resources :volumes, except: %i[show new update] do
-        post :sort, on: :collection
+        patch :sort, on: :collection
       end
-      resources :issues, except: %i[show]
+      resources :issues, except: %i[show] do
+        patch 'sort/:volume_id' => 'issues#sort', as: :sort, on: :collection
+      end
       resources :articles, except: %i[show]
 
       resources :institutions, except: %i[show]

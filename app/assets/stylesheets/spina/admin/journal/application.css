@@ -1,0 +1,27 @@
+/* Completely overkill animated message for successful sorting */
+.sort-message {
+  padding-top: 10px;
+}
+
+.sort-message.success {
+  color: green;
+}
+
+.sort-message.error {
+  color: red;
+}
+
+.animate-fadein {
+  animation-name: fadein;
+  animation-duration: 500ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}

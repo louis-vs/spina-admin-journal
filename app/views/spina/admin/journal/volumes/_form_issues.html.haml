@@ -1,12 +1,14 @@
-#issues.tab-content.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= ::Spina::Admin::Journal::Volume.human_attribute_name :number
-          %th= ::Spina::Admin::Journal::Issue.human_attribute_name :number
-          %th= ::Spina::Admin::Journal::Issue.human_attribute_name :title
-          %th= ::Spina::Admin::Journal::Issue.human_attribute_name :date
-          %th
-      %tbody
-        = render @volume.issues.any? ? @volume.issues : 'empty_list', message: t('.no_issues')
+#issues.tab-content
+  .sort-message
+  .well
+    .table-container
+      %table.table
+        %thead
+          %tr
+            %th= ::Spina::Admin::Journal::Volume.human_attribute_name :number
+            %th= ::Spina::Admin::Journal::Issue.human_attribute_name :number
+            %th= ::Spina::Admin::Journal::Issue.human_attribute_name :title
+            %th= ::Spina::Admin::Journal::Issue.human_attribute_name :date
+            %th
+        %tbody.html5sortable{ data: { id: @volume.id, sorted_collection: 'admin_journal_issues', sort_url: sort_admin_journal_issues_url(@volume) } }
+          = render @volume.issues.any? ? @volume.issues.sorted_asc : 'empty_list', message: t('.no_issues')

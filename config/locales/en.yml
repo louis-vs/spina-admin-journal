@@ -15,8 +15,8 @@ en:
             name: name
             save: Save journal
             delete_confirmation:
-              "Are you sure you want to delete the journal <strong>%{name}</strong>? 
-              This action is irreversible, and will delete all associated volumes, issues, 
+              "Are you sure you want to delete the journal <strong>%{name}</strong>?
+              This action is irreversible, and will delete all associated volumes, issues,
               and articles."
         volumes:
           volume_number: "Volume #%{number}"
@@ -45,7 +45,7 @@ en:
             new: New issue
           create:
             saved: Issue saved.
-          update: 
+          update:
             saved: Issue saved.
           destroy:
             deleted: Issue deleted.
@@ -53,6 +53,9 @@ en:
             save: Save issue
           form_details:
             issue_unchangeable: The issue order can be changed in the 'Volumes' tab.
+          sort:
+            sort_success: Sorted successfully!
+            sort_error: There was an error when sorting. Check the server logs for more information.
         articles:
           index:
             new: New article
@@ -61,7 +64,7 @@ en:
             new: New article
           create:
             saved: Article saved.
-          update: 
+          update:
             saved: Article saved.
           destroy:
             deleted: Article deleted.
@@ -82,7 +85,7 @@ en:
             new: New author
           create:
             saved: Author saved.
-          update: 
+          update:
             saved: Author saved.
           destroy:
             deleted: Author deleted.
@@ -102,7 +105,7 @@ en:
             new: New institution
           create:
             saved: Institution saved.
-          update: 
+          update:
             saved: Institution saved.
           destroy:
             deleted: Institution deleted.
