@@ -56,10 +56,22 @@ module Spina
           end
         end
 
+        def sort
+          success = true
+          sort_params.each do |id, new_pos|
+            success &&= Article.update(id.to_i, number: new_pos.to_i)
+          end
+          render json: { success: success, message: success ? t('.sort_success') : t('.sort_error') }
+        end
+
         private
 
         def article_params
           params.require(:admin_journal_article).permit!
+        end
+
+        def sort_params
+          params.require(:admin_journal_articles).require(:list).permit!
         end
 
         def set_breadcrumb

@@ -10,7 +10,9 @@ Spina::Engine.routes.draw do
       resources :issues, except: %i[show] do
         patch 'sort/:volume_id' => 'issues#sort', as: :sort, on: :collection
       end
-      resources :articles, except: %i[show]
+      resources :articles, except: %i[show] do
+        patch 'sort/:issue_id' => 'articles#sort', as: :sort, on: :collection
+      end
 
       resources :institutions, except: %i[show]
       resources :authors, except: %i[show]
