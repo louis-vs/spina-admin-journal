@@ -1,9 +1,15 @@
 one:
-  id: 1
-  article_id: 1
-  affiliation_id: 1
+  article: new_wave
+  affiliation: marcus
 
 two:
-  id: 2
-  article_id: 2
-  affiliation_id: 1
+  article: article_two
+  affiliation: marcus
+
+three:
+  article: article_two
+  affiliation: henry
+
+four:
+  article: empty_article
+  affiliation: toope

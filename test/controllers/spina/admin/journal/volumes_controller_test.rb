@@ -9,8 +9,9 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
-          @journal = spina_admin_journal_journals :journal
-          @volume = spina_admin_journal_volumes :one
+          # fixtures
+          @volume = spina_admin_journal_volumes :vol1
+          # authenticate
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -27,7 +28,7 @@ module Spina
             post admin_journal_volumes_url, params: { admin_journal_volume: attributes }
           end
           assert_redirected_to admin_journal_volumes_url
-          assert_equal 'Volume <strong>2</strong> created.', flash[:success]
+          assert_equal 'Volume <strong>3</strong> created.', flash[:success]
         end
 
         test 'should destroy volume' do

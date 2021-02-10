@@ -8,6 +8,7 @@ module Spina
       class AuthorTest < ActiveSupport::TestCase
         setup do
           @author = spina_admin_journal_authors :marcus
+          @institutions = spina_admin_journal_institutions :rockbottom, :miami
           @new_author = Author.new
         end
 
@@ -20,7 +21,7 @@ module Spina
           assert @new_author.invalid?
           attributes = {
             affiliations_attributes: [
-              { first_name: 'test', surname: 'test', institution_id: 1, status: 'primary' }
+              { first_name: 'test', surname: 'test', institution_id: @institutions[0].id, status: 'primary' }
             ]
           }
           valid_author = Author.new attributes
@@ -30,7 +31,7 @@ module Spina
         test 'author must have at least one primary affiliation' do
           attributes = {
             affiliations_attributes: [
-              { first_name: 'test', surname: 'test', institution_id: 1, status: 'primary' }
+              { first_name: 'test', surname: 'test', institution_id: @institutions[0].id, status: 'primary' }
             ]
           }
           valid_author = Author.new attributes
@@ -43,8 +44,8 @@ module Spina
         test 'author must have at most one primary affiliation' do
           attributes = {
             affiliations_attributes: [
-              { first_name: 'test', surname: 'test', institution_id: 1, status: 'primary' },
-              { first_name: 'test2', surname: 'test2', institution_id: 2, status: 'primary' }
+              { first_name: 'test', surname: 'test', institution_id: @institutions[0].id, status: 'primary' },
+              { first_name: 'test2', surname: 'test2', institution_id: @institutions[1].id, status: 'primary' }
             ]
           }
           invalid_author = Author.new attributes

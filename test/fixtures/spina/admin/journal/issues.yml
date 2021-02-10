@@ -1,15 +1,19 @@
-one:
-  id: 1
+vol1_issue1:
   number: 1
   title: An interesting title
-  date: 2000-12-10
-  volume_id: 1
-  cover_img: como
+  date: 2000-10-10
+  volume: vol1
+  cover_img: cover
 
-two:
-  id: 2
+vol1_issue2_empty:
   number: 2
   title: An empty issue
-  date: 1980-12-10
-  volume_id: 1
-  cover_img: como
+  date: 2000-11-10
+  volume: vol1
+
+vol2_issue1:
+  number: 1
+  title: An interesting title
+  date: 2000-10-10
+  volume: vol2
+  cover_img: cover

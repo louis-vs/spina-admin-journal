@@ -1,9 +1,53 @@
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+abstract:
+  name: abstract
+  title: Abstract
+  partable: lipsum (Spina::Text)
+  pageable: new_wave (Spina::Admin::Journal::Article)
+
+empty_abstract:
+  name: abstract
+  title: Abstract
+  partable: (Spina::Text)
+  pageable: article_two (Spina::Admin::Journal::Article)
+
+issue_description:
+  name: description
+  title: Description
+  partable: lipsum (Spina::Text)
+  pageable: vol1_issue1 (Spina::Admin::Journal::Issue)
+
+empty_issue_description:
+  name: description
+  title: Description
+  partable: (Spina::Text)
+  pageable: vol2_issue1 (Spina::Admin::Journal::Issue)
+
+journal_description:
+  name: description
+  title: Description
+  partable: lipsum (Spina::Text)
+  pageable: journal (Spina::Admin::Journal::Journal)
+
+issue_cover_image:
+  name: cover_img
+  title: Cover Image
+  partable: cover (Spina::Image)
+  pageable: vol1_issue1 (Spina::Admin::Journal::Issue)
+
+journal_logo:
+  name: logo
+  title: Logo
+  partable: logo (Spina::Image)
+  pageable: journal (Spina::Admin::Journal::Journal)
+
+article_attachment:
+  name: attachment
+  title: Attachment
+  partable: lipsum (Spina::Attachment)
+  pageable: new_wave (Spina::Admin::Journal::Article)
+
+article_two_attachment:
+  name: attachment
+  title: Attachment
+  partable: lipsum (Spina::Attachment)
+  pageable: article_two (Spina::Admin::Journal::Article)

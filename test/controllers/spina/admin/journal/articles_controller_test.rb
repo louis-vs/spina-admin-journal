@@ -9,8 +9,10 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
-          @journal = spina_admin_journal_journals :journal
-          @article = spina_admin_journal_articles :one
+          # fixtures
+          @article = spina_admin_journal_articles :new_wave
+          @empty_article = spina_admin_journal_articles :empty_article
+          # authenticate
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -33,7 +35,7 @@ module Spina
         test 'should create article' do
           attributes = {}
           attributes[:title] = 'New Article'
-          attributes[:number] = 2
+          attributes[:number] = 3
           attributes[:issue_id] = @article.issue_id
           assert_difference 'Article.count' do
             post admin_journal_articles_url, params: { admin_journal_article: attributes }
@@ -74,6 +76,10 @@ module Spina
           end
           assert_redirected_to admin_journal_articles_url
           assert_equal 'Article deleted.', flash[:success]
+        end
+
+        test 'should render form when partable missing' do
+          get edit_admin_journal_article_url(@empty_article)
         end
       end
     end

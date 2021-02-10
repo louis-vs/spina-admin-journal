@@ -7,7 +7,7 @@ module Spina
     module Journal
       class IssueTest < ActiveSupport::TestCase
         setup do
-          @issue = spina_admin_journal_issues :one
+          @issue = spina_admin_journal_issues :vol1_issue1
           @new_issue = Issue.new
         end
 

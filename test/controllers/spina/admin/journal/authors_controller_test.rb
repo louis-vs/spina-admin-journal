@@ -9,7 +9,9 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
+          # fixtures
           @author = spina_admin_journal_authors :marcus
+          @institutions = spina_admin_journal_institutions :rockbottom, :miami
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -33,8 +35,8 @@ module Spina
           attributes = {
             primary_affiliation_index: '0',
             affiliations_attributes: {
-              '0': { institution_id: 1, first_name: 'first', surname: 'last' },
-              '1': { institution_id: 2, first_name: 'first', surname: 'last' }
+              '0': { institution_id: @institutions[0].id, first_name: 'first', surname: 'last' },
+              '1': { institution_id: @institutions[1].id, first_name: 'first', surname: 'last' }
             }
           }
           assert_difference -> { Author.count } => 1, -> { Affiliation.count } => 2 do

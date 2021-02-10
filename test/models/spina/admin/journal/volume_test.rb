@@ -7,7 +7,7 @@ module Spina
     module Journal
       class VolumeTest < ActiveSupport::TestCase
         setup do
-          @volume = spina_admin_journal_volumes :one
+          @volume = spina_admin_journal_volumes :vol1
           @new_volume = Volume.new
         end
 

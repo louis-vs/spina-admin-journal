@@ -9,8 +9,10 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
-          @journal = spina_admin_journal_journals :journal
-          @issue = spina_admin_journal_issues :one
+          # fixtures
+          @issue = spina_admin_journal_issues :vol1_issue1
+          @empty_issue = spina_admin_journal_issues :vol1_issue2_empty
+          # authenticate
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -72,6 +74,10 @@ module Spina
           end
           assert_redirected_to admin_journal_issues_url
           assert_equal 'Issue deleted.', flash[:success]
+        end
+
+        test 'should render form when partable missing' do
+          get edit_admin_journal_issue_url(@empty_issue)
         end
       end
     end

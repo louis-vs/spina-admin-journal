@@ -1,17 +1,20 @@
-one:
-  id: 1
+new_wave:
   number: 1
   title: "A new wave: how the tides change"
   url: insert_link
   doi: link
-  issue_id: 1
+  issue: vol1_issue1
   file: lipsum
 
-two:
-  id: 2
+article_two:
   number: 2
-  title: Time to stop
+  title: The second article
   url: insert_link
   doi: link
-  issue_id: 1
+  issue: vol1_issue1
   file: lipsum
+
+empty_article:
+  number: 1
+  title: Empty
+  issue: vol2_issue1

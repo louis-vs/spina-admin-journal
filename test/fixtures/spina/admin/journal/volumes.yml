@@ -1,6 +1,7 @@
-one:
-  journal_id: 1
-  id: 1
+vol1:
   number: 1
-  title: MyString
+  journal: journal
+
+vol2:
+  number: 2
   journal: journal

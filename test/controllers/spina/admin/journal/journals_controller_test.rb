@@ -9,7 +9,9 @@ module Spina
         include ::Spina::Engine.routes.url_helpers
 
         setup do
+          # fixtures
           @journal = spina_admin_journal_journals :journal
+          # authenticates
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end

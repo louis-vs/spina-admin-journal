@@ -1,23 +1,20 @@
 marcus:
-  id: 1
-  institution_id: 1
-  author_id: 1
+  institution: rockbottom
+  author: marcus
   first_name: Marcus
   surname: Atherton
   status: 1
 
 toope:
-  id: 2
-  institution_id: 2
-  author_id: 1
+  institution: miami
+  author: marcus
   first_name: Stephen
   surname: Toope
   status: 0
 
 henry:
-  id: 3
-  institution_id: 2
-  author_id: 2
+  institution: miami
+  author: henry
   first_name: Henry
   surname: Higgins
   status: 1

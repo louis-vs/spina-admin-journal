@@ -7,7 +7,7 @@ module Spina
     module Journal
       class ArticleTest < ActiveSupport::TestCase
         setup do
-          @article = spina_admin_journal_articles :one
+          @article = spina_admin_journal_articles :new_wave
           @new_article = Article.new
         end
 
