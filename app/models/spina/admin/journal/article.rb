@@ -7,6 +7,7 @@ module Spina
       #
       # - Validators
       # Presence:: {#number}, {#title}
+      # URI:: {#url}
       class Article < ApplicationRecord
         include Partable
         # @!attribute [rw] number
@@ -37,6 +38,7 @@ module Spina
 
         validates :number, presence: true
         validates :title, presence: true
+        validates :url, 'spina/admin/journal/uri': true
 
         scope :sorted_asc, -> { includes(:issue).order('spina_admin_journal_issues.number ASC', number: :asc) }
         scope :sorted_desc, -> { includes(:issue).order('spina_admin_journal_issues.number DESC', number: :desc) }

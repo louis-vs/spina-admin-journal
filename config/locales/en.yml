@@ -168,3 +168,7 @@ en:
     formats:
       iso8601: "%F"
       year: "%Y"
+
+  errors:
+    messages:
+      invalid_uri: is invalid

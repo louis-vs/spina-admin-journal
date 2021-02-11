@@ -1,7 +1,7 @@
 new_wave:
   number: 1
   title: "A new wave: how the tides change"
-  url: insert_link
+  url: https://this-page-intentionally-left-blank.org/
   doi: link
   issue: vol1_issue1
   file: lipsum
@@ -9,7 +9,7 @@ new_wave:
 article_two:
   number: 2
   title: The second article
-  url: insert_link
+  url: https://this-page-intentionally-left-blank.org/
   doi: link
   issue: vol1_issue1
   file: lipsum
