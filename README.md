@@ -81,7 +81,7 @@ You can then start a local server to test that everything's working.
 $ bin/rails s
 ```
 
-You can manually populate the database from within the app, or alternatively you can use seed data for testing. A sample `seeds.rb` file can be found [here](../blob/master/test/dummy/db/seeds.rb).
+You can manually populate the database from within the app, or alternatively you can use seed data for testing. A sample `seeds.rb` file can be found [here](../master/test/dummy/db/seeds.rb).
 
 ## Contributing
 

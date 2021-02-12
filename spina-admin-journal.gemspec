@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   spec.add_dependency 'babel-transpiler', '~> 0.7'
-  spec.add_dependency 'rails', '~> 6.0'
+  spec.add_dependency 'rails', '~> 6.1'
   spec.add_dependency 'rails-i18n', '~> 6.0'
   spec.add_dependency 'spina', '~> 1.1'
 
