@@ -1,13 +1,13 @@
 abstract:
   name: abstract
   title: Abstract
-  partable: lipsum (Spina::Text)
+  partable: lipsum_short (Spina::Text)
   pageable: new_wave (Spina::Admin::Journal::Article)
 
 empty_abstract:
   name: abstract
   title: Abstract
-  partable: (Spina::Text)
+  partable_type: Spina::Text
   pageable: article_two (Spina::Admin::Journal::Article)
 
 issue_description:
@@ -19,7 +19,7 @@ issue_description:
 empty_issue_description:
   name: description
   title: Description
-  partable: (Spina::Text)
+  partable_type: Spina::Text
   pageable: vol2_issue1 (Spina::Admin::Journal::Issue)
 
 journal_description:
