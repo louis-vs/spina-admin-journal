@@ -196,6 +196,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.0.0)
     rake (13.0.3)
+    rdoc (6.3.0)
     regexp_parser (2.0.3)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -233,6 +234,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sdoc (2.0.3)
+      rdoc (>= 5.0)
     sexp_processor (4.15.1)
     spina (1.2.0)
       ancestry
@@ -281,6 +284,7 @@ DEPENDENCIES
   rubocop (~> 1.8)
   rubocop-performance (~> 1.8)
   rubocop-rails (~> 2.8)
+  sdoc (>= 2.0.3)
   spina-admin-journal!
 
 BUNDLED WITH

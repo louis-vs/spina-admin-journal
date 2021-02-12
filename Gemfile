@@ -15,3 +15,6 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+# Generate documentation with bin/rails rdoc
+gem 'sdoc', '>= 2.0.3', group: :doc
