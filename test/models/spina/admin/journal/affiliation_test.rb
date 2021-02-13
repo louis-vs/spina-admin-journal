@@ -40,6 +40,14 @@ module Spina
           assert_empty @affiliation.errors[:base]
         end
 
+        test 'name should return full name' do
+          assert_equal 'Marcus Atherton', @affiliation.name
+        end
+
+        test 'reversed_name should return name with surname first' do
+          assert_equal 'Atherton, Marcus', @affiliation.reversed_name
+        end
+
         test 'first name should not be empty' do
           assert @affiliation.valid?
           assert_empty @affiliation.errors[:first_name]
