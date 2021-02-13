@@ -48,7 +48,7 @@ $(document).on('turbolinks:load', () => {
         type: 'PATCH',
         dataType: 'json',
         data: data,
-        success: (data, _, _) => {
+        success: (data) => {
           if(data.success) {
             // display success message
             $('.sort-message').html(''); // clear message
