@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.email       = ['louisvansteene@gmail.com']
   spec.homepage    = 'https://github.com/louis-vs/spina-admin-journal'
   spec.summary     = 'Academic journal plugin for Spina.'
-  spec.description = 'Manage journal submissions and publications with this plugin.'
+  spec.description = 'Manage journal submissions and publications within SpinaCMS.'
   spec.license     = 'MIT'
   spec.required_ruby_version = '~> 2.7'
 
@@ -31,10 +31,14 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails-i18n', '~> 6.0'
   spec.add_dependency 'spina', '~> 1.1'
 
+  spec.add_development_dependency 'codecov', '~> 0.4'
   spec.add_development_dependency 'image_processing', '~> 1.2'
+  spec.add_development_dependency 'minitest-rails', '~> 6.1'
+  spec.add_development_dependency 'minitest-reporters', '~> 1.4'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'puma', '~> 5.0'
   spec.add_development_dependency 'rubocop', '~> 1.8'
   spec.add_development_dependency 'rubocop-performance', '~> 1.8'
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
+  spec.add_development_dependency 'simplecov', '~> 0.21'
 end

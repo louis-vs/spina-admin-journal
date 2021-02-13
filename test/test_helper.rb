@@ -1,5 +1,22 @@
 # frozen_string_literal: true
 
+# CodeCov integration
+require 'simplecov'
+
+if ENV['CI']
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
+
+SimpleCov.start 'rails' do
+  enable_coverage :branch
+  add_group 'Validators', 'app/validators'
+end
+
+require 'minitest/mock'
+require 'minitest/reporters'
+Minitest::Reporters.use!
+
 # Configure Rails Environment
 ENV['RAILS_ENV'] = 'test'
 
