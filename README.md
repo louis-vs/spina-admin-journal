@@ -1,5 +1,12 @@
 # Spina::Admin::Journal
 
+![Rails tests](https://github.com/louis-vs/spina-admin-journal/workflows/Verify/badge.svg?branch=master&event=push)
+[![codecov](https://codecov.io/gh/louis-vs/spina-admin-journal/branch/master/graph/badge.svg?token=9TZ9QGGLAH)](https://codecov.io/gh/louis-vs/spina-admin-journal)
+[![CodeFactor](https://www.codefactor.io/repository/github/louis-vs/spina-admin-journal/badge)](https://www.codefactor.io/repository/github/louis-vs/spina-admin-journal)
+[![LGTM alerts](https://img.shields.io/lgtm/alerts/g/louis-vs/spina-admin-journal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/louis-vs/spina-admin-journal/alerts/)
+[![Code quality: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/louis-vs/spina-admin-journal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/louis-vs/spina-admin-journal/context:javascript)
+[![Inline docs](http://inch-ci.org/github/louis-vs/spina-admin-journal.svg?branch=master)](http://inch-ci.org/github/louis-vs/spina-admin-journal)
+
 *Journal* is a plugin for [Spina](https://www.spinacms.com/), a content management system built in [Ruby on Rails](http://rubyonrails.org/). *Journal* augments Spina by providing an admin interface for managing an academic journal.
 
 ## Usage
