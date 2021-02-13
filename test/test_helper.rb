@@ -6,11 +6,11 @@ require 'simplecov'
 if ENV['CI']
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
 
-SimpleCov.start 'rails' do
-  enable_coverage :branch
-  add_group 'Validators', 'app/validators'
+  SimpleCov.start 'rails' do
+    enable_coverage :branch
+    add_group 'Validators', 'app/validators'
+  end
 end
 
 require 'minitest/mock'
