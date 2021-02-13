@@ -1,10 +1,11 @@
 //= require spina/admin/journal/html5sortable
+/* global sortable */
 
 $(document).on('turbolinks:load', () => {
   // html5sortable configuration
   sortable('.html5sortable', {
     items: 'tr',
-    itemSerializer: (serializedItem, _) => {
+    itemSerializer: (serializedItem) => {
       return {
         position: serializedItem.index + 1,
         id: serializedItem.node.getAttribute('data-id')
@@ -35,8 +36,8 @@ $(document).on('turbolinks:load', () => {
         // display error message
         $('.sort-message').html('');
         $('.sort-message').removeClass('animate-fadein success');
-        $('.sort-message').width() // trigger reflow
-        $('.sort-message').html(message).addClass('error animate-fadein');;
+        $('.sort-message').width(); // trigger reflow
+        $('.sort-message').html(message).addClass('error animate-fadein');
         // TODO: return element to its origin
         // this needs to be done manually, but may not really be necessary since the displayed
         // numbers won't change
@@ -53,7 +54,7 @@ $(document).on('turbolinks:load', () => {
             // display success message
             $('.sort-message').html(''); // clear message
             $('.sort-message').removeClass('animate-fadein error');
-            $('.sort-message').width() // trigger reflow (for animation to work)
+            $('.sort-message').width(); // trigger reflow (for animation to work)
             $('.sort-message').html(data.message).addClass('success animate-fadein');
             // update displayed position number
             // NB this is done entirely clientside, so there is the potential for desync
