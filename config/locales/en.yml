@@ -3,6 +3,7 @@ en:
     admin:
       journal:
         navigation_title: Journal settings
+        unnamed_journal: Unnamed journal
         journals:
           index:
             new: New journal

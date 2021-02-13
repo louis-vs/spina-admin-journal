@@ -6,8 +6,8 @@ module Spina
       # Journal records. The top level of the database hierarchy.
       #
       # - Validates
-      # Presence:: {#name}
-      # Uniqueness:: {#name}
+      # Presence:: {#name, #singleton_guard}
+      # Uniqueness:: {#name, #singleton_guard}
       class Journal < ApplicationRecord
         include Partable
         # @!attribute [rw] name
@@ -26,9 +26,16 @@ module Spina
         accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :name, presence: true, uniqueness: true
+        validates :singleton_guard, presence: true, uniqueness: true
 
+        # Access the journal record.
+        #
+        # It is possible that Journal.instance gets called from two threads simultaneously.
+        # If this occurs, +Journal.create!+ will throw a validation error, since both records will
+        # be assigned the same value for +singleton_guard+. This is handled automatically, guaranteeing
+        # that there only ever be a single record.
         def self.instance
-          Journal.first_or_create!
+          Journal.first || Journal.create!(name: I18n.t('spina.admin.journal.unnamed_journal'), singleton_guard: 0)
         rescue ActiveRecord::RecordNotUnique
           # prevent race conditions leading to multiple records being created
           retry

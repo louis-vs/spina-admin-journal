@@ -6,7 +6,7 @@ module Spina
 
   module Admin
     module Journal
-      journal = Journal.first_or_create name: 'The Best Journal'
+      journal = Journal.first_or_create name: 'The Best Journal', singleton_guard: 0
       vol1, vol2 = Volume.create! [{ journal: journal, number: 1 },
                                    { journal: journal, number: 2 }]
       vol1_issue1, vol1_issue2 = Issue.create! [{ volume: vol1, number: 1, date: '2020-12-25' },

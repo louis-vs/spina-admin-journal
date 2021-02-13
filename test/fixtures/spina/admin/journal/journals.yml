@@ -1,2 +1,3 @@
 journal:
   name: My Journal
+  singleton_guard: 0

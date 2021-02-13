@@ -118,9 +118,11 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
   create_table "spina_admin_journal_journals", force: :cascade do |t|
     t.string "name", default: "Unnamed Journal", null: false
     t.bigint "logo_id"
+    t.integer "singleton_guard", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["logo_id"], name: "index_spina_admin_journal_journals_on_logo_id"
+    t.index ["singleton_guard"], name: "index_spina_admin_journal_journals_on_singleton_guard", unique: true
   end
 
   create_table "spina_admin_journal_parts", force: :cascade do |t|

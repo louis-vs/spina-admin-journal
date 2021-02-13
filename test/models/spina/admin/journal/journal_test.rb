@@ -30,6 +30,15 @@ module Spina
           assert @journal.valid?
           assert_empty @journal.errors[:logo]
         end
+
+        test 'should return unique instance' do
+          assert_equal @journal, Journal.instance
+        end
+
+        test 'should create instance if table empty' do
+          @journal.destroy
+          assert_instance_of Journal, Journal.instance
+        end
       end
     end
   end
