@@ -5,7 +5,7 @@ PATH
       babel-transpiler (~> 0.7)
       rails (~> 6.1)
       rails-i18n (~> 6.0)
-      spina (~> 1.1)
+      spina (~> 1.2)
 
 GEM
   remote: https://rubygems.org/
