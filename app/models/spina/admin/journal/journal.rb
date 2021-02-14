@@ -38,6 +38,7 @@ module Spina
           Journal.first || Journal.create!(name: I18n.t('spina.admin.journal.unnamed_journal'), singleton_guard: 0)
         rescue ActiveRecord::RecordNotUnique
           # prevent race conditions leading to multiple records being created
+          logger.error 'Error when retrieving Journal instance. Retrying...'
           retry
         end
       end
