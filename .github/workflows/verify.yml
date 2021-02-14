@@ -68,6 +68,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Chromedriver
+        uses: nanasess/setup-chromedriver@master
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
       - name: Cache Bundler dependencies
@@ -85,7 +88,7 @@ jobs:
       - name: Prepare test db
         run: bin/rails db:setup
       - name: Run tests
-        run: bin/rails test
+        run: bundle exec rake
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
