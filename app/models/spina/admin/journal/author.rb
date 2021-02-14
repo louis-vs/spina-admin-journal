@@ -25,7 +25,7 @@ module Spina
         # @!attribute [r] primary_affiliation
         #   @return [ActiveRecord::Relation] the author's primary affiliation
         def primary_affiliation
-          affiliations.primary.first
+          affiliations.primary.first || Affiliation.new(status: :primary)
         end
 
         private

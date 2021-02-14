@@ -15,7 +15,7 @@
     #header_actions
       %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
         = icon 'check'
-        = t 'spina.pages.save'
+        = t '.save'
   .tab-content.active.well
     .horizontal-form
       .horizontal-form-group
@@ -33,4 +33,4 @@
           = render "spina/admin/partables/#{partable_type_partial_namespace(ff.object.partable_type)}/form", f: ff
 
   - unless @journal.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_journal_path(@journal), method: :delete, data: { confirm: t('.delete_confirmation', name: @journal.name), class: 'button button-link button-danger' }
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_journal_path(@journal), method: :delete, data: { confirm: t('.delete_confirmation', name: @journal.name) }, class: 'button button-link button-danger'
