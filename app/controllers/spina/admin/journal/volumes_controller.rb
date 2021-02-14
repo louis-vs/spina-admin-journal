@@ -50,10 +50,6 @@ module Spina
 
         private
 
-        def volume_params
-          params.require(:admin_journal_volume).permit(:number, :journal_id)
-        end
-
         def sort_params
           params.require(:admin_journal_volumes).require(:list).permit!
         end
