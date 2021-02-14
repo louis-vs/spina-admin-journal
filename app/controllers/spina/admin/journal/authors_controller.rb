@@ -49,13 +49,14 @@ module Spina
         private
 
         def author_params
-          params.require(:admin_journal_author).permit(affiliations_attributes: %i[id institution_id first_name
+          params.require(:admin_journal_author).permit(:primary_affiliation_index,
+                                                       affiliations_attributes: %i[id institution_id first_name
                                                                                    surname])
         end
 
         def modified_params
           primary_affiliation_index = params[:admin_journal_author][:primary_affiliation_index]
-          new_params = author_params
+          new_params = author_params.except :primary_affiliation_index
           unless new_params[:affiliations_attributes].nil? || primary_affiliation_index.nil?
             new_params[:affiliations_attributes].each_key do |index|
               new_params[:affiliations_attributes][index][:status] = index == primary_affiliation_index ? 'primary' : 'other' # rubocop:disable Layout/LineLength

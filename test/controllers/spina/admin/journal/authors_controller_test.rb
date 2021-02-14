@@ -69,7 +69,7 @@ module Spina
           patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]
-          assert_equal Affiliation.where(first_name: 'testing name', author_id: @author.id).count, 1
+          assert_equal 1, Affiliation.where(first_name: 'testing name', author_id: @author.id).count
         end
 
         test 'should update author\'s primary affiliation' do
@@ -81,6 +81,25 @@ module Spina
           patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]
+        end
+
+        test 'should not update author with invalid affiliation attributes' do
+          attributes = @author.attributes
+          attributes['affiliations_attributes'] = @author.affiliations.to_a.map.with_index do |affiliation, index|
+            [index.to_s, affiliation.attributes]
+          end.to_h
+          attributes['affiliations_attributes']['0']['first_name'] = nil
+          patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
+          assert_response :success
+          assert_not_equal 'Author saved.', flash[:success]
+        end
+
+        test 'should destroy author' do
+          assert_difference -> { Author.count } => -1, -> { Affiliation.count } => -1 * @author.affiliations.count do
+            delete admin_journal_author_url(@author)
+          end
+          assert_redirected_to admin_journal_authors_url
+          assert_equal 'Author deleted.', flash[:success]
         end
       end
     end
