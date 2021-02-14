@@ -33,4 +33,10 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new do |t|
+  t.options << '--parallel' if ENV['CI']
+end
+
 task default: :test
