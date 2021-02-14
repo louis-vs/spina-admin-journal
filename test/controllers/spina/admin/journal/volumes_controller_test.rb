@@ -16,16 +16,19 @@ module Spina
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
 
+        test 'should get index' do
+          get admin_journal_volumes_url
+          assert_response :success
+        end
+
         test 'should get edit' do
           get edit_admin_journal_volume_url(@volume)
           assert_response :success
         end
 
         test 'should create volume' do
-          attributes = @volume.attributes
-          attributes[:number] = 24
           assert_difference 'Volume.count' do
-            post admin_journal_volumes_url, params: { admin_journal_volume: attributes }
+            post admin_journal_volumes_url
           end
           assert_redirected_to admin_journal_volumes_url
           assert_equal 'Volume <strong>3</strong> created.', flash[:success]

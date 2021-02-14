@@ -36,7 +36,7 @@ module Spina
         has_many :parts, as: :pageable, dependent: :destroy
         accepts_nested_attributes_for :parts, allow_destroy: true
 
-        validates :number, presence: true
+        validates :number, presence: true, uniqueness: { scope: :issue_id }
         validates :title, presence: true
         validates :url, 'spina/admin/journal/uri': true
 

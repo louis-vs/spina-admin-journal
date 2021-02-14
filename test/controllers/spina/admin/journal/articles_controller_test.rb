@@ -5,13 +5,14 @@ require 'test_helper'
 module Spina
   module Admin
     module Journal
-      class ArticlesControllerTest < ActionDispatch::IntegrationTest
+      class ArticlesControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
         include ::Spina::Engine.routes.url_helpers
 
         setup do
           # fixtures
           @article = spina_admin_journal_articles :new_wave
           @empty_article = spina_admin_journal_articles :empty_article
+          @article2 = spina_admin_journal_articles :article_two
           # authenticate
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
@@ -93,7 +94,48 @@ module Spina
         end
 
         test 'should render form when partable missing' do
-          get edit_admin_journal_article_url(@empty_article)
+          get edit_admin_journal_article_url(@article2)
+        end
+
+        test 'should sort if given valid order' do
+          data = {
+            admin_journal_articles: {
+              list: {
+                @article2.id.to_s => '1',
+                @article.id.to_s => '2'
+              }
+            }
+          }
+          patch sort_admin_journal_articles_url(@article.issue), params: data
+          assert_equal 1, Article.find(@article2.id).number
+          assert_equal 2, Article.find(@article.id).number
+        end
+
+        test 'should not sort if given invalid order' do
+          data = {
+            admin_journal_articles: {
+              list: {
+                @article2.id.to_s => '1',
+                @article.id.to_s => '1'
+              }
+            }
+          }
+          patch sort_admin_journal_articles_url(@article.issue), params: data
+          assert_equal 1, Article.find(@article.id).number
+          assert_equal 2, Article.find(@article2.id).number
+        end
+
+        test 'sort should respond with error message if provided invalid order' do
+          data = {
+            admin_journal_articles: {
+              list: {
+                @article2.id.to_s => '1',
+                @article.id.to_s => '1'
+              }
+            }
+          }
+          patch sort_admin_journal_articles_url(@article.issue), params: data
+          assert_not JSON.parse(response.body)['success']
         end
       end
     end

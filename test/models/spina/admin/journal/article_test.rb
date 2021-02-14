@@ -41,6 +41,14 @@ module Spina
           assert_not_empty @article.errors[:number]
         end
 
+        test 'number should be unique per issue' do
+          assert @article.valid?
+          assert_empty @article.errors[:number]
+          @article.number = 2
+          assert @article.invalid?
+          assert_not_empty @article.errors[:number]
+        end
+
         test 'title should not be empty' do
           assert @article.valid?
           assert_empty @article.errors[:title]

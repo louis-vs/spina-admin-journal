@@ -79,6 +79,47 @@ module Spina
         test 'should render form when partable missing' do
           get edit_admin_journal_issue_url(@empty_issue)
         end
+
+        test 'should sort if given valid order' do
+          data = {
+            admin_journal_issues: {
+              list: {
+                @empty_issue.id.to_s => '1',
+                @issue.id.to_s => '2'
+              }
+            }
+          }
+          patch sort_admin_journal_issues_url(@issue.volume), params: data
+          assert_equal 1, Issue.find(@empty_issue.id).number
+          assert_equal 2, Issue.find(@issue.id).number
+        end
+
+        test 'should not sort if given invalid order' do
+          data = {
+            admin_journal_issues: {
+              list: {
+                @empty_issue.id.to_s => '1',
+                @issue.id.to_s => '1'
+              }
+            }
+          }
+          patch sort_admin_journal_issues_url(@issue.volume), params: data
+          assert_equal 1, Issue.find(@issue.id).number
+          assert_equal 2, Issue.find(@empty_issue.id).number
+        end
+
+        test 'sort should respond with error message if provided invalid order' do
+          data = {
+            admin_journal_issues: {
+              list: {
+                @empty_issue.id.to_s => '1',
+                @issue.id.to_s => '1'
+              }
+            }
+          }
+          patch sort_admin_journal_issues_url(@issue.volume), params: data
+          assert_not JSON.parse(response.body)['success']
+        end
       end
     end
   end

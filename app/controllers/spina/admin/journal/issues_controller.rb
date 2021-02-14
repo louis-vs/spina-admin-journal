@@ -11,7 +11,7 @@ module Spina
         ].freeze
 
         before_action :set_breadcrumb
-        before_action :set_tabs, except: %i[index destroy]
+        before_action :set_tabs, except: %i[index destroy sort]
         before_action :set_issue, only: %i[edit update destroy]
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
@@ -62,11 +62,16 @@ module Spina
         end
 
         def sort
-          success = true
-          sort_params.each do |id, new_pos|
-            success &&= Issue.update(id.to_i, number: new_pos.to_i)
+          ActiveRecord::Base.transaction do
+            sort_params.each do |id, new_pos|
+              # ignore uniqueness validation for now
+              Issue.find(id.to_i).update_attribute(:number, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
+            end
+            validate_sort_order
           end
-          render json: { success: success, message: success ? t('.sort_success') : t('.sort_error') }
+          render json: { success: true, message: t('.sort_success') }
+        rescue ActiveRecord::RecordInvalid
+          render json: { success: false, message: t('.sort_error') }
         end
 
         private
@@ -81,6 +86,12 @@ module Spina
 
         def sort_params
           params.require(:admin_journal_issues).require(:list).permit!
+        end
+
+        def validate_sort_order
+          Issue.where(volume_id: params[:volume_id]).each do |issue|
+            raise ActiveRecord::RecordInvalid if issue.invalid?
+          end
         end
 
         def set_breadcrumb

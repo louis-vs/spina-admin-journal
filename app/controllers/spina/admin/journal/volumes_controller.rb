@@ -7,7 +7,7 @@ module Spina
       class VolumesController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy]
-        before_action :set_volume, only: %i[edit update destroy]
+        before_action :set_volume, only: %i[edit destroy]
 
         def index
           @volumes = Volume.sorted_asc
@@ -19,21 +19,11 @@ module Spina
           @volume = Volume.new
           @volume.journal_id = Journal.instance.id
           @volume.number = Volume.any? ? Volume.sorted_desc.first.number + 1 : 1
-
-          if @volume.save
-            redirect_to admin_journal_volumes_path, success: t('.created', number: @volume.number)
-          else
-            # TODO: error flash
-            render :new
-          end
-        end
-
-        def update
-          if @volume.update(volume_params)
-            redirect_to admin_journal_volumes_path, success: t('.saved')
-          else
-            render :edit
-          end
+          @volume.save!
+          redirect_to admin_journal_volumes_path, success: t('.created', number: @volume.number)
+        rescue ActiveRecord::RecordNotUnique
+          # can only happen because of some race condition where two Volumes are created at the same time
+          retry
         end
 
         def destroy

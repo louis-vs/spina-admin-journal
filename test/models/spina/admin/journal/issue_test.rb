@@ -41,6 +41,14 @@ module Spina
           assert_not_empty @issue.errors[:number]
         end
 
+        test 'number should be unique per volume' do
+          assert @issue.valid?
+          assert_empty @issue.errors[:number]
+          @issue.number = 2
+          assert @issue.invalid?
+          assert_not_empty @issue.errors[:number]
+        end
+
         test 'date should not be empty' do
           assert @issue.valid?
           assert_empty @issue.errors[:date]
