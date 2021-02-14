@@ -3,6 +3,7 @@
     = icon 'plus'
     = t '.new'
 
+.sort-message
 .well
   .table-container
     %table.table
@@ -12,5 +13,5 @@
           %th= t '.date'
           %th
 
-      %tbody
+      %tbody.html5sortable{ data: { id: ::Spina::Admin::Journal::Journal.instance.id, sorted_collection: 'admin_journal_volumes', sort_url: sort_admin_journal_volumes_url(::Spina::Admin::Journal::Journal.instance.id) } }
         = render @volumes.any? ? @volumes : 'empty_list', message: t('.empty')

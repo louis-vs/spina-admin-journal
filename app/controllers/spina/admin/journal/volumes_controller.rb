@@ -36,16 +36,32 @@ module Spina
         end
 
         def sort
-          # TODO: add sorting GUI using jquery.nestable.js (see Spina repo)
-          params[:list].each_pair do |volume_id, new_position|
-            Volume.update volume_id, { position: new_position }
+          ActiveRecord::Base.transaction do
+            sort_params.each do |id, new_pos|
+              # ignore uniqueness validation for now
+              Volume.find(id.to_i).update_attribute(:number, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
+            end
+            validate_sort_order
           end
+          render json: { success: true, message: t('.sort_success') }
+        rescue ActiveRecord::RecordInvalid
+          render json: { success: false, message: t('.sort_error') }
         end
 
         private
 
         def volume_params
           params.require(:admin_journal_volume).permit(:number, :journal_id)
+        end
+
+        def sort_params
+          params.require(:admin_journal_volumes).require(:list).permit!
+        end
+
+        def validate_sort_order
+          Volume.where(journal_id: params[:journal_id]).each do |volume|
+            raise ActiveRecord::RecordInvalid if volume.invalid?
+          end
         end
 
         def set_breadcrumb

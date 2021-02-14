@@ -37,6 +37,9 @@ en:
             issue_number: "Issue #"
           volume:
             no_date: Unpublished
+          sort:
+            sort_success: Sorted successfully!
+            sort_error: There was an error when sorting. Check the server logs for more information.
         issues:
           issue_number: "Issue #%{number}"
           index:
