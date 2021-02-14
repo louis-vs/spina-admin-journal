@@ -16,17 +16,8 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-      - name: Cache Bundler dependencies
-        uses: actions/cache@v2
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Install Bundler dependencies
-        run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          bundler-cache: true
 
       - name: Run linters
         run: |
@@ -73,17 +64,8 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
-      - name: Cache Bundler dependencies
-        uses: actions/cache@v2
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Install Bundler dependencies
-        run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          bundler-cache: true
 
       - name: Prepare test db
         run: bin/rails db:setup
