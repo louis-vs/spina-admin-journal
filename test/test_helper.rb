@@ -10,6 +10,10 @@ if ENV['CI']
   SimpleCov.start 'rails' do
     enable_coverage :branch
     add_group 'Validators', 'app/validators'
+
+    # these files don't play nicely with simplecov
+    add_filter 'app/models/spina/admin/journal.rb'
+    add_filter 'lib/spina/admin/journal/version.rb'
   end
 end
 
