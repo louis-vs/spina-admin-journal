@@ -6,16 +6,10 @@ rescue LoadError
   puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
 
-require 'sdoc'
-require 'rdoc/task'
+require 'yard'
 
-RDoc::Task.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'doc/rdoc'
-  rdoc.title    = 'Spina::Admin::Journal'
-  rdoc.main = 'README.md'
-  rdoc.options << '--line-numbers'
-  rdoc.options << '--format=sdoc'
-  rdoc.rdoc_files.include('README.md', 'lib/**/*.rb', 'app/**/*.rb')
+YARD::Rake::YardocTask.new(:yardoc) do |t|
+  t.files = ['lib/**/*.rb', 'app/**/*.rb']
 end
 
 APP_RAKEFILE = File.expand_path('test/dummy/Rakefile', __dir__)

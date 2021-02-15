@@ -220,7 +220,6 @@ GEM
       thor (~> 1.0)
     rainbow (3.0.0)
     rake (13.0.3)
-    rdoc (6.3.0)
     regexp_parser (2.0.3)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -259,8 +258,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sdoc (2.0.3)
-      rdoc (>= 5.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -308,6 +305,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.26)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -324,10 +322,10 @@ DEPENDENCIES
   rubocop (~> 1.8)
   rubocop-performance (~> 1.8)
   rubocop-rails (~> 2.8)
-  sdoc (~> 2.0)
   selenium-webdriver (~> 3.142)
   simplecov (~> 0.21)
   spina-admin-journal!
+  yard (~> 0.9)
 
 BUNDLED WITH
    2.1.4
