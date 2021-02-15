@@ -1,4 +1,4 @@
-%tr
+%tr{ data: { id: author.id } }
   %td= author.primary_affiliation.name
   %td= author.primary_affiliation.institution.nil? ? '' : author.primary_affiliation.institution.name
   %td= author.articles.count

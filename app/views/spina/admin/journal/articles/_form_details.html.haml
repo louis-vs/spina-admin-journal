@@ -43,4 +43,4 @@
           = render "spina/admin/partables/#{partable_type_partial_namespace(ff.object.partable_type)}/form", f: ff
 
   - unless @article.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_article_path(@article), method: :delete, data: { confirm: t('.delete_confirmation', name: @article.title) }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_article_path(@article), method: :delete, data: { confirm: t('.delete_confirmation', title: @article.title) }, class: 'button button-link button-danger'

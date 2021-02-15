@@ -23,6 +23,7 @@ module Spina
         def new
           @article = Article.new
           build_parts
+          add_breadcrumb t('.new')
         end
 
         def edit; end

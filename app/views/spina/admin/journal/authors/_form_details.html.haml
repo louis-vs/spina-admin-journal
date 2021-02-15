@@ -5,4 +5,4 @@
         = render 'form_affiliation', ff: ff
 
   - unless @author.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_author_path(@author), method: :delete, data: { confirm: t('.delete_confirmation') }, class: 'button button-link button-danger'
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_author_path(@author), method: :delete, data: { confirm: t('.delete_confirmation', name: @author.primary_affiliation.name) }, class: 'button button-link button-danger'

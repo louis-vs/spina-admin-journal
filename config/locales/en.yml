@@ -32,6 +32,7 @@ en:
             saved: Volume saved.
           form_details:
             unchangeable: The volume number can be changed by clicking 'Change Order' in the index view.
+            delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
           form_issues:
             volume_number: "Volume #"
             issue_number: "Issue #"
@@ -57,6 +58,7 @@ en:
             save: Save issue
           form_details:
             issue_unchangeable: The issue order can be changed in the 'Volumes' tab.
+            delete_confirmation: "Are you sure you want to delete Issue <strong>#%{number}</strong>?"
           sort:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
@@ -72,10 +74,12 @@ en:
             saved: Article saved.
           destroy:
             deleted: Article deleted.
+          form:
+            save: Save article
           form_details:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
             unchangeable: Article order can be changed in the issue.
-            delete_confirmation: "Are you sure you want to delete '<strong>%{name}</strong>'?"
+            delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_authors:
             no_authors: There are no authors.
             number_of_articles: "# Articles"
@@ -96,8 +100,10 @@ en:
             saved: Author saved.
           destroy:
             deleted: Author deleted.
+          form:
+            save: Save author
           form_details:
-            delete_confirmation: Are you sure you want to delete this author?
+            delete_confirmation: "Are you sure you want to delete the author %{name}?"
           form_affiliation:
             primary: Primary?
           form_articles:
