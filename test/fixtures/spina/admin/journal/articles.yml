@@ -14,6 +14,14 @@ article_two:
   issue: vol1_issue1
   file: lipsum
 
+article_three:
+  number: 3
+  title: The third article
+  url: https://this-page-intentionally-left-blank.org/
+  doi: link
+  issue: vol1_issue1
+  file: lipsum
+
 empty_article:
   number: 1
   title: Empty

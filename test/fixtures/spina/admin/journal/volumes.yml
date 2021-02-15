@@ -5,3 +5,7 @@ vol1:
 vol2:
   number: 2
   journal: journal
+
+vol3:
+  number: 3
+  journal: journal

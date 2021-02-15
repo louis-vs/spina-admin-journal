@@ -32,7 +32,7 @@ module Spina
             post admin_journal_volumes_url
           end
           assert_redirected_to admin_journal_volumes_url
-          assert_equal 'Volume <strong>3</strong> created.', flash[:success]
+          assert_equal 'Volume <strong>4</strong> created.', flash[:success]
         end
 
         test 'should destroy volume' do
