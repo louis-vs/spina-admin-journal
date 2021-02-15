@@ -5,15 +5,20 @@ module Spina
     module Journal
       # Journal records. The top level of the database hierarchy.
       #
-      # - Validates
-      # Presence:: {#name, #singleton_guard}
-      # Uniqueness:: {#name, #singleton_guard}
+      # There should only ever be a single Journal record, which must always be accessed
+      # using {Journal.instance}
+      #
+      # === Validatorss
+      # Presence:: {#name}, {#singleton_guard}
+      # Uniqueness:: {#name}, {#singleton_guard}
       class Journal < ApplicationRecord
         include Partable
         # @!attribute [rw] name
-        #   @return [String]
+        #   @return [String] The name of the journal.
+        # @!attribute [rw] singleton_guard
+        #   @return [Integer] Used to guarantee that a record is unique.
         # @!attribute [rw] logo
-        #   @return [Spina::Image, nil] directly associated image
+        #   @return [Spina::Image, nil] The Spina::Image representing the logo of the journal.
         belongs_to :logo, class_name: 'Spina::Image', optional: true
 
         # @!attribute [rw] volumes
@@ -21,7 +26,8 @@ module Spina
         has_many :volumes, dependent: :destroy
 
         # @!attribute [rw] parts
-        #   @return [ActiveRecord::Relation] page parts, see {JournalsController}
+        #   @return [ActiveRecord::Relation] The page parts associated with this record.
+        #   @see JournalsController
         has_many :parts, as: :pageable, dependent: :destroy
         accepts_nested_attributes_for :parts, allow_destroy: true
 

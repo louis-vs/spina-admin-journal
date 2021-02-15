@@ -4,7 +4,8 @@ module Spina
   module Admin
     module Journal
       # Joins Articles and Affiliations
-      # @see Article, Affiliation
+      # @see Article
+      # @see Affiliation
       class Authorship < ApplicationRecord
         # @!attribute [rw] article
         #   @return [ActiveRecord::Relation] the associated article

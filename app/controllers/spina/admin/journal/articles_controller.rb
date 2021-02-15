@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Journal
-      # Controller for {Article} records
+      # Controller for {Article} records.
       class ArticlesController < ApplicationController
         PARTS = [
           { name: 'abstract', title: 'Abstract', partable_type: 'Spina::Text' },

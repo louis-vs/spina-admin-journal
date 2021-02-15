@@ -3,20 +3,25 @@
 module Spina
   module Admin
     module Journal
-      # Simple model for an institution. Associated with AuthorNames via affiliations.
+      # Record for an institution. Associated with {Author}s via {Affiliation}s.
       #
-      # - Validates
+      # === Validators
       # Presence:: {#name}
       # Uniqueness:: {#name}
+      #
+      # === Scopes
+      # sorted:: sort institutions in alphabetical order
+      #
+      # @see Affiliation
       class Institution < ApplicationRecord
         # @!attribute [rw] name
         #   @return [String]
         # @!attribute [rw] affiliations
         #   @return [ActiveRecord::Relation] the affiliations held at the institution
         has_many :affiliations, dependent: :destroy
-        # @!attribute [rw] author_names
-        #   @return [ActiveRecord::Relation] associated author names
-        has_many :author_names, through: :affiliations
+        # @!attribute [rw] authors
+        #   @return [ActiveRecord::Relation] associated authors
+        has_many :authors, through: :affiliations
 
         validates :name, presence: true, uniqueness: { case_sensitive: false }
 

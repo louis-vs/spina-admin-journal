@@ -4,8 +4,7 @@ module Spina
   module Admin
     module Journal
       # Controller for {Journal} records.
-      # A site only ever has a single journal, so only the {#edit} and {#update} actions
-      # are needed.
+      # A site only ever has a single journal, so the index action is not needed.
       class JournalsController < ApplicationController
         PARTS = [
           { name: 'logo', title: 'Logo', partable_type: 'Spina::Image' },

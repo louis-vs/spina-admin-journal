@@ -6,14 +6,24 @@ module Spina
       # Record for an issue of a journal.
       # Belongs to a particular volume of a journal. Has many articles.
       #
-      # - Validates
+      # === Validators
       # Presence:: {#number}, {#date}
+      # Uniqueness:: {#number} (scope: volume)
+      #
+      # === Scopes
+      # sorted_asc:: sorted in order of increasing number
+      # sorted_desc:: sorted highest number first
+      #
+      # @see Article
+      # @see Volume
       class Issue < ApplicationRecord
         include Partable
         # @!attribute [rw] number
-        #   @return [Integer]
+        #   @return [Integer] The number
         # @!attribute [rw] title
-        #   @return [String]
+        #   @return [String] The title of the issue (optional)
+        # @!attribute [rw] date
+        #   @return [Date] The (planned) publication date of the issue.
         # @!attribute [rw] volume
         #   @return [ActiveRecord::Relation] the volume that contains this issue
         belongs_to :volume

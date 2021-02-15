@@ -5,34 +5,44 @@ module Spina
     module Journal
       # Record for an individual article.
       #
-      # - Validators
+      # === Validators
       # Presence:: {#number}, {#title}
+      # Uniqueness:: {#number} (scope: issue)
       # URI:: {#url}
+      #
+      # === Scopes
+      # sorted_asc:: sorted in order of increasing number
+      # sorted_desc:: sorted highest number first
+      #
+      # @see Issue
+      # @see Author
+      # @see Authorship
       class Article < ApplicationRecord
         include Partable
         # @!attribute [rw] number
-        #   @return [Integer]
+        #   @return [Integer] The position of the article within its issue.
         # @!attribute [rw] title
-        #   @return [String]
+        #   @return [String] The article's title.
         # @!attribute [rw] url
-        #   @return [String]
+        #   @return [String] An external link to the article.
         # @!attribute [rw] doi
-        #   @return [String]
+        #   @return [String] A digital object intentifier for the article.
         # @!attribute [rw] issue
-        #   @return [ActiveRecord::Relation] the issue that contains this article
+        #   @return [Issue] The issue that contains this article.
         belongs_to :issue
         # @!attribute [rw] file
-        #   @return [Spina::Attachment] the attached file
+        #   @return [Spina::Attachment] The attached file
         belongs_to :file, class_name: 'Spina::Attachment', optional: true
 
         # @!attribute [rw] authorships
         has_many :authorships, dependent: :destroy
         # @!attribute [rw] affiliations
-        #   @return [ActiveRecord::Relation] the authors of the article
+        #   @return [ActiveRecord::Relation] The authors of the article.
         has_many :affiliations, through: :authorships
 
         # @!attribute [rw] parts
-        #   @return [ActiveRecord::Relation] page parts, see {ArticlesController}
+        #   @return [ActiveRecord::Relation] The page parts associated with this record.
+        #   @see ArticlesController
         has_many :parts, as: :pageable, dependent: :destroy
         accepts_nested_attributes_for :parts, allow_destroy: true
 

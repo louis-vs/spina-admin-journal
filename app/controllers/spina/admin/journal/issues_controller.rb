@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Journal
-      # Controller for {Issue} records
+      # Controller for {Issue} records.
       class IssuesController < ApplicationController
         PARTS = [
           { name: 'cover_img', title: 'Cover Image', partable_type: 'Spina::Image' },

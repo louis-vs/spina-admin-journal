@@ -3,7 +3,16 @@
 module Spina
   module Admin
     module Journal
-      # Join records between partables and pageables
+      # Joins partables and pageables.
+      #
+      # A partable is a model which can be associated with page parts. A pageable is something
+      # that can be a page part.
+      #
+      # === Validators
+      # Uniqueness:: name (scope: pageable)
+      #
+      # @see Journal
+      # @see Article
       class Part < ApplicationRecord
         include ::Spina::Part
         include ::Spina::Optionable

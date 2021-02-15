@@ -5,6 +5,17 @@ module Spina
     module Journal
       # Volumes of a journal.
       # A journal has multiple volumes, a volume can have multiple issues.
+      #
+      # === Validators
+      # Presence:: {#number}
+      # Uniqueness:: {#number} (scope: journal)
+      #
+      # === Scopes
+      # sorted_asc:: sorted in order of increasing number
+      # sorted_desc:: sorted highest number first
+      #
+      # @see Issue
+      # @see Journal
       class Volume < ApplicationRecord
         # @!attribute [rw] number
         #   @return [Integer]

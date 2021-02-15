@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Journal
-      # Custom controller for journal plugin
+      # Custom controller for journal plugin. Sets the layout and adds a flash type.
       class ApplicationController < AdminController
         add_flash_types :success
 

@@ -5,7 +5,7 @@ require 'uri'
 module Spina
   module Admin
     module Journal
-      # A simple validator for URIs
+      # A simple validator for URIs.
       class UriValidator < ActiveModel::EachValidator
         def validate_each(record, attribute, value)
           return if value == '' || value.nil?

@@ -3,7 +3,7 @@
 module Spina
   module Admin
     module Journal
-      # Controller for {Volume} records
+      # Controller for {Volume} records.
       class VolumesController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy]
