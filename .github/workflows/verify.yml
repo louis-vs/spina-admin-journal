@@ -19,9 +19,15 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run linters
+      - name: Setup ESLint
         run: |
-          bin/rails rubocop
+          yarn global add eslint
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+
+      - name: Run RuboCop
+        run: bin/rails rubocop
+      - name: Run ESLint
+        run: eslint --ext .js,.es6 "app/assets/javascripts/**"
 
   tests:
     name: Rails tests
