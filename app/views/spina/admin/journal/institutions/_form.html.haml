@@ -5,7 +5,7 @@
       .notification-message
         = t 'spina.notifications.alert'
         %small= @institution.errors.full_messages.join('<br />').html_safe
-      = link_to '#', data: {close_notification: true} do
+      = link_to '#', data: { close_notification: true } do
         = icon 'cross'
 
 = form_for @institution, html: {autocomplete: "off"} do |f|
@@ -13,17 +13,17 @@
     = render partial: 'spina/admin/shared/breadcrumbs'
 
     #header_actions
-      %button.button.button-primary{type: 'submit', style: 'margin-right: 0', data: {disable_with: t('spina.pages.saving')}}
+      %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
         = icon 'check'
         = t '.save'
-      
-      .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_institutions_path
+
+      .button{ style: 'margin-right: 0' }= link_to t('spina.cancel'), admin_journal_institutions_path
 
     %nav#secondary.tabs
       %ul
         - @tabs.each_with_index do |tab, i|
           %li{ class: ('active' if i == 0) }
             = link_to t(".#{tab}"), "##{tab}"
-  
-  - @tabs.each do |tab|
-    = render "form_#{tab}", f: f
+
+  #details.tab-content.active= render 'form_details', f: f
+  #view_affiliations.tab-content= render 'form_view_affiliations', f: f

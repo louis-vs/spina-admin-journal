@@ -16,7 +16,7 @@
       %button.button.button-primary{type: 'submit', style: 'margin-right: 0', data: {disable_with: t('spina.pages.saving')}}
         = icon 'check'
         = t '.save'
-      
+
       .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_authors_path
 
     %nav#secondary.tabs
@@ -24,6 +24,6 @@
         - @tabs.each_with_index do |tab, i|
           %li{ class: ('active' if i == 0) }
             = link_to t(".#{tab}"), "##{tab}"
-  
-  - @tabs.each do |tab|
-    = render "form_#{tab}", f: f
+
+  #details.tab-content.active= render 'form_details', f: f
+  #articles.tab-content= render 'form_articles', f: f
