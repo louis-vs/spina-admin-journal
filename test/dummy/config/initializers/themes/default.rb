@@ -7,7 +7,27 @@
   theme.parts = [{
     name: 'text',
     title: 'Text',
-    partable_type: 'Spina::Text'
+    part_type: 'Spina::Parts::Text'
+  }, {
+    name: 'abstract',
+    title: 'Abstract',
+    part_type: 'Spina::Parts::Text'
+  }, {
+    name: 'attachment',
+    title: 'Attachment',
+    part_type: 'Spina::Parts::Attachment'
+  }, {
+    name: 'cover_img',
+    title: 'Cover Image',
+    part_type: 'Spina::Parts::Image'
+  }, {
+    name: 'description',
+    title: 'Description',
+    part_type: 'Spina::Parts::Text'
+  }, {
+    name: 'logo',
+    title: 'Logo',
+    part_type: 'Spina::Parts::Image'
   }]
 
   theme.view_templates = [{
