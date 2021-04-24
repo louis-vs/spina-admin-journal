@@ -1,8 +1,6 @@
-#details.tab-content.active
-  .well
-    .horizontal-form
-      = f.fields_for :affiliations, @author.affiliations do |ff|
-        = render 'form_affiliation', ff: ff
+.page-form
+  = f.fields_for :affiliations, @author.affiliations do |ff|
+    .well= render 'form_affiliation', ff: ff
 
-  - unless @author.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_author_path(@author), method: :delete, data: { confirm: t('.delete_confirmation', name: @author.primary_affiliation.name) }, class: 'button button-link button-danger'
+- unless @author.new_record?
+  .pull-right= link_to t('spina.permanently_delete'), admin_journal_author_path(@author), method: :delete, data: { confirm: t('.delete_confirmation', name: @author.primary_affiliation.name) }, class: 'button button-link button-danger'

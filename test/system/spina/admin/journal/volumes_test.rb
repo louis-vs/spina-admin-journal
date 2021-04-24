@@ -48,10 +48,12 @@ module Admin
           click_on 'View'
         end
 
-        click_on 'Permanently delete'
-        find '#overlay', visible: true, style: { display: 'block' }
-        assert_text "Are you sure you want to delete Volume ##{@volume.number}?"
-        click_on 'Yes, I\'m sure'
+        accept_alert do
+          click_on 'Permanently delete'
+        end
+        # find '#overlay', visible: true, style: { display: 'block' }
+        # assert_text "Are you sure you want to delete Volume ##{@volume.number}?"
+        # click_on 'Yes, I\'m sure'
         assert_text 'Volume deleted'
       end
 

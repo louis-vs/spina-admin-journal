@@ -18,7 +18,10 @@ module Spina
       # @see Author
       # @see Authorship
       class Article < ApplicationRecord
-        include Partable
+        include AttrJson::Record
+        include AttrJson::NestedAttributes
+        include Spina::Partable
+        include Spina::TranslatedContent
         # @!attribute [rw] number
         #   @return [Integer] The position of the article within its issue.
         # @!attribute [rw] title
@@ -39,12 +42,6 @@ module Spina
         # @!attribute [rw] affiliations
         #   @return [ActiveRecord::Relation] The authors of the article.
         has_many :affiliations, through: :authorships
-
-        # @!attribute [rw] parts
-        #   @return [ActiveRecord::Relation] The page parts associated with this record.
-        #   @see ArticlesController
-        has_many :parts, as: :pageable, dependent: :destroy
-        accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :number, presence: true, uniqueness: { scope: :issue_id }
         validates :title, presence: true

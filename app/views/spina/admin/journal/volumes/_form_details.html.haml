@@ -1,12 +1,10 @@
-#details.tab-content.active
-  .well
-    .horizontal-form
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::Volume.human_attribute_name :number
-          %small= t '.unchangeable'
-        .horizontal-form-content
-          = f.number_field :number, disabled: true
+.page-form
+  .page-form-group
+    .page-form-label
+      = ::Spina::Admin::Journal::Volume.human_attribute_name :number
+      %small= t '.unchangeable'
+    .page-form-content
+      = f.number_field :number, disabled: true
 
-  - unless @volume.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_volume_path(@volume), method: :delete, data: { confirm: t('.delete_confirmation', number: @volume.number) }, class: 'button button-link button-danger'
+- unless @volume.new_record?
+  .pull-right= link_to t('spina.permanently_delete'), admin_journal_volume_path(@volume), method: :delete, data: { confirm: t('.delete_confirmation', number: @volume.number) }, class: 'button button-link button-danger'

@@ -1,35 +1,32 @@
-#details.tab-content.active
-  .well
-    .horizontal-form
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::Volume.human_attribute_name :number
-        .horizontal-form-content
-          = f.collection_select :volume_id, ::Spina::Admin::Journal::Volume.sorted_desc, :id, :number
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::Issue.human_attribute_name :number
-          %small= t '.issue_unchangeable'
-        .horizontal-form-content
-          = f.number_field :number, disabled: true
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::Issue.human_attribute_name :title
-        .horizontal-form-content
-          = f.text_field :title
-      .horizontal-form-group
-        .horizontal-form-label
-          = ::Spina::Admin::Journal::Issue.human_attribute_name :date
-        .horizontal-form-content
-          = f.date_field :date
-      = f.fields_for :parts do |ff|
-        = ff.hidden_field :id
-        = ff.hidden_field :title
-        = ff.hidden_field :partable_type
-        = ff.hidden_field :name
+.page-form
+  .page-form-group
+    .page-form-label
+      = ::Spina::Admin::Journal::Volume.human_attribute_name :number
+    .page-form-content
+      = f.collection_select :volume_id, ::Spina::Admin::Journal::Volume.sorted_desc, :id, :number
+  .page-form-group
+    .page-form-label
+      = ::Spina::Admin::Journal::Issue.human_attribute_name :number
+      %small= t '.issue_unchangeable'
+    .page-form-content
+      = f.number_field :number, disabled: true
+  .page-form-group
+    .page-form-label
+      = ::Spina::Admin::Journal::Issue.human_attribute_name :title
+    .page-form-content
+      = f.text_field :title
+  .page-form-group
+    .page-form-label
+      = ::Spina::Admin::Journal::Issue.human_attribute_name :date
+    .page-form-content
+      = f.date_field :date
+  = f.fields_for :"#{@locale}_content", @parts do |ff|
+    = ff.hidden_field :type, value: ff.object.class.name
+    = ff.hidden_field :title
+    = ff.hidden_field :name
 
-        .horizontal-form-group.page-part{ data: { name: ff.object.name } }
-          = render "spina/admin/partables/#{partable_type_partial_namespace(ff.object.partable_type)}/form", f: ff
+    .page-form-group.page-part{ data: { name: ff.object.name } }
+      = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.name)}/form", f: ff
 
-  - unless @issue.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_issue_path(@issue), method: :delete, data: { confirm: t('.delete_confirmation', number: @issue.number) }, class: 'button button-link button-danger'
+- unless @issue.new_record?
+  .pull-right= link_to t('spina.permanently_delete'), admin_journal_issue_path(@issue), method: :delete, data: { confirm: t('.delete_confirmation', number: @issue.number) }, class: 'button button-link button-danger'

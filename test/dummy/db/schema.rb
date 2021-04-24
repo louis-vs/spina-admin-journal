@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_12_172449) do
+ActiveRecord::Schema.define(version: 2021_04_24_123555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "robots_allowed", default: false
+    t.jsonb "json_attributes"
   end
 
   create_table "spina_admin_journal_affiliations", force: :cascade do |t|
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
     t.bigint "file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "json_attributes"
     t.index ["file_id"], name: "index_spina_admin_journal_articles_on_file_id"
     t.index ["issue_id"], name: "index_spina_admin_journal_articles_on_issue_id"
   end
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
     t.bigint "cover_img_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "json_attributes"
     t.index ["cover_img_id"], name: "index_spina_admin_journal_issues_on_cover_img_id"
     t.index ["volume_id"], name: "index_spina_admin_journal_issues_on_volume_id"
   end
@@ -121,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
     t.integer "singleton_guard", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "json_attributes"
     t.index ["logo_id"], name: "index_spina_admin_journal_journals_on_logo_id"
     t.index ["singleton_guard"], name: "index_spina_admin_journal_journals_on_singleton_guard", unique: true
   end
@@ -277,6 +281,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
     t.integer "position"
     t.boolean "active", default: true
     t.integer "resource_id"
+    t.jsonb "json_attributes"
     t.index ["resource_id"], name: "index_spina_pages_on_resource_id"
   end
 
@@ -287,6 +292,7 @@ ActiveRecord::Schema.define(version: 2021_02_12_172449) do
     t.string "order_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "slug"
   end
 
   create_table "spina_rewrite_rules", id: :serial, force: :cascade do |t|

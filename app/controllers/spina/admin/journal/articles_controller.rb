@@ -5,10 +5,22 @@ module Spina
     module Journal
       # Controller for {Article} records.
       class ArticlesController < ApplicationController
-        PARTS = [
-          { name: 'abstract', title: 'Abstract', partable_type: 'Spina::Text' },
-          { name: 'attachment', title: 'Attachment', partable_type: 'Spina::Attachment' }
+        PARTS_PARAMS = [
+          :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+          { images_attributes: %i[filename signed_blob_id image_id alt],
+            content_attributes: [
+              :name, :title,
+              { parts_attributes: [
+                :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+                { images_attributes: %i[filename signed_blob_id image_id alt] }
+              ] }
+            ] }
         ].freeze
+        CONTENT_PARAMS = Spina.config.locales.inject({}) do |params, locale|
+          params.merge("#{locale}_content_attributes": [*PARTS_PARAMS])
+        end
+        PARAMS = [:issue_id, :title, :url, :doi, { affiliation_ids: [], **CONTENT_PARAMS }].freeze
+        PARTS = %w[abstract attachment].freeze
 
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
@@ -72,7 +84,7 @@ module Spina
         private
 
         def article_params
-          params.require(:admin_journal_article).permit!
+          params.require(:admin_journal_article).permit(PARAMS)
         end
 
         def sort_params
@@ -99,16 +111,13 @@ module Spina
         end
 
         def set_parts_attributes
-          @parts_attributes = PARTS
+          @parts_attributes = current_theme.parts.select { |part| PARTS.include? part[:name] }
         end
 
         def build_parts
           return unless @parts_attributes.is_a? Array
 
-          @article.parts = @parts_attributes.map do |part_attributes|
-            @article.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
-                    .tap { |part| part.partable ||= part.partable_type.constantize.new }
-          end
+          @parts = @parts_attributes.collect { |part_attributes| @article.part(part_attributes) }
         end
       end
     end
