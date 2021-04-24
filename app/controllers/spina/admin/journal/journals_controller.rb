@@ -60,7 +60,6 @@ module Spina
           return unless @parts_attributes.is_a? Array
 
           @parts = @parts_attributes.collect { |part_attributes| @journal.part(part_attributes) }
-          puts @parts
         end
 
         def journal_params
