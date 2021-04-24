@@ -44,7 +44,7 @@ $ bin/rails active_storage:install
 Add this line to your new application's Gemfile:
 
 ```ruby
-gem 'spina', '~> 1.2'
+gem 'spina', '~> 2.0'
 ```
 
 And then execute:
@@ -66,7 +66,7 @@ And follow the prompts. Once this is complete, follow the instructions below.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'spina-admin-journal', '~> 0.1.0'
+gem 'spina-admin-journal', '~> 0.1'
 ```
 
 And then execute:
