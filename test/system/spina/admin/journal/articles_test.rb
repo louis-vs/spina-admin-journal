@@ -26,7 +26,11 @@ module Spina
           end
           fill_in 'admin_journal_article_title', with: 'New article'
           select 'Volume 1 Issue 1', from: 'admin_journal_article_issue_id'
-          select 'Marcus Atherton', from: 'admin_journal_article_affiliation_ids'
+          within '.collection-check-boxes' do
+            @article.affiliations.each do |affiliation|
+              find("label[for=admin_journal_article_affiliation_ids_#{affiliation.id}]").click
+            end
+          end
 
           # check that authors list is empty
           within 'nav#secondary' do
@@ -65,10 +69,12 @@ module Spina
             click_on 'View'
           end
 
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete '#{@article.title}'?"
-          click_on 'Yes, I\'m sure'
+          accept_alert do
+            click_on 'Permanently delete'
+          end
+          # find '#overlay', visible: true, style: { display: 'block' }
+          # assert_text "Are you sure you want to delete '#{@article.title}'?"
+          # click_on 'Yes, I\'m sure'
           assert_text 'Article deleted'
         end
       end

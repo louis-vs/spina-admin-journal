@@ -22,7 +22,7 @@
       .well{ style: 'margin: 0' }
         .table-container
           %table.table{ style: 'margin: 0' }
-            %tbody
+            %tbody.collection-check-boxes
               = f.collection_check_boxes :affiliation_ids, Spina::Admin::Journal::Affiliation.sorted, :id, :name do |builder|
                 %tr
                   %td{ style: "padding-left: 16px" }

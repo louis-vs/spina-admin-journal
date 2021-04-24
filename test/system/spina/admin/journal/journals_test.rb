@@ -23,10 +23,12 @@ module Spina
 
         test 'destroying the journal' do
           visit edit_admin_journal_journal_path(@journal)
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the journal #{@journal.name}?"
-          click_on 'Yes, I\'m sure'
+          accept_alert do
+            click_on 'Permanently delete'
+          end
+          # find '#overlay', visible: true, style: { display: 'block' }
+          # assert_text "Are you sure you want to delete the journal #{@journal.name}?"
+          # click_on 'Yes, I\'m sure'
           assert_text 'Journal deleted'
         end
       end

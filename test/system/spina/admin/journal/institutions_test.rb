@@ -55,10 +55,12 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @institution.name
           end
-          click_on 'Permanently delete'
-          find '#overlay', visible: true, style: { display: 'block' }
-          assert_text "Are you sure you want to delete the institution #{@institution.name}?"
-          click_on 'Yes, I\'m sure'
+          accept_alert do
+            click_on 'Permanently delete'
+          end
+          # find '#overlay', visible: true, style: { display: 'block' }
+          # assert_text "Are you sure you want to delete the institution #{@institution.name}?"
+          # click_on 'Yes, I\'m sure'
           assert_text 'Institution deleted'
         end
       end
