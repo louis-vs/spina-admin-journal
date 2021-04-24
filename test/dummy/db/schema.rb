@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_170942) do
+ActiveRecord::Schema.define(version: 2021_04_24_123555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_170942) do
     t.bigint "file_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "json_attributes"
     t.index ["file_id"], name: "index_spina_admin_journal_articles_on_file_id"
     t.index ["issue_id"], name: "index_spina_admin_journal_articles_on_issue_id"
   end
@@ -112,6 +113,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_170942) do
     t.bigint "cover_img_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "json_attributes"
     t.index ["cover_img_id"], name: "index_spina_admin_journal_issues_on_cover_img_id"
     t.index ["volume_id"], name: "index_spina_admin_journal_issues_on_volume_id"
   end
@@ -122,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_170942) do
     t.integer "singleton_guard", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "json_attributes"
     t.index ["logo_id"], name: "index_spina_admin_journal_journals_on_logo_id"
     t.index ["singleton_guard"], name: "index_spina_admin_journal_journals_on_singleton_guard", unique: true
   end
