@@ -6,10 +6,20 @@ module Spina
       # Controller for {Journal} records.
       # A site only ever has a single journal, so the index action is not needed.
       class JournalsController < ApplicationController
-        PARTS = [
-          { name: 'logo', title: 'Logo', partable_type: 'Spina::Image' },
-          { name: 'description', title: 'Description', partable_type: 'Spina::Text' }
+        PARTS_PARAMS = [
+          :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+          images_attributes: %i[filename signed_blob_id image_id alt],
+          content_attributes: [
+            :name, :title,
+            parts_attributes: [
+              :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+              images_attributes: %i[filename signed_blob_id image_id alt]
+            ]
+          ]
         ].freeze
+        CONTENT_PARAMS = Spina.config.locales.inject({}) { |params, locale| params.merge("#{locale}_content_attributes": [*PARTS_PARAMS]) }
+        PARAMS = [:name, **CONTENT_PARAMS].freeze
+        PARTS = %w[logo description].freeze
 
         before_action :set_journal
         before_action :set_parts_attributes
@@ -43,20 +53,18 @@ module Spina
         end
 
         def set_parts_attributes
-          @parts_attributes = PARTS
+          @parts_attributes = current_theme.parts.select { |part| PARTS.include? part[:name] }
         end
 
         def build_parts
           return unless @parts_attributes.is_a? Array
 
-          @journal.parts = @parts_attributes.map do |part_attributes|
-            @journal.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
-                    .tap { |part| part.partable ||= part.partable_type.constantize.new }
-          end
+          @parts = @parts_attributes.collect { |part_attributes| @journal.part(part_attributes) }
+          puts @parts
         end
 
         def journal_params
-          params.require(:admin_journal_journal).permit!
+          params.require(:admin_journal_journal).permit(PARAMS)
         end
       end
     end

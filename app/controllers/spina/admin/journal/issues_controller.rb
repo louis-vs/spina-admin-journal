@@ -5,10 +5,20 @@ module Spina
     module Journal
       # Controller for {Issue} records.
       class IssuesController < ApplicationController
-        PARTS = [
-          { name: 'cover_img', title: 'Cover Image', partable_type: 'Spina::Image' },
-          { name: 'description', title: 'Description', partable_type: 'Spina::Text' }
+        PARTS_PARAMS = [
+          :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+          images_attributes: %i[filename signed_blob_id image_id alt],
+          content_attributes: [
+            :name, :title,
+            parts_attributes: [
+              :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+              images_attributes: %i[filename signed_blob_id image_id alt]
+            ]
+          ]
         ].freeze
+        CONTENT_PARAMS = Spina.config.locales.inject({}) { |params, locale| params.merge("#{locale}_content_attributes": [*PARTS_PARAMS]) }
+        PARAMS = [:volume_id, :title, :date, **CONTENT_PARAMS].freeze
+        PARTS = %w[cover_img description].freeze
 
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
@@ -81,7 +91,7 @@ module Spina
         end
 
         def issue_params
-          params.require(:admin_journal_issue).permit(:number, :title, :date, :description, :volume_id, :cover_img_id)
+          params.require(:admin_journal_issue).permit(PARAMS)
         end
 
         def sort_params
@@ -103,16 +113,13 @@ module Spina
         end
 
         def set_parts_attributes
-          @parts_attributes = PARTS
+          @parts_attributes = current_theme.parts.select { |part| PARTS.include? part[:name] }
         end
 
         def build_parts
           return unless @parts_attributes.is_a? Array
 
-          @issue.parts = @parts_attributes.map do |part_attributes|
-            @issue.parts.where(name: part_attributes[:name]).first_or_initialize(**part_attributes)
-                  .tap { |part| part.partable ||= part.partable_type.constantize.new }
-          end
+          @parts = @parts_attributes.collect { |part_attributes| @issue.part(part_attributes) }
         end
       end
     end
