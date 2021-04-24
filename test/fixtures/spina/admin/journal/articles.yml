@@ -10,10 +10,7 @@ new_wave:
       - name: abstract
         title: Abstract
         type: Spina::Parts::Text
-        content:
-          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a ex ac leo interdum
-          dictum eu sed risus. Proin placerat, elit aliquam mattis laoreet, enim risus mollis nunc,
-          at dapibus elit dolor in tortor. Sed sed nunc augue.<\/div>
+        content: <div>Lorem ipsum<\/div>
 
 article_two:
   number: 2

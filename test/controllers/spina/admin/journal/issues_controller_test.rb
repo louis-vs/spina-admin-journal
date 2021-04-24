@@ -60,14 +60,6 @@ module Spina
           assert_equal 'Issue saved.', flash[:success]
         end
 
-        test 'should not update invalid issue' do
-          attributes = @issue.attributes
-          attributes[:number] = nil
-          patch admin_journal_issue_url(@issue), params: { admin_journal_issue: attributes }
-          assert_response :success
-          assert_not_equal 'Issue saved.', flash[:success]
-        end
-
         test 'should destroy issue' do
           assert_difference 'Issue.count', -1 do
             delete admin_journal_issue_url(@issue)
