@@ -7,17 +7,19 @@ module Spina
       class ArticlesController < ApplicationController
         PARTS_PARAMS = [
           :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
-          images_attributes: %i[filename signed_blob_id image_id alt],
-          content_attributes: [
-            :name, :title,
-            parts_attributes: [
-              :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
-              images_attributes: %i[filename signed_blob_id image_id alt]
-            ]
-          ]
+          { images_attributes: %i[filename signed_blob_id image_id alt],
+            content_attributes: [
+              :name, :title,
+              { parts_attributes: [
+                :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+                { images_attributes: %i[filename signed_blob_id image_id alt] }
+              ] }
+            ] }
         ].freeze
-        CONTENT_PARAMS = Spina.config.locales.inject({}) { |params, locale| params.merge("#{locale}_content_attributes": [*PARTS_PARAMS]) }
-        PARAMS = [:issue_id, :title, :url, :doi, affiliation_ids: [], **CONTENT_PARAMS].freeze
+        CONTENT_PARAMS = Spina.config.locales.inject({}) do |params, locale|
+          params.merge("#{locale}_content_attributes": [*PARTS_PARAMS])
+        end
+        PARAMS = [:issue_id, :title, :url, :doi, { affiliation_ids: [], **CONTENT_PARAMS }].freeze
         PARTS = %w[abstract attachment].freeze
 
         before_action :set_breadcrumb

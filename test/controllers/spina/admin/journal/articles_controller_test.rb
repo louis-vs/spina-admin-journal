@@ -69,7 +69,9 @@ module Spina
           attributes[:'en-GB_content_attributes'] = [
             { name: 'abstract', title: 'Abstract', content: '<div>Dolor sit amet</div>', type: 'Spina::Parts::Text' }
           ]
-          assert_changes -> { @article.reload.content('abstract') }, from: '<div>Lorem ipsum</div>', to: '<div>Dolor sit amet</div>' do
+          assert_changes lambda {
+                           @article.reload.content('abstract')
+                         }, from: '<div>Lorem ipsum</div>', to: '<div>Dolor sit amet</div>' do
             patch admin_journal_article_url(@article), params: { admin_journal_article: attributes }
           end
         end
