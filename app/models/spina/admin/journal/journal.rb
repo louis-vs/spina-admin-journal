@@ -12,7 +12,10 @@ module Spina
       # Presence:: {#name}, {#singleton_guard}
       # Uniqueness:: {#name}, {#singleton_guard}
       class Journal < ApplicationRecord
-        include Partable
+        include AttrJson::Record
+        include AttrJson::NestedAttributes
+        include Spina::Partable
+        include Spina::TranslatedContent
         # @!attribute [rw] name
         #   @return [String] The name of the journal.
         # @!attribute [rw] singleton_guard
@@ -24,12 +27,6 @@ module Spina
         # @!attribute [rw] volumes
         #   @return [ActiveRecord::Relation] directly associated volumes
         has_many :volumes, dependent: :destroy
-
-        # @!attribute [rw] parts
-        #   @return [ActiveRecord::Relation] The page parts associated with this record.
-        #   @see JournalsController
-        has_many :parts, as: :pageable, dependent: :destroy
-        accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :name, presence: true, uniqueness: true
         validates :singleton_guard, presence: true, uniqueness: true

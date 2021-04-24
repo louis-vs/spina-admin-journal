@@ -17,7 +17,10 @@ module Spina
       # @see Article
       # @see Volume
       class Issue < ApplicationRecord
-        include Partable
+        include AttrJson::Record
+        include AttrJson::NestedAttributes
+        include Spina::Partable
+        include Spina::TranslatedContent
         # @!attribute [rw] number
         #   @return [Integer] The number
         # @!attribute [rw] title
@@ -34,11 +37,6 @@ module Spina
         # @!attribute [rw] issue
         #   @return [ActiveRecord::Relation] the articles within this issue
         has_many :articles, dependent: :destroy
-
-        # @!attribute [rw] parts
-        #   @return [ActiveRecord::Relation] page parts, see {ArticlesController}
-        has_many :parts, as: :pageable, dependent: :destroy
-        accepts_nested_attributes_for :parts, allow_destroy: true
 
         validates :number, presence: true, uniqueness: { scope: :volume_id }
         validates :date, presence: true
