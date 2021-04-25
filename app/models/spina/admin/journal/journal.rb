@@ -20,9 +20,6 @@ module Spina
         #   @return [String] The name of the journal.
         # @!attribute [rw] singleton_guard
         #   @return [Integer] Used to guarantee that a record is unique.
-        # @!attribute [rw] logo
-        #   @return [Spina::Image, nil] The Spina::Image representing the logo of the journal.
-        belongs_to :logo, class_name: 'Spina::Image', optional: true
 
         # @!attribute [rw] volumes
         #   @return [ActiveRecord::Relation] directly associated volumes

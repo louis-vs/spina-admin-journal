@@ -30,9 +30,6 @@ module Spina
         # @!attribute [rw] volume
         #   @return [ActiveRecord::Relation] the volume that contains this issue
         belongs_to :volume
-        # @!attribute [rw] cover_img
-        #   @return [Spina::Image, nil] the issue's cover image
-        belongs_to :cover_img, class_name: 'Spina::Image', optional: true
 
         # @!attribute [rw] issue
         #   @return [ActiveRecord::Relation] the articles within this issue

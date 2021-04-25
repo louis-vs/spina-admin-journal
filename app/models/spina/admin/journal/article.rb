@@ -33,9 +33,6 @@ module Spina
         # @!attribute [rw] issue
         #   @return [Issue] The issue that contains this article.
         belongs_to :issue
-        # @!attribute [rw] file
-        #   @return [Spina::Attachment] The attached file
-        belongs_to :file, class_name: 'Spina::Attachment', optional: true
 
         # @!attribute [rw] authorships
         has_many :authorships, dependent: :destroy
