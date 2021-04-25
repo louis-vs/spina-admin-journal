@@ -21,11 +21,6 @@ module Spina
           assert_nil @new_article.issue
         end
 
-        test 'article has associated file' do
-          assert_not_nil @article.file
-          assert_nil @new_article.file
-        end
-
         test 'should destroy dependent authorships when destroyed' do
           assert_difference 'Authorship.count', -1 * @article.authorships.count do
             @article.destroy
@@ -71,14 +66,6 @@ module Spina
           @article.doi = nil
           assert @article.valid?
           assert_empty @article.errors[:doi]
-        end
-
-        test 'file may be empty' do
-          assert @article.valid?
-          assert_empty @article.errors[:file]
-          @article.file = nil
-          assert @article.valid?
-          assert_empty @article.errors[:file]
         end
       end
     end

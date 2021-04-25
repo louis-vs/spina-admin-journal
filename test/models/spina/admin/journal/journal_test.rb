@@ -23,14 +23,6 @@ module Spina
           assert_empty @journal.errors[:base]
         end
 
-        test 'logo may be empty' do
-          assert @journal.valid?
-          assert_empty @journal.errors[:logo]
-          @journal.logo = nil
-          assert @journal.valid?
-          assert_empty @journal.errors[:logo]
-        end
-
         test 'should return unique instance' do
           assert_equal @journal, Journal.instance
         end

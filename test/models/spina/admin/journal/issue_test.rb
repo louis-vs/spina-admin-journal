@@ -21,11 +21,6 @@ module Spina
           assert_nil @new_issue.volume
         end
 
-        test 'issue has associated cover image' do
-          assert_not_nil @issue.cover_img
-          assert_nil @new_issue.cover_img
-        end
-
         test 'should destroy dependent articles when destroyed' do
           assert_difference 'Article.count', -1 * @issue.articles.count do
             @issue.destroy
@@ -63,14 +58,6 @@ module Spina
           @issue.title = nil
           assert @issue.valid?
           assert_empty @issue.errors[:title]
-        end
-
-        test 'cover_img may be empty' do
-          assert @issue.valid?
-          assert_empty @issue.errors[:cover_img]
-          @issue.cover_img = nil
-          assert @issue.valid?
-          assert_empty @issue.errors[:cover_img]
         end
       end
     end
