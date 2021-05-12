@@ -5,13 +5,16 @@ require 'test_helper'
 module Spina
   module Admin
     module Journal
-      class AuthorsControllerTest < ActionDispatch::IntegrationTest
+      class AuthorsControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
         include ::Spina::Engine.routes.url_helpers
 
         setup do
           # fixtures
           @author = spina_admin_journal_authors :marcus
           @institutions = spina_admin_journal_institutions :rockbottom, :miami
+          @article = spina_admin_journal_articles :article_two
+          @article_authorship_one = spina_admin_journal_authorships :two
+          @article_authorship_two = spina_admin_journal_authorships :three
           @user = spina_users :admin
           post admin_sessions_url, params: { email: @user.email, password: 'password' }
         end
@@ -100,6 +103,47 @@ module Spina
           end
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author deleted.', flash[:success]
+        end
+
+        test 'should sort if given valid order' do
+          data = {
+            admin_journal_authorships: {
+              list: {
+                @article_authorship_two.id.to_s => '1',
+                @article_authorship_one.id.to_s => '2'
+              }
+            }
+          }
+          patch sort_admin_journal_authors_url(@article), params: data
+          assert_equal 1, Authorship.find(@article_authorship_two.id).position
+          assert_equal 2, Authorship.find(@article_authorship_one.id).position
+        end
+
+        test 'should not sort if given invalid order' do
+          data = {
+            admin_journal_authorships: {
+              list: {
+                @article_authorship_two.id.to_s => '1',
+                @article_authorship_one.id.to_s => '1'
+              }
+            }
+          }
+          patch sort_admin_journal_authors_url(@article), params: data
+          assert_equal 1, Authorship.find(@article_authorship_one.id).position
+          assert_equal 2, Authorship.find(@article_authorship_two.id).position
+        end
+
+        test 'sort should respond with error message if provided invalid order' do
+          data = {
+            admin_journal_authorships: {
+              list: {
+                @article_authorship_two.id.to_s => '1',
+                @article_authorship_one.id.to_s => '1'
+              }
+            }
+          }
+          patch sort_admin_journal_authors_url(@article), params: data
+          assert_not JSON.parse(response.body)['success']
         end
       end
     end

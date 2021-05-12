@@ -8,6 +8,7 @@ module Spina
       class ArticlesTest < ApplicationSystemTestCase
         setup do
           @article = spina_admin_journal_articles :new_wave
+          @article_with_multiple_authors = spina_admin_journal_articles :article_two
           authenticate
         end
 
@@ -76,6 +77,19 @@ module Spina
           # assert_text "Are you sure you want to delete '#{@article.title}'?"
           # click_on 'Yes, I\'m sure'
           assert_text 'Article deleted'
+        end
+
+        test 'reordering authorships' do
+          visit edit_admin_journal_article_path(@article_with_multiple_authors)
+
+          within 'nav#secondary' do
+            click_on 'Authors'
+          end
+
+          list = find_all('tr[draggable=true]')
+          list.last.drag_to list.first, html5: true
+
+          assert_text 'Sorted successfully'
         end
       end
     end
