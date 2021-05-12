@@ -100,6 +100,9 @@ en:
             saved: Author saved.
           destroy:
             deleted: Author deleted.
+          sort:
+            sort_success: Sorted successfully!
+            sort_error: There was an error when sorting. Check the server logs for more information.
           form:
             save: Save author
           form_details:
@@ -145,12 +148,15 @@ en:
       spina/admin/journal/article:
         one: Article
         other: Articles
+      spina/admin/journal/authorship:
+        one: Authorship
+        other: Authorships
+      spina/admin/journal/affiliation:
+        one: Affiliation
+        other: Affiliations
       spina/admin/journal/author:
         one: Author
         other: Authors
-      spina/admin/journal/author_name:
-        one: Author name
-        other: Author names
       spina/admin/journal/institution:
         one: Institution
         other: Institutions
@@ -169,8 +175,9 @@ en:
         title: Title
         url: URL
         doi: DOI
+      spina/admin/journal/authorship:
+        position: Position
       spina/admin/journal/author:
-      spina/admin/journal/author_name:
       spina/admin/journal/institution:
         name: Institution Name
 

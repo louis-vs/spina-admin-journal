@@ -46,6 +46,20 @@ module Spina
           end
         end
 
+        def sort
+          ActiveRecord::Base.transaction do
+            sort_params.each do |id, new_pos|
+              # ignore uniqueness validation for now
+              Authorship.find(id.to_i).update_attribute(:position, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
+            end
+            # do validations after reordering is complete
+            validate_sort_order
+          end
+          render json: { success: true, message: t('.sort_success') }
+        rescue ActiveRecord::RecordInvalid
+          render json: { success: false, message: t('.sort_error') }
+        end
+
         private
 
         def author_params
@@ -65,6 +79,10 @@ module Spina
           new_params
         end
 
+        def sort_params
+          params.require(:admin_journal_authorships).require(:list).permit!
+        end
+
         def set_breadcrumb
           add_breadcrumb Author.model_name.human(count: :many), admin_journal_authors_path
         end
@@ -76,6 +94,12 @@ module Spina
         def set_author
           @author = Author.find(params[:id])
           add_breadcrumb @author.primary_affiliation.name
+        end
+
+        def validate_sort_order
+          Authorship.where(article_id: params[:article_id]).each do |authorship|
+            raise ActiveRecord::RecordInvalid if authorship.invalid?
+          end
         end
       end
     end

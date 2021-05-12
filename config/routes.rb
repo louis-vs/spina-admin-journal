@@ -13,9 +13,11 @@ Spina::Engine.routes.draw do
       resources :articles, except: %i[show] do
         patch 'sort/:issue_id' => 'articles#sort', as: :sort, on: :collection
       end
+      resources :authors, except: %i[show] do
+        patch 'sort/:article_id' => 'authors#sort', as: :sort, on: :collection
+      end
 
       resources :institutions, except: %i[show]
-      resources :authors, except: %i[show]
     end
   end
 end

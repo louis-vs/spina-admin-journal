@@ -1,10 +1,15 @@
+.sort-message
 .table-container
   %table.table
     %thead
       %tr
+        %th= ::Spina::Admin::Journal::Affiliation.human_attribute_name :position
         %th= ::Spina::Admin::Journal::Affiliation.human_attribute_name :name
         %th= ::Spina::Admin::Journal::Affiliation.human_attribute_name :institution
         %th= t '.number_of_articles'
         %th
-    %tbody
-      = render @article.affiliations.any? ? @article.affiliations : 'empty_list', message: t('.no_authors')
+    %tbody.html5sortable{ data: { id: @article.id, sorted_collection: 'admin_journal_authorships', sort_url: !@article.id.nil? && sort_admin_journal_authors_url(@article) } }
+      - if @article.authorships.any?
+        = render @article.authorships.sorted_within_article
+      - else
+        = render 'empty_list', message: t('.no_authors')
