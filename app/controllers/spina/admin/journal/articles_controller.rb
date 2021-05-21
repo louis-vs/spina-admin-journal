@@ -19,7 +19,7 @@ module Spina
         CONTENT_PARAMS = Spina.config.locales.inject({}) do |params, locale|
           params.merge("#{locale}_content_attributes": [*PARTS_PARAMS])
         end
-        PARAMS = [:issue_id, :title, :url, :doi, { affiliation_ids: [], **CONTENT_PARAMS }].freeze
+        PARAMS = [:issue_id, :title, :url, :doi, :status, { affiliation_ids: [], **CONTENT_PARAMS }].freeze
         PARTS = %w[abstract attachment].freeze
 
         before_action :set_breadcrumb

@@ -38,6 +38,7 @@ module Spina
           attributes[:title] = 'New Article'
           attributes[:number] = 3
           attributes[:issue_id] = @article.issue_id
+          attributes[:status] = :published
           assert_difference 'Article.count' do
             post admin_journal_articles_url, params: { admin_journal_article: attributes }
           end
