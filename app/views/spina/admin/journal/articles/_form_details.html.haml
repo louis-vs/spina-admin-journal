@@ -17,6 +17,11 @@
       = f.text_field :title
   .page-form-group
     .page-form-label
+      = Spina::Admin::Journal::Article.human_attribute_name :status
+    .page-form-content
+      = f.select :status, Spina::Admin::Journal::Article.statuses.keys.map { |key| [key.humanize, key] }
+  .page-form-group
+    .page-form-label
       = ::Spina::Admin::Journal::Author.model_name.human count: :many
     .page-form-content
       .well{ style: 'margin: 0' }

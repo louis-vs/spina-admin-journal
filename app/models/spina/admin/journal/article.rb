@@ -7,12 +7,13 @@ module Spina
       #
       # === Validators
       # Presence:: {#number}, {#title}
-      # Uniqueness:: {#number} (scope: issue)
+      # Uniqueness:: {#number} (scope: issue) {status}
       # URI:: {#url}
       #
       # === Scopes
       # sorted_asc:: sorted in order of increasing number
       # sorted_desc:: sorted highest number first
+      # visible:: articles that should be visible to the public
       #
       # @see Issue
       # @see Author
@@ -40,12 +41,23 @@ module Spina
         #   @return [ActiveRecord::Relation] The authors of the article.
         has_many :affiliations, through: :authorships
 
+        # @!attribute [rw] status
+        #   @return [Integer] th currnt status of the article
+        enum status: { published: 0, draft: 1 }
+
         validates :number, presence: true, uniqueness: { scope: :issue_id }
         validates :title, presence: true
         validates :url, 'spina/admin/journal/uri': true
+        validates :status, presence: true
 
+        scope :visible, -> { where(status: :published) }
         scope :sorted_asc, -> { includes(:issue).order('spina_admin_journal_issues.number ASC', number: :asc) }
         scope :sorted_desc, -> { includes(:issue).order('spina_admin_journal_issues.number DESC', number: :desc) }
+
+        # Returns true if the article should be visible to end users (i.e. is not a draft).
+        def visible?
+          published?
+        end
       end
     end
   end
