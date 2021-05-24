@@ -20,7 +20,7 @@ module Spina
           params.merge("#{locale}_content_attributes": [*PARTS_PARAMS])
         end
         PARAMS = [:volume_id, :title, :date, { **CONTENT_PARAMS }].freeze
-        PARTS = %w[cover_img description].freeze
+        PARTS = %w[cover_img description attachment].freeze
 
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
