@@ -76,14 +76,18 @@ module Spina
           assert_not_empty @article.errors[:status]
         end
 
-        test 'visible scope should only return published articles' do
+        test 'visible scope should only return visible articles' do
           visible_articles = Article.visible
-          visible_articles.each { |article| assert article.published? }
-          assert Article.visible.count + Article.where.not(status: :published).count == Article.count
+          visible_articles.each { |article| assert(article.published? || article.meta?) }
+          assert Article.visible.count + Article.where.not(status: %i[published meta]).count == Article.count
         end
 
         test 'article should have visible? property' do
           @article.published!
+          assert_nothing_raised do
+            assert_equal true, @article.visible?
+          end
+          @article.meta!
           assert_nothing_raised do
             assert_equal true, @article.visible?
           end
