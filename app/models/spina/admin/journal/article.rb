@@ -42,21 +42,21 @@ module Spina
         has_many :affiliations, through: :authorships
 
         # @!attribute [rw] status
-        #   @return [Integer] th currnt status of the article
-        enum status: { published: 0, draft: 1 }
+        #   @return [Integer] the current status of the article
+        enum status: { published: 0, draft: 1, meta: 2 }
 
         validates :number, presence: true, uniqueness: { scope: :issue_id }
         validates :title, presence: true
         validates :url, 'spina/admin/journal/uri': true
         validates :status, presence: true
 
-        scope :visible, -> { where(status: :published) }
+        scope :visible, -> { where(status: %i[published meta]) }
         scope :sorted_asc, -> { includes(:issue).order('spina_admin_journal_issues.number ASC', number: :asc) }
         scope :sorted_desc, -> { includes(:issue).order('spina_admin_journal_issues.number DESC', number: :desc) }
 
         # Returns true if the article should be visible to end users (i.e. is not a draft).
         def visible?
-          published?
+          published? || meta?
         end
       end
     end
