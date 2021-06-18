@@ -21,6 +21,11 @@ module Spina
           assert_nil @new_article.issue
         end
 
+        test 'article has associated licence' do
+          assert_not_nil @article.licence
+          assert_nil @new_article.licence
+        end
+
         test 'should destroy dependent authorships when destroyed' do
           assert_difference 'Authorship.count', -1 * @article.authorships.count do
             @article.destroy

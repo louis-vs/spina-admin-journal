@@ -1,0 +1,27 @@
+cc_by:
+  name: Creative Commons Attribution Licence
+  abbreviated_name: CC-BY 4.0
+  json_attributes:
+    en-GB_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+        content:
+          <div>Do anything you want, so long as you say I did it first.<\/div>
+      - name: url
+        title: URL
+        type: Spina::Parts::Line
+        content: https://example.org/
+
+gplv3:
+  name: GNU Public Licence version 3
+  abbreviated_name: GPLv3
+
+custom:
+  name: My first licence
+  json_attributes:
+    en-GB_content:
+      - name: text
+        title: Text
+        type: Spina::Parts::Text
+        content: <div>Licences are easy!<\/div>
