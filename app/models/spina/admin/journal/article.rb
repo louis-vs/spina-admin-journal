@@ -34,6 +34,9 @@ module Spina
         # @!attribute [rw] issue
         #   @return [Issue] The issue that contains this article.
         belongs_to :issue
+        # @!attribute [rw] licence
+        #   @return [Licence] the licence under which the article is released
+        belongs_to :licence, optional: true
 
         # @!attribute [rw] authorships
         has_many :authorships, dependent: :destroy

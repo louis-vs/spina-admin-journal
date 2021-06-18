@@ -25,3 +25,5 @@
         = link_to ::Spina::Admin::Journal::Author.model_name.human(count: :many), admin_journal_authors_path
       %li{ class: ('active' if %w[institutions].include? controller_name) }
         = link_to ::Spina::Admin::Journal::Institution.model_name.human(count: :many), admin_journal_institutions_path
+      %li{ class: ('active' if %w[licences].include? controller_name) }
+        = link_to ::Spina::Admin::Journal::Licence.model_name.human(count: :many), admin_journal_licences_path

@@ -28,6 +28,10 @@
     name: 'logo',
     title: 'Logo',
     part_type: 'Spina::Parts::Image'
+  }, {
+    name: 'url',
+    title: 'URL',
+    part_type: 'Spina::Parts::Line'
   }]
 
   theme.view_templates = [{
