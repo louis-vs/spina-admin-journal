@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spina-admin-journal (0.4.2)
+    spina-admin-journal (0.5.0)
       babel-transpiler (~> 0.7)
       rails (~> 6.1)
       rails-i18n (~> 6.0)
