@@ -134,6 +134,20 @@ en:
             delete_confirmation:
               "Are you sure you want to delete the institution <strong>%{name}</strong>?
               This action is irreversible, and will delete all associated affiliations. Authors will not be deleted."
+        licences:
+          new:
+            new: New licence
+          create:
+            saved: Licence saved.
+          update:
+            saved: Licence saved.
+          destroy:
+            deleted: Licence deleted.
+          form:
+            save: Save licence
+            delete_confirmation:
+              "Are you sure you want to delete the licence <strong>%{name}</strong>?"
+
   activerecord:
     models:
       spina/admin/journal/journal:
@@ -160,6 +174,9 @@ en:
       spina/admin/journal/institution:
         one: Institution
         other: Institutions
+      spina/admin/journal/licence:
+        one: Licence
+        other: Licences
     attributes:
       spina/admin/journal/journal:
         name: Name
@@ -180,6 +197,9 @@ en:
       spina/admin/journal/author:
       spina/admin/journal/institution:
         name: Institution Name
+      spina/admin/journal/licence:
+        name: Licence Name
+        abbreviated_name: Short Name
 
   date:
     formats:

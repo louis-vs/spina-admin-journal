@@ -1,0 +1,11 @@
+%tr{ data: { id: licence.id } }
+  %td
+    = link_to licence.name, edit_admin_journal_licence_path(licence)
+  %td
+    = licence.abbreviated_name
+  %td
+    = licence.articles.count
+  %td.nowrap.align-right
+    = link_to edit_admin_journal_licence_path(licence), class: 'button button-link' do
+      = icon 'pencil-outline'
+      = t '.edit'

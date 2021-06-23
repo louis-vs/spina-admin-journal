@@ -18,6 +18,7 @@ Spina::Engine.routes.draw do
       end
 
       resources :institutions, except: %i[show]
+      resources :licences, except: %i[show]
     end
   end
 end

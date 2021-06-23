@@ -5,6 +5,7 @@ new_wave:
   doi: link
   issue: vol1_issue1
   status: 0
+  licence: cc_by
   json_attributes:
     en-GB_content:
       - name: abstract

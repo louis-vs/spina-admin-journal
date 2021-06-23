@@ -1,0 +1,43 @@
+- if @licence.errors.any?
+  - content_for :notifications do
+    .notification.notification-danger.animated.fadeInRight
+      = icon 'exclamation'
+      .notification-message
+        = t 'spina.notifications.alert'
+        %small= @licence.errors.full_messages.join('<br />').html_safe
+      = link_to '#', data: { close_notification: true } do
+        = icon 'cross'
+
+= form_for @licence, html: { autocomplete: 'off' } do |f|
+  %header#header
+    = render partial: 'spina/admin/shared/breadcrumbs'
+
+    #header_actions
+      %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
+        = icon 'check'
+        = t '.save'
+
+      .button{ style: 'margin-right: 0' }= link_to t('spina.cancel'), admin_journal_licences_path
+
+  .page-form
+    .page-form-group
+      .page-form-label
+        = ::Spina::Admin::Journal::Licence.human_attribute_name :name
+      .page-form-content
+        = f.text_field :name
+    .page-form-group
+      .page-form-label
+        = ::Spina::Admin::Journal::Licence.human_attribute_name :abbreviated_name
+      .page-form-content
+        = f.text_field :abbreviated_name
+
+    = f.fields_for :"#{@locale}_content", @parts do |ff|
+      = ff.hidden_field :type, value: ff.object.class.name
+      = ff.hidden_field :title
+      = ff.hidden_field :name
+
+      .page-form-group.page-part{ data: { name: ff.object.name } }
+        = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.name)}/form", f: ff
+
+  - unless @licence.new_record?
+    .pull-right= link_to t('spina.permanently_delete'), admin_journal_licence_path(@licence), method: :delete, data: { confirm: t('.delete_confirmation', name: @licence.name) }, class: 'button button-link button-danger'
