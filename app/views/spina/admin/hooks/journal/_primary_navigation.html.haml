@@ -1,7 +1,7 @@
 %li{ class: ('active' if %w[articles issues volumes].include? controller_name) }
   = link_to admin_journal_volumes_path do
     = icon 'pages'
-    = ::Spina::Admin::Journal::Journal.instance.name
+    = ::Spina::Admin::Journal::Journal.instance.has_content?(:journal_abbreviation) ? ::Spina::Admin::Journal::Journal.instance.content(:journal_abbreviation) : ::Spina::Admin::Journal::Journal.instance.name
     = icon 'caret-right'
 
     %ul
@@ -12,7 +12,7 @@
       %li{ class: ('active' if %w[articles].include? controller_name) }
         = link_to ::Spina::Admin::Journal::Article.model_name.human(count: :many), admin_journal_articles_path
 
-%li{ class: ('active' if %w[journals authors institutions].include? controller_name) }
+%li{ class: ('active' if %w[journals authors institutions licences].include? controller_name) }
   = link_to edit_admin_journal_journal_path(::Spina::Admin::Journal::Journal.instance.id) do
     = icon 'dots'
     = t 'spina.admin.journal.navigation_title'
