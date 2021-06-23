@@ -5,6 +5,10 @@
   theme.title = 'Default Theme'
 
   theme.parts = [{
+    name: 'name',
+    title: 'Name',
+    part_type: 'Spina::Parts::Line'
+  },{
     name: 'text',
     title: 'Text',
     part_type: 'Spina::Parts::Text'
@@ -32,6 +36,15 @@
     name: 'url',
     title: 'URL',
     part_type: 'Spina::Parts::Line'
+  }, {
+    name: 'documents',
+    title: 'Documents',
+    part_type: 'Spina::Parts::Repeater',
+    parts: %w[name attachment]
+  }, {
+    name: 'journal_abbreviation',
+    title: 'Journal Abbreviation',
+    part_type: 'Spina::Parts::Line',
   }]
 
   theme.view_templates = [{
