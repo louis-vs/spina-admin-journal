@@ -8,7 +8,7 @@
     name: 'name',
     title: 'Name',
     part_type: 'Spina::Parts::Line'
-  },{
+  }, {
     name: 'text',
     title: 'Text',
     part_type: 'Spina::Parts::Text'
@@ -44,7 +44,7 @@
   }, {
     name: 'journal_abbreviation',
     title: 'Journal Abbreviation',
-    part_type: 'Spina::Parts::Line',
+    part_type: 'Spina::Parts::Line'
   }]
 
   theme.view_templates = [{
