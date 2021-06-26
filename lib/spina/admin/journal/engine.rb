@@ -11,6 +11,10 @@ module Spina
             plugin.namespace = 'journal'
           end
         end
+
+        config.after_initialize do
+          Spina::Part.register Spina::Parts::Admin::Journal::PageRange
+        end
       end
     end
   end
