@@ -45,6 +45,10 @@
     name: 'journal_abbreviation',
     title: 'Journal Abbreviation',
     part_type: 'Spina::Parts::Line'
+  }, {
+    name: 'issn',
+    title: 'ISSN',
+    part_type: 'Spina::Parts::Line'
   }]
 
   theme.view_templates = [{
