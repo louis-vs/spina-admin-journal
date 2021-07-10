@@ -7,6 +7,7 @@ module Spina
       class ArticlesController < ApplicationController
         PARTS_PARAMS = [
           :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
+          :first_page, :last_page,
           { images_attributes: %i[filename signed_blob_id image_id alt],
             content_attributes: [
               :name, :title,
@@ -20,7 +21,7 @@ module Spina
           params.merge("#{locale}_content_attributes": [*PARTS_PARAMS])
         end
         PARAMS = [:issue_id, :licence_id, :title, :url, :doi, :status, { affiliation_ids: [], **CONTENT_PARAMS }].freeze
-        PARTS = %w[abstract attachment].freeze
+        PARTS = %w[abstract attachment page_range].freeze
 
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]

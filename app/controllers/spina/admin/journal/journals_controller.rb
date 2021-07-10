@@ -21,7 +21,7 @@ module Spina
           params.merge("#{locale}_content_attributes": [*PARTS_PARAMS])
         end
         PARAMS = [:name, { **CONTENT_PARAMS }].freeze
-        PARTS = %w[journal_abbreviation logo description documents].freeze
+        PARTS = %w[journal_abbreviation logo description documents issn].freeze
 
         before_action :set_journal
         before_action :set_parts_attributes
