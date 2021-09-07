@@ -102,7 +102,7 @@ GEM
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
     childprocess (3.0.0)
-    codecov (0.5.2)
+    codecov (0.6.0)
       simplecov (>= 0.15, < 0.22)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
@@ -113,7 +113,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    docile (1.3.5)
+    docile (1.4.0)
     erubi (1.10.0)
     erubis (2.7.0)
     execjs (2.8.1)
@@ -278,7 +278,7 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
-    simplecov_json_formatter (0.1.2)
+    simplecov_json_formatter (0.1.3)
     spina (2.0.2)
       ancestry
       attr_json
