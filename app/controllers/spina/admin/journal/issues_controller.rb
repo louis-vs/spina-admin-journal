@@ -4,7 +4,8 @@ module Spina
   module Admin
     module Journal
       # Controller for {Issue} records.
-      class IssuesController < ApplicationController
+      # TODO: extract methods to helpers to reduce class length
+      class IssuesController < ApplicationController # rubocop:disable Metrics/ClassLength
         PARTS_PARAMS = [
           :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
           { images_attributes: %i[filename signed_blob_id image_id alt],
