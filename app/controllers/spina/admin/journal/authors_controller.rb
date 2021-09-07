@@ -16,6 +16,7 @@ module Spina
         def new
           @author = Author.new
           @author.affiliations << Affiliation.new(status: :primary)
+          add_breadcrumb t('.new')
         end
 
         def edit; end
