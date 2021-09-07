@@ -11,4 +11,4 @@
           %th= ::Spina::Admin::Journal::Article.human_attribute_name :title
           %th
       %tbody.html5sortable{ data: { id: @issue.id, sorted_collection: 'admin_journal_articles', sort_url: !@issue.id.nil? && sort_admin_journal_articles_url(@issue) } }
-        = render @issue.articles.any? ? @issue.articles : 'empty_list', message: t('.no_articles')
+        = render @articles && @articles.any? ? @articles : 'empty_list', message: t('.no_articles')

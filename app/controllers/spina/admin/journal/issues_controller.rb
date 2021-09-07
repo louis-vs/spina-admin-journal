@@ -4,7 +4,8 @@ module Spina
   module Admin
     module Journal
       # Controller for {Issue} records.
-      class IssuesController < ApplicationController
+      # TODO: extract methods to helpers to reduce class length
+      class IssuesController < ApplicationController # rubocop:disable Metrics/ClassLength
         PARTS_PARAMS = [
           :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
           { images_attributes: %i[filename signed_blob_id image_id alt],
@@ -25,6 +26,7 @@ module Spina
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
         before_action :set_issue, only: %i[edit update destroy]
+        before_action :set_articles, only: %i[edit update]
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
@@ -90,6 +92,10 @@ module Spina
 
         def set_issue
           @issue = Issue.find(params[:id])
+        end
+
+        def set_articles
+          @articles = @issue.articles.sorted_asc
         end
 
         def issue_params
