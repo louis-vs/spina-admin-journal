@@ -25,6 +25,7 @@ module Spina
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
         before_action :set_issue, only: %i[edit update destroy]
+        before_action :set_articles, only: %i[edit update]
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
@@ -90,6 +91,10 @@ module Spina
 
         def set_issue
           @issue = Issue.find(params[:id])
+        end
+
+        def set_articles
+          @articles = @issue.articles.sorted_asc
         end
 
         def issue_params
