@@ -43,7 +43,7 @@ module Spina
             }
           }
           assert_difference -> { Author.count } => 1, -> { Affiliation.count } => 2 do
-            post admin_journal_authors_url, params: { admin_journal_author: attributes }
+            post admin_journal_authors_url, params: { author: attributes }
           end
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]
@@ -57,7 +57,7 @@ module Spina
             }
           }
           assert_no_difference %w[Author.count Affiliation.count] do
-            post admin_journal_authors_url, params: { admin_journal_author: attributes }
+            post admin_journal_authors_url, params: { author: attributes }
           end
           assert_response :success
           assert_not_equal 'Author saved.', flash[:success]
@@ -69,7 +69,7 @@ module Spina
             [index.to_s, affiliation.attributes]
           end.to_h
           attributes['affiliations_attributes']['0']['first_name'] = 'testing name'
-          patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
+          patch admin_journal_author_url(@author), params: { author: attributes }
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]
           assert_equal 1, Affiliation.where(first_name: 'testing name', author_id: @author.id).count
@@ -81,7 +81,7 @@ module Spina
           attributes['affiliations_attributes'] = @author.affiliations.to_a.map.with_index do |affiliation, index|
             [index.to_s, affiliation.attributes]
           end.to_h
-          patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
+          patch admin_journal_author_url(@author), params: { author: attributes }
           assert_redirected_to admin_journal_authors_url
           assert_equal 'Author saved.', flash[:success]
         end
@@ -92,7 +92,7 @@ module Spina
             [index.to_s, affiliation.attributes]
           end.to_h
           attributes['affiliations_attributes']['0']['first_name'] = nil
-          patch admin_journal_author_url(@author), params: { admin_journal_author: attributes }
+          patch admin_journal_author_url(@author), params: { author: attributes }
           assert_response :success
           assert_not_equal 'Author saved.', flash[:success]
         end

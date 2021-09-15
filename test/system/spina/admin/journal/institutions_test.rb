@@ -24,7 +24,7 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New institution'
           end
-          fill_in 'admin_journal_institution_name', with: 'New institution'
+          fill_in 'institution_name', with: 'New institution'
 
           # check that affiliations list is empty
           click_on 'View Affiliations'
@@ -42,7 +42,7 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @institution.name
           end
-          fill_in 'admin_journal_institution_name', with: 'Updated institution'
+          fill_in 'institution_name', with: 'Updated institution'
           click_on 'Save institution'
           assert_text 'Institution saved'
         end

@@ -36,7 +36,7 @@ module Spina
           attributes[:name] = 'New licence'
           attributes[:abbreviated_name] = 'NL'
           assert_difference 'Licence.count' do
-            post admin_journal_licences_url, params: { admin_journal_licence: attributes }
+            post admin_journal_licences_url, params: { licence: attributes }
           end
           assert_redirected_to admin_journal_licences_url
           assert_equal 'Licence saved.', flash[:success]
@@ -46,7 +46,7 @@ module Spina
           attributes = @licence.attributes
           attributes[:name] = nil
           assert_no_difference 'Licence.count' do
-            post admin_journal_licences_url, params: { admin_journal_licence: attributes }
+            post admin_journal_licences_url, params: { licence: attributes }
           end
           assert_response :success
           assert_not_equal 'Licence saved.', flash[:success]
@@ -55,7 +55,7 @@ module Spina
         test 'should update licence' do
           attributes = @licence.attributes
           attributes[:name] = 'Brand new name'
-          patch admin_journal_licence_url(@licence), params: { admin_journal_licence: attributes }
+          patch admin_journal_licence_url(@licence), params: { licence: attributes }
           assert_redirected_to admin_journal_licences_url
           assert_equal 'Licence saved.', flash[:success]
         end
@@ -63,7 +63,7 @@ module Spina
         test 'should not update invalid licence' do
           attributes = @licence.attributes
           attributes[:name] = nil
-          patch admin_journal_licence_url(@licence), params: { admin_journal_licence: attributes }
+          patch admin_journal_licence_url(@licence), params: { licence: attributes }
           assert_response :success
           assert_not_equal 'Licence saved.', flash[:success]
         end

@@ -24,8 +24,8 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New issue'
           end
-          fill_in 'admin_journal_issue_title', with: 'New issue'
-          fill_in 'admin_journal_issue_date', with: '12122012'
+          fill_in 'issue_title', with: 'New issue'
+          fill_in 'issue_date', with: Date.today
 
           # check that articles list is empty
           within 'nav#secondary' do
@@ -45,8 +45,8 @@ module Spina
           within '.breadcrumbs' do
             assert_text "Issue ##{@issue.number}"
           end
-          fill_in 'admin_journal_issue_title', with: 'Updated issue'
-          fill_in 'admin_journal_issue_date', with: '10122012'
+          fill_in 'issue_title', with: 'Updated issue'
+          fill_in 'issue_date', with: Date.today
 
           # check that articles list isn't empty
           within 'nav#secondary' do

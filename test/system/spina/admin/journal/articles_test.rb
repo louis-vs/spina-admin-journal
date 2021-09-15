@@ -25,11 +25,11 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New article'
           end
-          fill_in 'admin_journal_article_title', with: 'New article'
-          select 'Volume 1 Issue 1', from: 'admin_journal_article_issue_id'
+          fill_in 'article_title', with: 'New article'
+          select 'Volume 1 Issue 1', from: 'article_issue_id'
           within '.collection-check-boxes' do
             @article.affiliations.each do |affiliation|
-              find("label[for=admin_journal_article_affiliation_ids_#{affiliation.id}]").click
+              find("label[for=article_affiliation_ids_#{affiliation.id}]").click
             end
           end
 
@@ -51,7 +51,7 @@ module Spina
           within '.breadcrumbs' do
             assert_text @article.title
           end
-          fill_in 'admin_journal_article_title', with: 'Updated article'
+          fill_in 'article_title', with: 'Updated article'
 
           # check that authors list isn't empty
           within 'nav#secondary' do

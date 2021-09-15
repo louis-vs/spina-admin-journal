@@ -36,7 +36,7 @@ module Spina
           attributes = @issue.attributes
           attributes[:title] = 'New Issue'
           assert_difference 'Issue.count' do
-            post admin_journal_issues_url, params: { admin_journal_issue: attributes }
+            post admin_journal_issues_url, params: { issue: attributes }
           end
           assert_redirected_to admin_journal_issues_url
           assert_equal 'Issue saved.', flash[:success]
@@ -46,7 +46,7 @@ module Spina
           attributes = @issue.attributes
           attributes[:date] = nil
           assert_no_difference 'Issue.count' do
-            post admin_journal_issues_url, params: { admin_journal_issue: attributes }
+            post admin_journal_issues_url, params: { issue: attributes }
           end
           assert_response :success
           assert_not_equal 'Issue saved.', flash[:success]
@@ -55,7 +55,7 @@ module Spina
         test 'should update issue' do
           attributes = @issue.attributes
           attributes[:title] = 'New name'
-          patch admin_journal_issue_url(@issue), params: { admin_journal_issue: attributes }
+          patch admin_journal_issue_url(@issue), params: { issue: attributes }
           assert_redirected_to admin_journal_issues_url
           assert_equal 'Issue saved.', flash[:success]
         end
