@@ -25,7 +25,7 @@ module Spina
             assert_text 'New issue'
           end
           fill_in 'issue_title', with: 'New issue'
-          fill_in 'issue_date', with: Date.today
+          fill_in 'issue_date', with: Time.zone.today
 
           # check that articles list is empty
           within 'nav#secondary' do
@@ -46,7 +46,7 @@ module Spina
             assert_text "Issue ##{@issue.number}"
           end
           fill_in 'issue_title', with: 'Updated issue'
-          fill_in 'issue_date', with: Date.today
+          fill_in 'issue_date', with: Time.zone.today
 
           # check that articles list isn't empty
           within 'nav#secondary' do
