@@ -50,7 +50,7 @@ module Spina
         private
 
         def institution_params
-          params.require(:admin_journal_institution).permit(:name)
+          params.require(:institution).permit(:name)
         end
 
         def set_breadcrumb

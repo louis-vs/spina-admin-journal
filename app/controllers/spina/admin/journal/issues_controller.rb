@@ -99,7 +99,7 @@ module Spina
         end
 
         def issue_params
-          params.require(:admin_journal_issue).permit(PARAMS)
+          params.require(:issue).permit(PARAMS)
         end
 
         def sort_params
