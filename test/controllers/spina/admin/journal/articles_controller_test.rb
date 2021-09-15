@@ -40,7 +40,7 @@ module Spina
           attributes[:issue_id] = @article.issue_id
           attributes[:status] = :published
           assert_difference 'Article.count' do
-            post admin_journal_articles_url, params: { admin_journal_article: attributes }
+            post admin_journal_articles_url, params: { article: attributes }
           end
           assert_redirected_to admin_journal_articles_url
           assert_equal 'Article saved.', flash[:success]
@@ -50,7 +50,7 @@ module Spina
           attributes = @article.attributes
           attributes[:title] = nil
           assert_no_difference 'Article.count' do
-            post admin_journal_articles_url, params: { admin_journal_article: attributes }
+            post admin_journal_articles_url, params: { article: attributes }
           end
           assert_response :success
           assert_not_equal 'Article saved.', flash[:success]
@@ -59,7 +59,7 @@ module Spina
         test 'should update article' do
           attributes = @article.attributes
           attributes[:title] = 'New name'
-          patch admin_journal_article_url(@article), params: { admin_journal_article: attributes }
+          patch admin_journal_article_url(@article), params: { article: attributes }
           assert_redirected_to admin_journal_articles_url
           assert_equal 'Article saved.', flash[:success]
         end
@@ -73,14 +73,14 @@ module Spina
           assert_changes lambda {
                            @article.reload.content('abstract')
                          }, from: '<div>Lorem ipsum</div>', to: '<div>Dolor sit amet</div>' do
-            patch admin_journal_article_url(@article), params: { admin_journal_article: attributes }
+            patch admin_journal_article_url(@article), params: { article: attributes }
           end
         end
 
         test 'should not update invalid article' do
           attributes = @article.attributes
           attributes[:title] = nil
-          patch admin_journal_article_url(@article), params: { admin_journal_article: attributes }
+          patch admin_journal_article_url(@article), params: { article: attributes }
           assert_response :success
           assert_not_equal 'Article saved.', flash[:success]
         end

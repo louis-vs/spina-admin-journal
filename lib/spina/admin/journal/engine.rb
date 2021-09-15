@@ -5,6 +5,8 @@ module Spina
     module Journal
       # Registers the plugin with Spina.
       class Engine < ::Rails::Engine
+        isolate_namespace Spina::Admin::Journal
+
         config.before_initialize do
           ::Spina::Plugin.register do |plugin|
             plugin.name = 'journal'

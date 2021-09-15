@@ -24,9 +24,9 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text 'New author'
           end
-          fill_in 'admin_journal_author_affiliations_attributes_0_first_name', with: 'Leeroy'
-          fill_in 'admin_journal_author_affiliations_attributes_0_surname', with: 'Jenkins'
-          select 'Rock Bottom', from: 'admin_journal_author_affiliations_attributes_0_institution_id'
+          fill_in 'author_affiliations_attributes_0_first_name', with: 'Leeroy'
+          fill_in 'author_affiliations_attributes_0_surname', with: 'Jenkins'
+          select 'Rock Bottom', from: 'author_affiliations_attributes_0_institution_id'
 
           # check that articles list is empty
           click_on 'Articles'
@@ -44,7 +44,7 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @author.primary_affiliation.name
           end
-          fill_in 'admin_journal_author_affiliations_attributes_0_first_name', with: 'No-name'
+          fill_in 'author_affiliations_attributes_0_first_name', with: 'No-name'
           click_on 'Save author'
           assert_text 'Author saved'
         end

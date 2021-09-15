@@ -33,7 +33,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = 'New Institution'
           assert_difference 'Institution.count' do
-            post admin_journal_institutions_url, params: { admin_journal_institution: attributes }
+            post admin_journal_institutions_url, params: { institution: attributes }
           end
           assert_redirected_to admin_journal_institutions_url
           assert_equal 'Institution saved.', flash[:success]
@@ -43,7 +43,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = nil
           assert_no_difference 'Institution.count' do
-            post admin_journal_institutions_url, params: { admin_journal_institution: attributes }
+            post admin_journal_institutions_url, params: { institution: attributes }
           end
           assert_response :success
           assert_not_equal 'Institution saved.', flash[:success]
@@ -52,7 +52,7 @@ module Spina
         test 'should update institution' do
           attributes = @institution.attributes
           attributes[:name] = 'New name'
-          patch admin_journal_institution_url(@institution), params: { admin_journal_institution: attributes }
+          patch admin_journal_institution_url(@institution), params: { institution: attributes }
           assert_redirected_to admin_journal_institutions_url
           assert_equal 'Institution saved.', flash[:success]
         end
@@ -60,7 +60,7 @@ module Spina
         test 'should not update invalid institution' do
           attributes = @institution.attributes
           attributes[:name] = nil
-          patch admin_journal_institution_url(@institution), params: { admin_journal_institution: attributes }
+          patch admin_journal_institution_url(@institution), params: { institution: attributes }
           assert_response :success
           assert_not_equal 'Institution saved.', flash[:success]
         end

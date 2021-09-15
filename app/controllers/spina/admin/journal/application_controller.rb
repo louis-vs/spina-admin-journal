@@ -5,6 +5,8 @@ module Spina
     module Journal
       # Custom controller for journal plugin. Sets the layout and adds a flash type.
       class ApplicationController < AdminController
+        helper ::Spina::Engine.routes.url_helpers
+
         add_flash_types :success
 
         layout :admin_layout, only: %i[new edit]

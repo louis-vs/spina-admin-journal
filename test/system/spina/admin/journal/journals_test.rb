@@ -16,7 +16,7 @@ module Spina
           assert_selector '.breadcrumbs' do
             assert_text @journal.name
           end
-          fill_in 'admin_journal_journal_name', with: 'New journal name'
+          fill_in 'journal_name', with: 'New journal name'
           click_on 'Save journal'
           assert_text 'Journal saved'
         end

@@ -68,7 +68,7 @@ module Spina
         private
 
         def licence_params
-          params.require(:admin_journal_licence).permit(PARAMS)
+          params.require(:licence).permit(PARAMS)
         end
 
         def set_breadcrumb

@@ -85,7 +85,7 @@ module Spina
         private
 
         def article_params
-          params.require(:admin_journal_article).permit(PARAMS)
+          params.require(:article).permit(PARAMS)
         end
 
         def sort_params

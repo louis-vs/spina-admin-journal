@@ -65,7 +65,7 @@ module Spina
         end
 
         def journal_params
-          params.require(:admin_journal_journal).permit(PARAMS)
+          params.require(:journal).permit(PARAMS)
         end
       end
     end

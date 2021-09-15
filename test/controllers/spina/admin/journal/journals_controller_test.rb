@@ -24,7 +24,7 @@ module Spina
         test 'should update journal' do
           attributes = @journal.attributes
           attributes[:name] = 'New name'
-          patch admin_journal_journal_url(@journal), params: { admin_journal_journal: attributes }
+          patch admin_journal_journal_url(@journal), params: { journal: attributes }
           assert_redirected_to edit_admin_journal_journal_url(@journal)
           assert_equal 'Journal saved.', flash[:success]
         end
@@ -32,7 +32,7 @@ module Spina
         test 'should not update invalid journal' do
           attributes = @journal.attributes
           attributes[:name] = nil
-          patch admin_journal_journal_url(@journal), params: { admin_journal_journal: attributes }
+          patch admin_journal_journal_url(@journal), params: { journal: attributes }
           assert_response :success
           assert_not_equal 'Journal saved.', flash[:success]
         end
