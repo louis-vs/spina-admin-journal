@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'babel-transpiler', '~> 0.7'
   spec.add_dependency 'rails', '~> 6.1'
   spec.add_dependency 'rails-i18n', '~> 6.0'
-  spec.add_dependency 'spina', '~> 2.0.0'
+  spec.add_dependency 'spina', '>= 2.0', '< 2.6'
 
   spec.add_development_dependency 'capybara', '~> 3.35'
   spec.add_development_dependency 'codecov', '~> 0.4'
