@@ -101,7 +101,7 @@ GEM
       mimemagic (>= 0.3.0)
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
-    childprocess (3.0.0)
+    childprocess (4.1.0)
     codecov (0.6.0)
       simplecov (>= 0.15, < 0.22)
     coffee-rails (5.0.0)
@@ -258,7 +258,7 @@ GEM
       ffi (~> 1.12)
     ruby_parser (3.18.0)
       sexp_processor (~> 4.16)
-    rubyzip (2.3.0)
+    rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -269,8 +269,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
+    selenium-webdriver (4.1.0)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     sexp_processor (4.16.0)
     simplecov (0.21.2)
@@ -339,7 +340,7 @@ DEPENDENCIES
   rubocop (~> 1.8)
   rubocop-performance (~> 1.8)
   rubocop-rails (~> 2.8)
-  selenium-webdriver (~> 3.142)
+  selenium-webdriver (~> 4.1)
   simplecov (~> 0.21)
   spina-admin-journal!
   spina-upgrade
