@@ -14,7 +14,7 @@ module Spina
       end
 
       class UriValidatorTest < ActiveSupport::TestCase
-        invalid_uris = %w[fail 12345h;lfg'~ http:/not\ a\ url]
+        invalid_uris = ['fail', "12345h;lfg'~", 'http:/not a url']
 
         def obj
           @obj ||= UriValidatable.new
