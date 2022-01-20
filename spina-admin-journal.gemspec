@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 1.8'
   spec.add_development_dependency 'rubocop-performance', '~> 1.8'
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
-  spec.add_development_dependency 'selenium-webdriver', '~> 3.142'
+  spec.add_development_dependency 'selenium-webdriver', '~> 4.1'
   spec.add_development_dependency 'simplecov', '~> 0.21'
   spec.add_development_dependency 'spina-upgrade'
   spec.add_development_dependency 'yard', '~> 0.9'
