@@ -1,6 +1,6 @@
 - content_for(:header_actions) do
   = link_to new_admin_journal_institution_path, class: 'button button-primary' do
-    = icon 'plus'
+    = heroicon 'plus'
     = t '.new'
 
 .well
@@ -13,4 +13,4 @@
           %th
 
       %tbody
-        = render @institutions.any? ? @institutions : 'empty_list', message: t('.empty')
+        = @institutions.any? ? render(collection: @institutions, partial: 'institution') : render('empty_list', message: t('.empty'))

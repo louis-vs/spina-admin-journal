@@ -1,17 +1,18 @@
-- content_for(:header_actions) do
-  = link_to admin_journal_volumes_path, method: :post, class: 'button button-primary' do
-    = icon 'plus'
-    = t '.new'
+= render Spina::UserInterface::HeaderComponent.new do |header|
+  - header.actions do
+    .ml-3
+      = link_to admin_journal_volumes_path, method: :post, class: 'btn btn-primary w-full' do
+        = heroicon 'plus', style: :solid, class: 'w-7 h-7 -m1-2'
+        = t '.new'
 
 .sort-message
-.well
-  .table-container
-    %table.table
-      %thead
-        %tr
-          %th= ::Spina::Admin::Journal::Volume.human_attribute_name :number
-          %th= t '.date'
-          %th
+.p-8
+  %table.table
+    %thead
+      %tr
+        %th= Spina::Admin::Journal::Volume.human_attribute_name :number
+        %th= t '.date'
+        %th
 
-      %tbody.html5sortable{ data: { id: ::Spina::Admin::Journal::Journal.instance.id, sorted_collection: 'admin_journal_volumes', sort_url: sort_admin_journal_volumes_url(::Spina::Admin::Journal::Journal.instance.id) } }
-        = render @volumes.any? ? @volumes : 'empty_list', message: t('.empty')
+    %tbody.html5sortable{ data: { id: Spina::Admin::Journal::Journal.instance.id, sorted_collection: 'admin_journal_volumes', sort_url: sort_admin_journal_volumes_url(Spina::Admin::Journal::Journal.instance.id) } }
+      = @volumes.any? ? render(collection: @volumes, partial: 'volume') : render('empty_list', message: t('.empty'))

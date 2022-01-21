@@ -1,8 +1,8 @@
 - content_for :header_actions do
   = link_to new_admin_journal_journal_path, class: %w[button button-primary], style: 'margin-right: 0' do
-    = icon 'plus'
+    = heroicon 'plus'
     = t '.new'
-  
+
 .well
   .table-container
     %table.table
@@ -19,7 +19,7 @@
                 = journal.name
               %td.nowrap.align-right
                 = link_to spina.edit_admin_journal_journal_path(journal), class: %w[button button-link] do
-                  = icon 'pencil-outline'
+                  = heroicon 'pencil-alt', style: :outline
 
         - else
           %tr

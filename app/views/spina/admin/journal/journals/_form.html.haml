@@ -1,12 +1,12 @@
 - if @journal.errors.any?
   - content_for :notifications do
     .notification.notification-danger.animated.fadeInRight
-      = icon 'exclamation'
+      = heroicon 'exclamation'
       .notification-message
         = t 'spina.notifications.alert'
         %small= @journal.errors.full_messages.join('<br />').html_safe
       = link_to '#', data: { close_notification: true } do
-        = icon 'cross'
+        = heroicon 'cross'
 
 = form_for [:admin_journal, @journal], html: { autocomplete: "off" } do |f|
   %header#header
@@ -14,7 +14,7 @@
       = render_breadcrumbs
     #header_actions
       %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
-        = icon 'check'
+        = heroicon 'check'
         = t '.save'
   .tab-content.active
     .page-form
