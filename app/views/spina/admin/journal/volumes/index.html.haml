@@ -5,14 +5,4 @@
         = heroicon 'plus', style: :solid, class: 'w-7 h-7 -m1-2'
         = t '.new'
 
-.sort-message
-.p-8
-  %table.table
-    %thead
-      %tr
-        %th= Spina::Admin::Journal::Volume.human_attribute_name :number
-        %th= t '.date'
-        %th
-
-    %tbody.html5sortable{ data: { id: Spina::Admin::Journal::Journal.instance.id, sorted_collection: 'admin_journal_volumes', sort_url: sort_admin_journal_volumes_url(Spina::Admin::Journal::Journal.instance.id) } }
-      = @volumes.any? ? render(collection: @volumes, partial: 'volume') : render('empty_list', message: t('.empty'))
+= render Spina::Admin::Journal::VolumesListComponent.new(volumes: @volumes)

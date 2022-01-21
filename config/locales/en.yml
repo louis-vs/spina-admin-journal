@@ -4,6 +4,7 @@ en:
       journal:
         navigation_title: Journal settings
         unnamed_journal: Unnamed journal
+        edit: Edit
         journals:
           index:
             new: New journal
@@ -30,6 +31,8 @@ en:
             created: Volume <strong>%{number}</strong> created.
           update:
             saved: Volume saved.
+          form:
+            save: Save
           form_details:
             unchangeable: The volume number can be changed by clicking 'Change Order' in the index view.
             delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
