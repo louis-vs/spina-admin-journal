@@ -1,7 +1,11 @@
+//= require jquery
+//= require jquery_ujs
 //= require spina/admin/journal/html5sortable
 /* global sortable */
 
-$(document).on('turbolinks:load', () => {
+// TODO: rewrite this as a Stimulus controller so that it correctly loads when
+// and only when needed.
+$(document).on('turbo:load', () => {
   // html5sortable configuration
   sortable('.html5sortable', {
     items: 'tr',
@@ -45,8 +49,9 @@ $(document).on('turbolinks:load', () => {
 
       // send sort request
       $.ajax({
-        url: $('.html5sortable').eq(0).data('sort-url'),
         type: 'PATCH',
+        url: $('.html5sortable').eq(0).data('sort-url'),
+        beforeSend: $.rails.CSRFProtection,
         dataType: 'json',
         data: data,
         success: (data) => {
