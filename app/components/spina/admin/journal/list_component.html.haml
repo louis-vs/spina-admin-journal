@@ -1,0 +1,6 @@
+- if sortable?
+  .sort-message
+.my-6.md:m-8.bg-white.md:rounded-lg.border-l-0.border-r-0.border.md:border-r.md:border-l.border-gray-200.border-b-0.shadow-sm
+  %ul
+    - @list_items.each do |item|
+      = render Spina::Admin::Journal::ListItemComponent.new(id: item[:id], label: item[:label], path: item[:path], sortable: sortable?)
