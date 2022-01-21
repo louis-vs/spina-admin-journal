@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'haml-rails'
+require 'sass-rails'
+require 'jquery-rails'
 require 'spina'
 require 'spina/admin/journal/engine'
 require 'rails-i18n'
