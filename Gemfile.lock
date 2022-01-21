@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spina-admin-journal (0.6.2)
+    spina-admin-journal (1.0.0.rc1)
       babel-transpiler (~> 0.7)
       haml-rails (~> 2.0)
       jquery-rails (~> 4.4)
