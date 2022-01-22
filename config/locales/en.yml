@@ -67,6 +67,8 @@ en:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
         articles:
+          article_number: "Vol. %{volume_number}(%{issue_number}) Article #%{article_number}"
+          title_author: "%{title} (%{author})"
           index:
             new: New article
             empty: There are no articles.
@@ -80,10 +82,10 @@ en:
             deleted: Article deleted.
           form:
             save: Save article
+            delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_details:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
             unchangeable: Article order can be changed in the issue.
-            delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_authors:
             no_authors: There are no authors.
             number_of_articles: "# Articles"
