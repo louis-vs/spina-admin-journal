@@ -33,9 +33,9 @@ en:
             saved: Volume saved.
           form:
             save: Save
+            delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
           form_details:
             unchangeable: The volume number can be changed by clicking 'Change Order' in the index view.
-            delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
           form_issues:
             volume_number: "Volume #"
             issue_number: "Issue #"
@@ -45,6 +45,7 @@ en:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
         issues:
+          volume_issue: "Volume %{volume_number} Issue %{issue_number}"
           issue_number: "Issue #%{number}"
           index:
             new: New issue
@@ -59,9 +60,9 @@ en:
             deleted: Issue deleted.
           form:
             save: Save issue
+            delete_confirmation: "Are you sure you want to delete Issue <strong>#%{number}</strong>?"
           form_details:
             issue_unchangeable: The issue order can be changed in the 'Volumes' tab.
-            delete_confirmation: "Are you sure you want to delete Issue <strong>#%{number}</strong>?"
           sort:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
