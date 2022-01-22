@@ -1,7 +1,0 @@
-%tr{ data: { id: volume.id } }
-  %td.position-display= volume.number
-  %td= volume.issues.any? ? time_tag(volume.issues.first.date, format: :year) : t('.no_date')
-  %td.nowrap.align-right
-    = link_to edit_admin_journal_volume_path(volume.id), class: 'button button-link' do
-      = heroicon 'pencil-alt', style: :outline, class: 'w-4 h-4 -mr-4'
-      = t '.view'

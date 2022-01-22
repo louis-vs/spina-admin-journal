@@ -1,9 +1,0 @@
-%tr{ data: { id: authorship.id } }
-  %td.position-display= authorship.position
-  %td= authorship.affiliation.name
-  %td= authorship.affiliation.institution.name
-  %td= authorship.affiliation.articles.count
-  %td.nowrap.align-right
-    = link_to edit_admin_journal_author_path(authorship.affiliation.author.id), class: 'button button-link' do
-      = heroicon 'pencil-alt', style: :outline
-      = t '.view'
