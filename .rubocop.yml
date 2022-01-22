@@ -12,3 +12,7 @@ AllCops:
     - tmp/**/*
     - vendor/**/*
     - .git/**/*
+
+Lint/MissingSuper:
+  Exclude:
+    - app/components/**/*

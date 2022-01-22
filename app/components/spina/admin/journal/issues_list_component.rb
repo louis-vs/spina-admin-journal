@@ -21,7 +21,8 @@ module Spina
         def generate_list_items(issues)
           issues.map do |issue|
             { id: issue.id,
-              label: t('spina.admin.journal.issues.volume_issue', volume_number: issue.volume.number, issue_number: issue.number),
+              label: t('spina.admin.journal.issues.volume_issue', volume_number: issue.volume.number,
+                                                                  issue_number: issue.number),
               path: helpers.spina.edit_admin_journal_issue_path(issue.id) }
           end
         end

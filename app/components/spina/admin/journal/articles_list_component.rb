@@ -27,9 +27,11 @@ module Spina
         end
 
         def generate_label(article)
-          t('spina.admin.journal.articles.article_number', volume_number: article.issue.volume.number,
+          t('spina.admin.journal.articles.article_number', volume_number: article.issue.volume.number, # rubocop:disable Style/StringConcatenation
                                                            issue_number: article.issue.number,
-                                                           article_number: article.number) + ' | ' + t('spina.admin.journal.articles.title_author', title: article.title, author: article.affiliations.map { |a| a.surname }.join(', '))
+                                                           article_number: article.number
+          ) + ' | ' + t('spina.admin.journal.articles.title_author', title: article.title, # rubocop:disable Layout/MultilineMethodCallBraceLayout Layout/SpaceInsideParens
+                                                                     author: article.affiliations.map(&:surname).join(', ')) # rubocop:disable Layout/LineLength
         end
       end
     end
