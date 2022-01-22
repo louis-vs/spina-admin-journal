@@ -1,32 +1,16 @@
-.page-form
-  .page-form-group
-    .page-form-label
-      = ::Spina::Admin::Journal::Volume.human_attribute_name :number
-    .page-form-content
-      = f.collection_select :volume_id, ::Spina::Admin::Journal::Volume.sorted_desc, :id, :number
-  .page-form-group
-    .page-form-label
-      = ::Spina::Admin::Journal::Issue.human_attribute_name :number
-      %small= t '.issue_unchangeable'
-    .page-form-content
-      = f.number_field :number, disabled: true
-  .page-form-group
-    .page-form-label
-      = ::Spina::Admin::Journal::Issue.human_attribute_name :title
-    .page-form-content
-      = f.text_field :title
-  .page-form-group
-    .page-form-label
-      = ::Spina::Admin::Journal::Issue.human_attribute_name :date
-    .page-form-content
-      = f.date_field :date
-  = f.fields_for :"#{@locale}_content", @parts do |ff|
-    = ff.hidden_field :type, value: ff.object.class.name
-    = ff.hidden_field :title
-    = ff.hidden_field :name
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Volume.human_attribute_name(:number)) do
+  = f.collection_select :volume_id, ::Spina::Admin::Journal::Volume.sorted_desc, :id, :number
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:number),
+                                          description: t('.issue_unchangeable')) do
+  = f.number_field :number, disabled: true
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:title)) do
+  = render Spina::Forms::TextFieldComponent.new(f, :title)
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:date)) do
+  = f.date_field :date
 
-    .page-form-group.page-part{ data: { name: ff.object.name } }
-      = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.name)}/form", f: ff
+= f.fields_for :"#{@locale}_content", @parts do |ff|
+  = ff.hidden_field :type, value: ff.object.class
+  = ff.hidden_field :title
+  = ff.hidden_field :name
 
-- unless @issue.new_record?
-  .pull-right= link_to t('spina.permanently_delete'), admin_journal_issue_path(@issue), method: :delete, data: { confirm: t('.delete_confirmation', number: @issue.number) }, class: 'button button-link button-danger'
+  = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
