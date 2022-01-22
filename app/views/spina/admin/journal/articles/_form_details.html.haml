@@ -4,7 +4,7 @@
                                           description: t('.unchangeable')) do
   = f.number_field :number, disabled: true
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:title)) do
-  = f.text_field :title
+  = render Spina::Forms::TextFieldComponent.new(f, :title)
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:status)) do
   = f.select :status, Spina::Admin::Journal::Article.statuses.keys.map { |key| [key.humanize, key] }
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:licence)) do
@@ -19,9 +19,9 @@
               = builder.check_box
               = builder.label
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:url)) do
-  = f.text_field :url
+  = render Spina::Forms::TextFieldComponent.new(f, :url)
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:doi)) do
-  = f.text_field :doi
+  = render Spina::Forms::TextFieldComponent.new(f, :doi)
 
 = f.fields_for :"#{@locale}_content", @parts do |ff|
   = ff.hidden_field :type, value: ff.object.class
