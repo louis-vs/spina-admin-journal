@@ -95,6 +95,7 @@ en:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
         authors:
+          name_institution: "%{name} (%{institution})"
           index:
             new: New author
             number_of_articles: "# Articles"

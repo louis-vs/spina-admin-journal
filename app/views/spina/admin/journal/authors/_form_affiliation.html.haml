@@ -1,20 +1,8 @@
-.page-form-group
-  .page-form-label
-    = ::Spina::Admin::Journal::Affiliation.human_attribute_name :first_name
-  .page-form-content
-    = ff.text_field :first_name
-.page-form-group
-  .page-form-label
-    = ::Spina::Admin::Journal::Affiliation.human_attribute_name :surname
-  .page-form-content
-    = ff.text_field :surname
-.page-form-group
-  .page-form-label
-    = ::Spina::Admin::Journal::Affiliation.human_attribute_name :institution
-  .page-form-content
-    = ff.collection_select :institution_id, ::Spina::Admin::Journal::Institution.sorted, :id, :name
-.page-form-group
-  .page-form-label
-    = t '.primary'
-  .page-form-content
-    = radio_button_tag 'author[primary_affiliation_index]', ff.index, ff.object.status == 'primary'
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:first_name)) do
+  = render Spina::Forms::TextFieldComponent.new(ff, :first_name)
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:surname)) do
+  = render Spina::Forms::TextFieldComponent.new(ff, :surname)
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:institution)) do
+  = ff.collection_select :institution_id, Spina::Admin::Journal::Institution.sorted, :id, :name
+= render Spina::Forms::GroupComponent.new(label: t('.primary')) do
+  = radio_button_tag 'author[primary_affiliation_index]', ff.index, ff.object.status == 'primary'
