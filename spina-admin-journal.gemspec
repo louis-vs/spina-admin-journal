@@ -26,17 +26,16 @@ Gem::Specification.new do |spec|
   spec.files = Dir['{app,config,db,lib,vendor}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   spec.add_dependency 'babel-transpiler', '~> 0.7'
-  spec.add_dependency 'rails', '~> 6.1'
-  spec.add_dependency 'rails-i18n', '~> 6.0'
+  spec.add_dependency 'rails', '>= 6.0', '< 8'
+  spec.add_dependency 'rails-i18n', '>= 6.0', '< 8'
   spec.add_dependency 'haml-rails', '~> 2.0'
-  spec.add_dependency 'sass-rails', '~> 6.0'
+  spec.add_dependency 'sassc-rails', '~> 2.1'
   spec.add_dependency 'jquery-rails', '~> 4.4'
   spec.add_dependency 'spina', '~> 2.3'
 
   spec.add_development_dependency 'capybara', '~> 3.35'
   spec.add_development_dependency 'codecov', '~> 0.4'
   spec.add_development_dependency 'image_processing', '~> 1.2'
-  spec.add_development_dependency 'minitest-rails', '~> 6.1'
   spec.add_development_dependency 'minitest-reporters', '~> 1.4'
   spec.add_development_dependency 'pg'
   spec.add_development_dependency 'puma', '~> 5.0'
@@ -45,6 +44,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rails', '~> 2.8'
   spec.add_development_dependency 'selenium-webdriver', '~> 4.1'
   spec.add_development_dependency 'simplecov', '~> 0.21'
-  spec.add_development_dependency 'spina-upgrade'
   spec.add_development_dependency 'yard', '~> 0.9'
 end
