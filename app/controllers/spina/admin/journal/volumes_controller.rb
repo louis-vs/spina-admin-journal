@@ -15,12 +15,16 @@ module Spina
 
         def edit; end
 
+        def new
+          create
+        end
+
         def create # rubocop:disable Metrics/AbcSize
           @volume = Volume.new
           @volume.journal_id = Journal.instance.id
           @volume.number = Volume.any? ? Volume.sorted_desc.first.number + 1 : 1
           @volume.save!
-          redirect_to admin_journal_volumes_path, success: t('.created', number: @volume.number)
+          redirect_to edit_admin_journal_volume_path(@volume), success: t('.created', number: @volume.number)
         rescue ActiveRecord::RecordNotUnique
           # can only happen because of some race condition where two Volumes are created at the same time
           logger.error 'Error when creating new volume. Retrying...'
@@ -37,29 +41,14 @@ module Spina
         end
 
         def sort
-          ActiveRecord::Base.transaction do
-            sort_params.each do |id, new_pos|
-              # ignore uniqueness validation for now
-              Volume.find(id.to_i).update_attribute(:number, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
-            end
-            validate_sort_order
+          params[:ids].each.with_index do |id, index|
+            Volume.where(id: id).update_all(number: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          render json: { success: true, message: t('.sort_success') }
-        rescue ActiveRecord::RecordInvalid
-          render json: { success: false, message: t('.sort_error') }
+          flash.now[:info] = t('spina.pages.sorting_saved')
+          render_flash
         end
 
         private
-
-        def sort_params
-          params.require(:admin_journal_volumes).require(:list).permit!
-        end
-
-        def validate_sort_order
-          Volume.where(journal_id: params[:journal_id]).each do |volume|
-            raise ActiveRecord::RecordInvalid if volume.invalid?
-          end
-        end
 
         def set_breadcrumb
           add_breadcrumb Volume.model_name.human(count: :many), admin_journal_volumes_path

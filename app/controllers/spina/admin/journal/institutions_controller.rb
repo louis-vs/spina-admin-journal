@@ -24,17 +24,19 @@ module Spina
           @institution = Institution.new(institution_params)
 
           if @institution.save
-            redirect_to admin_journal_institutions_path, success: t('.saved')
+            redirect_to edit_admin_journal_institution_path(@institution), success: t('.saved')
           else
-            render :new
+            flash.now[:alert] = t('.failed')
+            render :new, status: :unprocessable_entity
           end
         end
 
         def update
           if @institution.update(institution_params)
-            redirect_to admin_journal_institutions_path, success: t('.saved')
+            redirect_to edit_admin_journal_institution_path(@institution), success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 

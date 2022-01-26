@@ -1,29 +1,29 @@
-- if @issue.errors.any?
-  - content_for :notifications do
-    .notification.notification-danger.animated.fadeInRight
-      = icon 'exclamation'
-      .notification-message
-        = t 'spina.notifications.alert'
-        %small= @issue.errors.full_messages.join('<br />').html_safe
-      = link_to '#', data: { close_notification: true } do
-        = icon 'cross'
+%div{ data: { controller: 'tabs',
+              tabs: { active: 'cursor-default text-gray-900 bg-spina-dark bg-opacity-10',
+                      inactive: 'cursor-pointer bg-transparent text-gray-400 border-transparent' } } }
+  = render Spina::UserInterface::HeaderComponent.new do |header|
+    - header.actions do
+      - if @issue.persisted?
+        = render Spina::UserInterface::DropdownComponent.new do |dropdown|
+          - dropdown.button(classes: "btn btn-default px-3") do
+            = heroicon('dots-horizontal', style: :solid, class: "w-5 h-5 text-gray-600")
 
-= form_for [:admin_journal, @issue], html: { autocomplete: 'off' } do |f|
-  %header#header
-    = render partial: 'spina/admin/shared/breadcrumbs'
+          - dropdown.menu do
+            = button_to t('spina.permanently_delete'), admin_journal_issue_path(@issue), method: :delete, class: "block w-full text-left px-4 py-2 text-sm leading-5 font-medium text-red-500 cursor-pointer bg-white hover:bg-red-100 hover:bg-opacity-50 hover:text-red-500 focus:outline-none focus:bg-gray-100 focus:text-gray-900", form: {data: { controller: 'confirm', confirm_message: t('.delete_confirmation', number: @issue.number) } }
 
-    #header_actions
-      %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
-        = icon 'check'
+      = button_tag type: :submit, form: dom_id(@issue), class: 'btn btn-primary', data: { controller: 'button', action: 'button#loading', loading_message: t('spina.ui.saving')} do
+        = heroicon('check', style: :solid, class: 'w-5 h-5 mr-1 -ml-2')
         = t '.save'
 
-      .button{style: 'margin-right: 0'}= link_to t('spina.cancel'), admin_journal_institutions_path
+    - header.navigation do
+      %nav.-mb-3.mt-4
+        %ul.inline-flex.w-auto.rounded-md.bg-white
+          - @tabs.each do |tab|
+            %button.block.px-3.leading-relaxed.py-1.hover:text-gray-800.rounded-md.text-gray-400.font-medium.text-sm.flex.items-center.whitespace-nowrap{ type: 'button', data: { action: 'tabs#show', 'tabs-target': 'button', 'pane-id': "#{tab}" } }
+              = t ".#{tab}"
 
-    %nav#secondary.tabs
-      %ul
-        - @tabs.each_with_index do |tab, i|
-          %li{ class: ('active' if i == 0) }
-            = link_to t(".#{tab}"), "##{tab}"
+  .p-4.md:p-8
+    - @tabs.each_with_index do |tab, i|
+      %div{ 'data-tabs-target': 'pane', id: tab, hidden: i != 0 }
+        = render "form_#{tab}"
 
-  #details.tab-content.active= render 'form_details', f: f
-  #articles.tab-content= render 'form_articles', f: f

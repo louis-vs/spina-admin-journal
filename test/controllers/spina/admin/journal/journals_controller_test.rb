@@ -33,7 +33,7 @@ module Spina
           attributes = @journal.attributes
           attributes[:name] = nil
           patch admin_journal_journal_url(@journal), params: { journal: attributes }
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Journal saved.', flash[:success]
         end
 

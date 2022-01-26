@@ -5,7 +5,7 @@ module Spina
     module Journal
       # Controller for {Issue} records.
       # TODO: extract methods to helpers to reduce class length
-      class IssuesController < ApplicationController # rubocop:disable Metrics/ClassLength
+      class IssuesController < ApplicationController
         PARTS_PARAMS = [
           :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
           { images_attributes: %i[filename signed_blob_id image_id alt],
@@ -46,23 +46,25 @@ module Spina
           add_breadcrumb t('spina.admin.journal.issues.issue_number', number: @issue.number)
         end
 
-        def create
+        def create # rubocop:disable Metrics/AbcSize
           @issue = Issue.new(issue_params)
           sister_issues = Issue.where(volume: @issue.volume_id)
           @issue.number = sister_issues.any? ? sister_issues.sorted_desc.first.number + 1 : 1
 
           if @issue.save
-            redirect_to admin_journal_issues_path, success: t('.saved')
+            redirect_to edit_admin_journal_issue_path(@issue), success: t('.saved')
           else
-            render :new
+            flash.now[:alert] = t('.failed')
+            render :new, status: :unprocessable_entity
           end
         end
 
         def update
           if @issue.update(issue_params)
-            redirect_to admin_journal_issues_path, success: t('.saved')
+            redirect_to edit_admin_journal_issue_path(@issue), success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 
@@ -76,16 +78,11 @@ module Spina
         end
 
         def sort
-          ActiveRecord::Base.transaction do
-            sort_params.each do |id, new_pos|
-              # ignore uniqueness validation for now
-              Issue.find(id.to_i).update_attribute(:number, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
-            end
-            validate_sort_order
+          params[:ids].each.with_index do |id, index|
+            Issue.where(id: id).update_all(number: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          render json: { success: true, message: t('.sort_success') }
-        rescue ActiveRecord::RecordInvalid
-          render json: { success: false, message: t('.sort_error') }
+          flash.now[:info] = t('spina.pages.sorting_saved')
+          render_flash
         end
 
         private
@@ -100,16 +97,6 @@ module Spina
 
         def issue_params
           params.require(:issue).permit(PARAMS)
-        end
-
-        def sort_params
-          params.require(:admin_journal_issues).require(:list).permit!
-        end
-
-        def validate_sort_order
-          Issue.where(volume_id: params[:volume_id]).each do |issue|
-            raise ActiveRecord::RecordInvalid if issue.invalid?
-          end
         end
 
         def set_breadcrumb

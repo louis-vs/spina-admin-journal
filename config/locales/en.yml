@@ -4,12 +4,16 @@ en:
       journal:
         navigation_title: Journal settings
         unnamed_journal: Unnamed journal
+        edit: Edit
+        sort_info: "NB: item numbers will only update after you refresh the page."
+        empty_list: There are no items.
         journals:
           index:
             new: New journal
             no_journals: There are currently no journals saved.
           update:
             saved: Journal saved.
+            failed: Failed to save journal.
           destroy:
             deleted: Journal deleted.
           form:
@@ -26,13 +30,17 @@ en:
             date: Year
             view: View
             empty: There are no volumes.
+          new:
+            created: Volume %{number} created.
           create:
             created: Volume <strong>%{number}</strong> created.
           update:
             saved: Volume saved.
+          form:
+            save: Save
+            delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
           form_details:
             unchangeable: The volume number can be changed by clicking 'Change Order' in the index view.
-            delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
           form_issues:
             volume_number: "Volume #"
             issue_number: "Issue #"
@@ -42,6 +50,7 @@ en:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
         issues:
+          volume_issue: "Volume %{volume_number} Issue %{issue_number}"
           issue_number: "Issue #%{number}"
           index:
             new: New issue
@@ -50,19 +59,23 @@ en:
             new: New issue
           create:
             saved: Issue saved.
+            failed: Failed to create issue.
           update:
             saved: Issue saved.
+            failed: Failed to save issue.
           destroy:
             deleted: Issue deleted.
           form:
             save: Save issue
+            delete_confirmation: "Are you sure you want to delete Issue <strong>#%{number}</strong>?"
           form_details:
             issue_unchangeable: The issue order can be changed in the 'Volumes' tab.
-            delete_confirmation: "Are you sure you want to delete Issue <strong>#%{number}</strong>?"
           sort:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
         articles:
+          article_number: "Vol. %{volume_number}(%{issue_number}) Article #%{article_number}"
+          title_author: "%{title} (%{author})"
           index:
             new: New article
             empty: There are no articles.
@@ -70,16 +83,18 @@ en:
             new: New article
           create:
             saved: Article saved.
+            failed: Failed to create article.
           update:
             saved: Article saved.
+            failed: Failed to save article.
           destroy:
             deleted: Article deleted.
           form:
             save: Save article
+            delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_details:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
             unchangeable: Article order can be changed in the issue.
-            delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_authors:
             no_authors: There are no authors.
             number_of_articles: "# Articles"
@@ -89,6 +104,7 @@ en:
             sort_success: Sorted successfully!
             sort_error: There was an error when sorting. Check the server logs for more information.
         authors:
+          name_institution: "%{name} (%{institution})"
           index:
             new: New author
             number_of_articles: "# Articles"
@@ -96,8 +112,10 @@ en:
             new: New author
           create:
             saved: Author saved.
+            failed: Failed to create author.
           update:
             saved: Author saved.
+            failed: Failed to save author.
           destroy:
             deleted: Author deleted.
           sort:
@@ -121,8 +139,10 @@ en:
             new: New institution
           create:
             saved: Institution saved.
+            failed: Failed to create institution.
           update:
             saved: Institution saved.
+            failed: Failed to save institution.
           destroy:
             deleted: Institution deleted.
           form:
@@ -139,8 +159,10 @@ en:
             new: New licence
           create:
             saved: Licence saved.
+            failed: Failed to create licence.
           update:
             saved: Licence saved.
+            failed: Failed to save licence.
           destroy:
             deleted: Licence deleted.
           form:

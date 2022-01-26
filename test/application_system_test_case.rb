@@ -14,13 +14,15 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   driven_by :selenium, using: :headless_chrome, screen_size: [1400, 800]
 
+  Capybara.default_max_wait_time = 5
+
   def authenticate
     @user = spina_users :admin
-    visit admin_login_path
-    within '.login-fields' do
-      fill_in 'email', with: @user.email
-      fill_in 'password', with: 'password'
-    end
-    click_on 'Login'
+
+    visit spina.admin_login_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: 'password'
+    click_button 'Login'
+    assert_selector 'div', text: 'Pages'
   end
 end

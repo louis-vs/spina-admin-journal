@@ -1,43 +1,28 @@
-- if @licence.errors.any?
-  - content_for :notifications do
-    .notification.notification-danger.animated.fadeInRight
-      = icon 'exclamation'
-      .notification-message
-        = t 'spina.notifications.alert'
-        %small= @licence.errors.full_messages.join('<br />').html_safe
-      = link_to '#', data: { close_notification: true } do
-        = icon 'cross'
+= render Spina::UserInterface::HeaderComponent.new do |header|
+  - header.actions do
+    - if @licence.persisted?
+      = render Spina::UserInterface::DropdownComponent.new do |dropdown|
+        - dropdown.button(classes: "btn btn-default px-3") do
+          = heroicon('dots-horizontal', style: :solid, class: "w-5 h-5 text-gray-600")
 
-= form_for [:admin_journal, @licence], html: { autocomplete: 'off' } do |f|
-  %header#header
-    = render partial: 'spina/admin/shared/breadcrumbs'
+        - dropdown.menu do
+          = button_to t('spina.permanently_delete'), admin_journal_licence_path(@licence), method: :delete, class: "block w-full text-left px-4 py-2 text-sm leading-5 font-medium text-red-500 cursor-pointer bg-white hover:bg-red-100 hover:bg-opacity-50 hover:text-red-500 focus:outline-none focus:bg-gray-100 focus:text-gray-900", form: {data: { controller: 'confirm', confirm_message: t('.delete_confirmation', name: @licence.name) } }
 
-    #header_actions
-      %button.button.button-primary{ type: 'submit', style: 'margin-right: 0', data: { disable_with: t('spina.pages.saving') } }
-        = icon 'check'
-        = t '.save'
+    = button_tag type: :submit, form: dom_id(@licence), class: 'btn btn-primary', data: { controller: 'button', action: 'button#loading', loading_message: t('spina.ui.saving')} do
+      = heroicon('check', style: :solid, class: 'w-5 h-5 mr-1 -ml-2')
+      = t '.save'
 
-      .button{ style: 'margin-right: 0' }= link_to t('spina.cancel'), admin_journal_licences_path
-
-  .page-form
-    .page-form-group
-      .page-form-label
-        = ::Spina::Admin::Journal::Licence.human_attribute_name :name
-      .page-form-content
-        = f.text_field :name
-    .page-form-group
-      .page-form-label
-        = ::Spina::Admin::Journal::Licence.human_attribute_name :abbreviated_name
-      .page-form-content
-        = f.text_field :abbreviated_name
+.p-4.md:p-8
+  = form_with model: [spina, :admin_journal, @licence], id: dom_id(@licence), html: { autocomplete: 'off' } do |f|
+    = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:name)) do
+      = render Spina::Forms::TextFieldComponent.new(f, :name)
+    = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:abbreviated_name)) do
+      = render Spina::Forms::TextFieldComponent.new(f, :abbreviated_name)
 
     = f.fields_for :"#{@locale}_content", @parts do |ff|
-      = ff.hidden_field :type, value: ff.object.class.name
+      = ff.hidden_field :type, value: ff.object.class
       = ff.hidden_field :title
       = ff.hidden_field :name
 
-      .page-form-group.page-part{ data: { name: ff.object.name } }
-        = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.name)}/form", f: ff
+      = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
 
-  - unless @licence.new_record?
-    .pull-right= link_to t('spina.permanently_delete'), admin_journal_licence_path(@licence), method: :delete, data: { confirm: t('.delete_confirmation', name: @licence.name) }, class: 'button button-link button-danger'

@@ -1,3 +1,6 @@
-//= link spina/admin/journal/application.js
 //= link spina/admin/journal/application.css
-//= link spina_manifest.js
+
+//= link_directory ../javascripts/spina/admin/journal/controllers
+//= link_directory ../javascripts/spina/admin/journal/libraries
+
+//= link spina/admin/journal/application.js

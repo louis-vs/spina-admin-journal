@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Journal
-      class ArticlesControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
+      class ArticlesControllerTest < ActionDispatch::IntegrationTest
         include ::Spina::Engine.routes.url_helpers
 
         setup do
@@ -42,7 +42,7 @@ module Spina
           assert_difference 'Article.count' do
             post admin_journal_articles_url, params: { article: attributes }
           end
-          assert_redirected_to admin_journal_articles_url
+          assert_redirected_to %r{articles/\d+/edit}
           assert_equal 'Article saved.', flash[:success]
         end
 
@@ -52,7 +52,7 @@ module Spina
           assert_no_difference 'Article.count' do
             post admin_journal_articles_url, params: { article: attributes }
           end
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Article saved.', flash[:success]
         end
 
@@ -60,7 +60,7 @@ module Spina
           attributes = @article.attributes
           attributes[:title] = 'New name'
           patch admin_journal_article_url(@article), params: { article: attributes }
-          assert_redirected_to admin_journal_articles_url
+          assert_redirected_to edit_admin_journal_article_url(@article)
           assert_equal 'Article saved.', flash[:success]
         end
 
@@ -81,7 +81,7 @@ module Spina
           attributes = @article.attributes
           attributes[:title] = nil
           patch admin_journal_article_url(@article), params: { article: attributes }
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Article saved.', flash[:success]
         end
 
@@ -98,44 +98,10 @@ module Spina
         end
 
         test 'should sort if given valid order' do
-          data = {
-            admin_journal_articles: {
-              list: {
-                @article2.id.to_s => '1',
-                @article.id.to_s => '2'
-              }
-            }
-          }
-          patch sort_admin_journal_articles_url(@article.issue), params: data
+          data = { ids: [@article2.id, @article.id] }
+          post sort_admin_journal_articles_url(@article.issue), params: data
           assert_equal 1, Article.find(@article2.id).number
           assert_equal 2, Article.find(@article.id).number
-        end
-
-        test 'should not sort if given invalid order' do
-          data = {
-            admin_journal_articles: {
-              list: {
-                @article2.id.to_s => '1',
-                @article.id.to_s => '1'
-              }
-            }
-          }
-          patch sort_admin_journal_articles_url(@article.issue), params: data
-          assert_equal 1, Article.find(@article.id).number
-          assert_equal 2, Article.find(@article2.id).number
-        end
-
-        test 'sort should respond with error message if provided invalid order' do
-          data = {
-            admin_journal_articles: {
-              list: {
-                @article2.id.to_s => '1',
-                @article.id.to_s => '1'
-              }
-            }
-          }
-          patch sort_admin_journal_articles_url(@article.issue), params: data
-          assert_not JSON.parse(response.body)['success']
         end
       end
     end

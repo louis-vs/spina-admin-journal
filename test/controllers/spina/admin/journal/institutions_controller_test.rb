@@ -35,7 +35,7 @@ module Spina
           assert_difference 'Institution.count' do
             post admin_journal_institutions_url, params: { institution: attributes }
           end
-          assert_redirected_to admin_journal_institutions_url
+          assert_redirected_to %r{institutions/\d+/edit}
           assert_equal 'Institution saved.', flash[:success]
         end
 
@@ -45,7 +45,7 @@ module Spina
           assert_no_difference 'Institution.count' do
             post admin_journal_institutions_url, params: { institution: attributes }
           end
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Institution saved.', flash[:success]
         end
 
@@ -53,7 +53,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = 'New name'
           patch admin_journal_institution_url(@institution), params: { institution: attributes }
-          assert_redirected_to admin_journal_institutions_url
+          assert_redirected_to edit_admin_journal_institution_url(@institution)
           assert_equal 'Institution saved.', flash[:success]
         end
 
@@ -61,7 +61,7 @@ module Spina
           attributes = @institution.attributes
           attributes[:name] = nil
           patch admin_journal_institution_url(@institution), params: { institution: attributes }
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Institution saved.', flash[:success]
         end
 

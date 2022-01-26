@@ -24,17 +24,19 @@ module Spina
         def create
           @author = Author.new(modified_params)
           if @author.save
-            redirect_to admin_journal_authors_path, success: t('.saved')
+            redirect_to edit_admin_journal_author_path(@author), success: t('.saved')
           else
-            render :new
+            flash.now[:alert] = t('.failed')
+            render :new, status: :unprocessable_entity
           end
         end
 
         def update
           if @author.update(modified_params)
-            redirect_to admin_journal_authors_path, success: t('.saved')
+            redirect_to edit_admin_journal_author_path(@author), success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 
@@ -48,17 +50,11 @@ module Spina
         end
 
         def sort
-          ActiveRecord::Base.transaction do
-            sort_params.each do |id, new_pos|
-              # ignore uniqueness validation for now
-              Authorship.find(id.to_i).update_attribute(:position, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
-            end
-            # do validations after reordering is complete
-            validate_sort_order
+          params[:ids].each.with_index do |id, index|
+            Authorship.where(id: id).update_all(position: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          render json: { success: true, message: t('.sort_success') }
-        rescue ActiveRecord::RecordInvalid
-          render json: { success: false, message: t('.sort_error') }
+          flash.now[:info] = t('spina.pages.sorting_saved')
+          render_flash
         end
 
         private
@@ -80,10 +76,6 @@ module Spina
           new_params
         end
 
-        def sort_params
-          params.require(:admin_journal_authorships).require(:list).permit!
-        end
-
         def set_breadcrumb
           add_breadcrumb Author.model_name.human(count: :many), admin_journal_authors_path
         end
@@ -95,12 +87,6 @@ module Spina
         def set_author
           @author = Author.find(params[:id])
           add_breadcrumb @author.primary_affiliation.name
-        end
-
-        def validate_sort_order
-          Authorship.where(article_id: params[:article_id]).each do |authorship|
-            raise ActiveRecord::RecordInvalid if authorship.invalid?
-          end
         end
       end
     end

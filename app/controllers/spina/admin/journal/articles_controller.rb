@@ -41,23 +41,25 @@ module Spina
 
         def edit; end
 
-        def create
+        def create # rubocop:disable Metrics/AbcSize
           @article = Article.new(article_params)
           sister_articles = Article.where(issue: @article.issue_id)
           @article.number = sister_articles.any? ? sister_articles.sorted_desc.first.number + 1 : 1
 
           if @article.save
-            redirect_to admin_journal_articles_path, success: t('.saved')
+            redirect_to edit_admin_journal_article_path(@article), success: t('.saved')
           else
-            render :new
+            flash.now[:alert] = t('.failed')
+            render :new, status: :unprocessable_entity
           end
         end
 
         def update
           if @article.update(article_params)
-            redirect_to admin_journal_articles_path, success: t('.saved')
+            redirect_to edit_admin_journal_article_path(@article), success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 
@@ -71,31 +73,17 @@ module Spina
         end
 
         def sort
-          ActiveRecord::Base.transaction do
-            sort_params.each do |id, new_pos|
-              Article.find(id.to_i).update_attribute(:number, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
-            end
-            validate_sort_order
+          params[:ids].each.with_index do |id, index|
+            Article.where(id: id).update_all(number: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          render json: { success: true, message: t('.sort_success') }
-        rescue ActiveRecord::RecordInvalid
-          render json: { success: false, message: t('.sort_error') }
+          flash.now[:info] = t('spina.pages.sorting_saved')
+          render_flash
         end
 
         private
 
         def article_params
           params.require(:article).permit(PARAMS)
-        end
-
-        def sort_params
-          params.require(:admin_journal_articles).require(:list).permit!
-        end
-
-        def validate_sort_order
-          Article.where(issue_id: params[:issue_id]).each do |article|
-            raise ActiveRecord::RecordInvalid if article.invalid?
-          end
         end
 
         def set_breadcrumb

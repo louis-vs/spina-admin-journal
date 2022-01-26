@@ -1,29 +1,38 @@
-%li{ class: ('active' if %w[articles issues volumes].include? controller_name) }
-  = link_to spina.admin_journal_volumes_path do
-    = icon 'pages'
-    = ::Spina::Admin::Journal::Journal.instance.has_content?(:journal_abbreviation) ? ::Spina::Admin::Journal::Journal.instance.content(:journal_abbreviation) : ::Spina::Admin::Journal::Journal.instance.name
-    = icon 'caret-right'
+= render Spina::MainNavigation::SubNavComponent.new(:journal_content) do |nav|
+  - nav.icon do
+    = heroicon 'document-add', style: :solid, class: 'w-8 h-8 text-white md:mr-3'
+    .text-white.font-semibold.hidden{class: 'md:block transform -translate-x-2 ease-in-out duration-300 absolute md:relative opacity-0 transition-all', 'data-navigation-target': 'label'}
+      = Spina::Admin::Journal::Journal.instance.name
 
-    %ul
-      %li{ class: ('active' if %w[volumes].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Volume.model_name.human(count: :many), spina.admin_journal_volumes_path
-      %li{ class: ('active' if %w[issues].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Issue.model_name.human(count: :many), spina.admin_journal_issues_path
-      %li{ class: ('active' if %w[articles].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Article.model_name.human(count: :many), spina.admin_journal_articles_path
+  - nav.links do
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Volume.model_name.human(count: :many),
+                                                      spina.admin_journal_volumes_path,
+                                                      active: controller_name == 'volumes')
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Issue.model_name.human(count: :many),
+                                                      spina.admin_journal_issues_path,
+                                                      active: controller_name == 'issues')
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Article.model_name.human(count: :many),
+                                                      spina.admin_journal_articles_path,
+                                                      active: controller_name == 'articles')
 
-%li{ class: ('active' if %w[journals authors institutions licences].include? controller_name) }
-  = link_to spina.edit_admin_journal_journal_path(::Spina::Admin::Journal::Journal.instance.id) do
-    = icon 'dots'
-    = t 'spina.admin.journal.navigation_title'
-    = icon 'caret-right'
 
-    %ul
-      %li{ class: ('active' if %w[journals].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Journal.model_name.human(count: :one), spina.edit_admin_journal_journal_path(::Spina::Admin::Journal::Journal.instance.id)
-      %li{ class: ('active' if %w[authors].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Author.model_name.human(count: :many), spina.admin_journal_authors_path
-      %li{ class: ('active' if %w[institutions].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Institution.model_name.human(count: :many), spina.admin_journal_institutions_path
-      %li{ class: ('active' if %w[licences].include? controller_name) }
-        = link_to ::Spina::Admin::Journal::Licence.model_name.human(count: :many), spina.admin_journal_licences_path
+= render Spina::MainNavigation::SubNavComponent.new(:journal_settings) do |nav|
+  - nav.icon do
+    = heroicon 'dots-horizontal', style: :solid, class: 'w-8 h-8 text-white md:mr-3'
+    .text-white.font-semibold.hidden{class: 'md:block transform -translate-x-2 ease-in-out duration-300 absolute md:relative opacity-0 transition-all', 'data-navigation-target': 'label'}
+      = t 'spina.admin.journal.navigation_title'
+
+  - nav.links do
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Journal.model_name.human(count: :one),
+                                                      spina.edit_admin_journal_journal_path(Spina::Admin::Journal::Journal.instance.id),
+                                                      active: controller_name == 'journals')
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Author.model_name.human(count: :many),
+                                                      spina.admin_journal_authors_path,
+                                                      active: controller_name == 'authors')
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Institution.model_name.human(count: :many),
+                                                      spina.admin_journal_institutions_path,
+                                                      active: controller_name == 'institutions')
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Licence.model_name.human(count: :many),
+                                                      spina.admin_journal_licences_path,
+                                                      active: controller_name == 'licences')
+

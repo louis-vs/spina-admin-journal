@@ -1,9 +1,3 @@
-.page-form
-  .page-form-group
-    .page-form-label
-      = ::Spina::Admin::Journal::Institution.human_attribute_name :name
-    .page-form-content
-      = f.text_field :name
+= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Institution.human_attribute_name(:name)) do
+  = render Spina::Forms::TextFieldComponent.new(f, :name)
 
-- unless @institution.new_record?
-  .pull-right= link_to t('spina.permanently_delete'), admin_journal_institution_path(@institution), method: :delete, data: { confirm: t('.delete_confirmation', name: @institution.name) }, class: 'button button-link button-danger'

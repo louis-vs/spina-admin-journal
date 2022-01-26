@@ -9,7 +9,7 @@ module Spina
 
         add_flash_types :success
 
-        layout :admin_layout, only: %i[new edit]
+        layout :admin_layout
 
         before_action :set_locale
 
