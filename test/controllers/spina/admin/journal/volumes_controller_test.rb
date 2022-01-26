@@ -44,44 +44,10 @@ module Spina
         end
 
         test 'should sort if given valid order' do
-          data = {
-            admin_journal_volumes: {
-              list: {
-                @volume2.id.to_s => '1',
-                @volume.id.to_s => '2'
-              }
-            }
-          }
-          patch sort_admin_journal_volumes_url(@volume.journal), params: data
+          data = { ids: [ @volume2.id, @volume.id ] }
+          post sort_admin_journal_volumes_url(@volume.journal), params: data
           assert_equal 1, Volume.find(@volume2.id).number
           assert_equal 2, Volume.find(@volume.id).number
-        end
-
-        test 'should not sort if given invalid order' do
-          data = {
-            admin_journal_volumes: {
-              list: {
-                @volume2.id.to_s => '1',
-                @volume.id.to_s => '1'
-              }
-            }
-          }
-          patch sort_admin_journal_volumes_url(@volume.journal), params: data
-          assert_equal 1, Volume.find(@volume.id).number
-          assert_equal 2, Volume.find(@volume2.id).number
-        end
-
-        test 'sort should respond with error message if provided invalid order' do
-          data = {
-            admin_journal_volumes: {
-              list: {
-                @volume.id.to_s => '1',
-                @volume2.id.to_s => '1'
-              }
-            }
-          }
-          patch sort_admin_journal_volumes_url(@volume.journal), params: data
-          assert_not JSON.parse(response.body)['success']
         end
       end
     end
