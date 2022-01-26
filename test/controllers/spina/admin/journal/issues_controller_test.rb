@@ -48,7 +48,7 @@ module Spina
           assert_no_difference 'Issue.count' do
             post admin_journal_issues_url, params: { issue: attributes }
           end
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Issue saved.', flash[:success]
         end
 

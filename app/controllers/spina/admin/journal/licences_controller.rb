@@ -44,7 +44,8 @@ module Spina
           if @licence.save
             redirect_to admin_journal_licences_path, success: t('.saved')
           else
-            render :new
+            flash.now[:alert] = t('.failed')
+            render :new, status: :unprocessable_entity
           end
         end
 
@@ -52,7 +53,8 @@ module Spina
           if @licence.update(licence_params)
             redirect_to admin_journal_licences_path, success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 

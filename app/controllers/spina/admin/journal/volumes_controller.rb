@@ -15,6 +15,10 @@ module Spina
 
         def edit; end
 
+        def new
+          create
+        end
+
         def create # rubocop:disable Metrics/AbcSize
           @volume = Volume.new
           @volume.journal_id = Journal.instance.id

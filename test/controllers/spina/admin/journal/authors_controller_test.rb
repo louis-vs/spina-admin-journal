@@ -59,7 +59,7 @@ module Spina
           assert_no_difference %w[Author.count Affiliation.count] do
             post admin_journal_authors_url, params: { author: attributes }
           end
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Author saved.', flash[:success]
         end
 
@@ -93,7 +93,7 @@ module Spina
           end.to_h
           attributes['affiliations_attributes']['0']['first_name'] = nil
           patch admin_journal_author_url(@author), params: { author: attributes }
-          assert_response :success
+          assert_response :unprocessable_entity
           assert_not_equal 'Author saved.', flash[:success]
         end
 

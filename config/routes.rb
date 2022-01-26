@@ -4,7 +4,7 @@ Spina::Engine.routes.draw do
   namespace :admin, path: Spina.config.backend_path do
     namespace :journal do
       resources :journals, only: %i[edit update destroy]
-      resources :volumes, except: %i[show new update] do
+      resources :volumes, except: %i[show update] do
         post 'sort/:journal_id' => 'volumes#sort', as: :sort, on: :collection
       end
       resources :issues, except: %i[show] do

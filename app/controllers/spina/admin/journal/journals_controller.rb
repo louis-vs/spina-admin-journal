@@ -35,7 +35,8 @@ module Spina
           if @journal.update(journal_params)
             redirect_to edit_admin_journal_journal_path(@journal), success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 

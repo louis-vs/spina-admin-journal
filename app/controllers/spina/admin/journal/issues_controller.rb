@@ -54,7 +54,8 @@ module Spina
           if @issue.save
             redirect_to admin_journal_issues_path, success: t('.saved')
           else
-            render :new
+            flash.now[:alert] = t('.failed')
+            render :new, status: :unprocessable_entity
           end
         end
 
@@ -62,7 +63,8 @@ module Spina
           if @issue.update(issue_params)
             redirect_to admin_journal_issues_path, success: t('.saved')
           else
-            render :edit
+            flash.now[:alert] = t('.failed')
+            render :edit, status: :unprocessable_entity
           end
         end
 
