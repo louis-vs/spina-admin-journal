@@ -1,4 +1,4 @@
-= form_for [:admin_journal, @article], html: { autocomplete: 'off' } do |f|
+= form_for [:admin_journal, @article], id: dom_id(@article), html: { autocomplete: 'off' } do |f|
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.model_name.human(count: :one)) do
     = f.collection_select :issue_id, ::Spina::Admin::Journal::Issue.sorted_desc, :id, ->(issue) { t '.volume_issue', volume_number: issue.volume.number, issue_number: issue.number }
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:number),
