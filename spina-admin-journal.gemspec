@@ -25,12 +25,10 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib,vendor}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.add_dependency 'babel-transpiler', '~> 0.7'
   spec.add_dependency 'haml-rails', '~> 2.0'
-  spec.add_dependency 'jquery-rails', '~> 4.4'
   spec.add_dependency 'rails', '>= 6.0', '< 8'
   spec.add_dependency 'rails-i18n', '>= 6.0', '< 8'
-  spec.add_dependency 'spina', '~> 2.3'
+  spec.add_dependency 'spina', '~> 2.8'
 
   spec.add_development_dependency 'capybara', '~> 3.35'
   spec.add_development_dependency 'codecov', '~> 0.4'
