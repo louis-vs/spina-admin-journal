@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A list of licences. Not sortable.
       class AffiliationsListComponent < ListComponent
         def initialize(affiliations:)
           @affiliations = affiliations

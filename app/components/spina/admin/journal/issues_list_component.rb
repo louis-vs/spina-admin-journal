@@ -3,7 +3,8 @@
 module Spina
   module Admin
     module Journal
-      # (issues are only sortable if they are within an issue)
+      # A list of issues. Issues should only be sortable if presented within the contex of a
+      # volume.
       class IssuesListComponent < ListComponent
         attr_reader :sortable
 

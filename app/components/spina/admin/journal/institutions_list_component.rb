@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A list of institutions. Not sortable.
       class InstitutionsListComponent < ListComponent
         def initialize(institutions:)
           @institutions = institutions

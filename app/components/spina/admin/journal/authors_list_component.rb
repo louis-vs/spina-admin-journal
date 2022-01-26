@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A list of authors. Not sortable.
       class AuthorsListComponent < ListComponent
         def initialize(authors:)
           @authors = authors

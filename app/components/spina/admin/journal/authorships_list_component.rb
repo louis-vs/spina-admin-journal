@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A list of authorships. Sortable when displayed in their corresponding article.
       class AuthorshipsListComponent < ListComponent
         attr_reader :sortable
 

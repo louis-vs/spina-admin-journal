@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A generic list item that is only intended to be called by {ListItemComponent}.
       class ListItemComponent < ApplicationComponent
         attr_reader :sortable
 

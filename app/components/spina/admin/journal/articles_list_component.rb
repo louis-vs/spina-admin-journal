@@ -3,7 +3,8 @@
 module Spina
   module Admin
     module Journal
-      # (articles are only sortable if they are within an issue)
+      # A list of articles. Articles should only be sortable if presented within the contex of an
+      # issue.
       class ArticlesListComponent < ListComponent
         attr_reader :sortable
 

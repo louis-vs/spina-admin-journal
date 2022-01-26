@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A generic implementation of a list, resembling Spina's page list.
       class ListComponent < ApplicationComponent
         attr_reader :sortable
 

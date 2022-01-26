@@ -3,6 +3,7 @@
 module Spina
   module Admin
     module Journal
+      # A sortable list of volumes.
       class VolumesListComponent < ListComponent
         def initialize(volumes:)
           @volumes = volumes
