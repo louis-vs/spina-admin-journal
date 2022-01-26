@@ -1,7 +1,7 @@
 = render Spina::UserInterface::HeaderComponent.new do |header|
   - header.actions do
     .ml-3
-      = link_to admin_journal_volumes_path, method: :post, class: 'btn btn-primary w-full' do
+      = link_to new_admin_journal_volume_path, class: 'btn btn-primary w-full' do
         = heroicon 'plus', style: :solid, class: 'w-7 h-7 -m1-2'
         = t '.new'
 
