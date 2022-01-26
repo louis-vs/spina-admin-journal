@@ -6,7 +6,7 @@ module Spina
       class ListComponent < ApplicationComponent
         attr_reader :sortable
 
-        def initialize(list_items:, sortable: false, sort_path:)
+        def initialize(list_items:, sortable: false, sort_path: '')
           @sortable = sortable
           @list_items = list_items
           @sort_path = sort_path
