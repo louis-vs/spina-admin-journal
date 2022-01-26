@@ -13,7 +13,7 @@
       = t '.save'
 
 .p-4.md:p-8
-  = form_for [:admin_journal, @licence], id: dom_id(@article), html: { autocomplete: 'off' } do |f|
+  = form_with model: [spina, :admin_journal, @licence], id: dom_id(@licence), html: { autocomplete: 'off' } do |f|
     = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:name)) do
       = render Spina::Forms::TextFieldComponent.new(f, :name)
     = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:abbreviated_name)) do
