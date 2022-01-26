@@ -15,7 +15,6 @@ module Spina
             config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/assets/javascripts/**/*.js"
             config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/**/application.tailwind.css"
           end
-          puts Spina.config.tailwind_content
         end
 
         config.before_initialize do
