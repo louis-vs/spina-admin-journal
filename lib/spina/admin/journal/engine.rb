@@ -7,14 +7,15 @@ module Spina
       class Engine < ::Rails::Engine
         isolate_namespace Spina::Admin::Journal
 
-        config.to_prepare do
-          Spina.configure do |config|
-            config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/views/**/*.*"
-            config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/components/**/*.*"
-            config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/helpers/**/*.*"
-            config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/assets/javascripts/**/*.js"
-            config.tailwind_content << "#{Spina::Admin::Journal::Engine.root}/app/**/application.tailwind.css"
+        initializer 'spina.admin.journal.assets' do
+          Spina.config.importmap.draw do
+            pin_all_from Spina::Admin::Journal::Engine.root.join("app/assets/javascripts/spina/admin/journal/controllers"), under: "controllers", to: "spina/admin/journal/controllers"
           end
+
+          Spina.config.tailwind_content.concat(["#{Spina::Admin::Journal::Engine.root}/app/views/**/*.*",
+                                                "#{Spina::Admin::Journal::Engine.root}/app/components/**/*.*",
+                                                "#{Spina::Admin::Journal::Engine.root}/app/helpers/**/*.*",
+                                                "#{Spina::Admin::Journal::Engine.root}/app/assets/javascripts/**/*.js"])
         end
 
         config.before_initialize do
