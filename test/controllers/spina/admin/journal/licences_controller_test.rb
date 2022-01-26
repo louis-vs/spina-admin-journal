@@ -38,7 +38,7 @@ module Spina
           assert_difference 'Licence.count' do
             post admin_journal_licences_url, params: { licence: attributes }
           end
-          assert_redirected_to admin_journal_licences_url
+          assert_redirected_to %r{licences/\d+/edit}
           assert_equal 'Licence saved.', flash[:success]
         end
 
@@ -56,7 +56,7 @@ module Spina
           attributes = @licence.attributes
           attributes[:name] = 'Brand new name'
           patch admin_journal_licence_url(@licence), params: { licence: attributes }
-          assert_redirected_to admin_journal_licences_url
+          assert_redirected_to edit_admin_journal_licence_url(@licence)
           assert_equal 'Licence saved.', flash[:success]
         end
 

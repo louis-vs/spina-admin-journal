@@ -24,7 +24,7 @@ module Spina
           @volume.journal_id = Journal.instance.id
           @volume.number = Volume.any? ? Volume.sorted_desc.first.number + 1 : 1
           @volume.save!
-          redirect_to admin_journal_volumes_path, success: t('.created', number: @volume.number)
+          redirect_to edit_admin_journal_volume_path(@volume), success: t('.created', number: @volume.number)
         rescue ActiveRecord::RecordNotUnique
           # can only happen because of some race condition where two Volumes are created at the same time
           logger.error 'Error when creating new volume. Retrying...'

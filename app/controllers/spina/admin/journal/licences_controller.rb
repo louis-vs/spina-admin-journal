@@ -42,7 +42,7 @@ module Spina
         def create
           @licence = Licence.new(licence_params)
           if @licence.save
-            redirect_to admin_journal_licences_path, success: t('.saved')
+            redirect_to edit_admin_journal_licence_path(@licence), success: t('.saved')
           else
             flash.now[:alert] = t('.failed')
             render :new, status: :unprocessable_entity
@@ -51,7 +51,7 @@ module Spina
 
         def update
           if @licence.update(licence_params)
-            redirect_to admin_journal_licences_path, success: t('.saved')
+            redirect_to edit_admin_journal_licence_path(@licence), success: t('.saved')
           else
             flash.now[:alert] = t('.failed')
             render :edit, status: :unprocessable_entity

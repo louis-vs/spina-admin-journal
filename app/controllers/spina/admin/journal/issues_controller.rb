@@ -52,7 +52,7 @@ module Spina
           @issue.number = sister_issues.any? ? sister_issues.sorted_desc.first.number + 1 : 1
 
           if @issue.save
-            redirect_to admin_journal_issues_path, success: t('.saved')
+            redirect_to edit_admin_journal_issue_path(@issue), success: t('.saved')
           else
             flash.now[:alert] = t('.failed')
             render :new, status: :unprocessable_entity
@@ -61,7 +61,7 @@ module Spina
 
         def update
           if @issue.update(issue_params)
-            redirect_to admin_journal_issues_path, success: t('.saved')
+            redirect_to edit_admin_journal_issue_path(@issue), success: t('.saved')
           else
             flash.now[:alert] = t('.failed')
             render :edit, status: :unprocessable_entity

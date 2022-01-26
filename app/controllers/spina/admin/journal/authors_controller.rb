@@ -24,7 +24,7 @@ module Spina
         def create
           @author = Author.new(modified_params)
           if @author.save
-            redirect_to admin_journal_authors_path, success: t('.saved')
+            redirect_to edit_admin_journal_author_path(@author), success: t('.saved')
           else
             flash.now[:alert] = t('.failed')
             render :new, status: :unprocessable_entity
@@ -33,7 +33,7 @@ module Spina
 
         def update
           if @author.update(modified_params)
-            redirect_to admin_journal_authors_path, success: t('.saved')
+            redirect_to edit_admin_journal_author_path(@author), success: t('.saved')
           else
             flash.now[:alert] = t('.failed')
             render :edit, status: :unprocessable_entity

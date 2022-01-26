@@ -38,7 +38,7 @@ module Spina
           assert_difference 'Issue.count' do
             post admin_journal_issues_url, params: { issue: attributes }
           end
-          assert_redirected_to admin_journal_issues_url
+          assert_redirected_to %r{issues/\d+/edit}
           assert_equal 'Issue saved.', flash[:success]
         end
 
@@ -56,7 +56,7 @@ module Spina
           attributes = @issue.attributes
           attributes[:title] = 'New name'
           patch admin_journal_issue_url(@issue), params: { issue: attributes }
-          assert_redirected_to admin_journal_issues_url
+          assert_redirected_to edit_admin_journal_issue_url(@issue)
           assert_equal 'Issue saved.', flash[:success]
         end
 

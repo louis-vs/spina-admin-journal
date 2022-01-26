@@ -31,7 +31,7 @@ module Spina
           assert_difference 'Volume.count' do
             post admin_journal_volumes_url
           end
-          assert_redirected_to admin_journal_volumes_url
+          assert_redirected_to %r{volumes/\d+/edit}
           assert_equal 'Volume <strong>4</strong> created.', flash[:success]
         end
 
