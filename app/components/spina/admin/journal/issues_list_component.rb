@@ -9,6 +9,7 @@ module Spina
 
         def initialize(issues:, sortable: false)
           @issues = issues
+          @sortable = sortable
         end
 
         def before_render

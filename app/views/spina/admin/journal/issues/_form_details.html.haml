@@ -1,16 +1,17 @@
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Volume.human_attribute_name(:number)) do
-  = f.collection_select :volume_id, ::Spina::Admin::Journal::Volume.sorted_desc, :id, :number
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:number),
-                                          description: t('.issue_unchangeable')) do
-  = f.number_field :number, disabled: true
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:title)) do
-  = render Spina::Forms::TextFieldComponent.new(f, :title)
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:date)) do
-  = f.date_field :date
+= form_for [:admin_journal, @issue], html: { autocomplete: 'off' } do |f|
+  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Volume.human_attribute_name(:number)) do
+    = f.collection_select :volume_id, ::Spina::Admin::Journal::Volume.sorted_desc, :id, :number
+  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:number),
+                                            description: t('.issue_unchangeable')) do
+    = f.number_field :number, disabled: true
+  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:title)) do
+    = render Spina::Forms::TextFieldComponent.new(f, :title)
+  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.human_attribute_name(:date)) do
+    = f.date_field :date
 
-= f.fields_for :"#{@locale}_content", @parts do |ff|
-  = ff.hidden_field :type, value: ff.object.class
-  = ff.hidden_field :title
-  = ff.hidden_field :name
+  = f.fields_for :"#{@locale}_content", @parts do |ff|
+    = ff.hidden_field :type, value: ff.object.class
+    = ff.hidden_field :title
+    = ff.hidden_field :name
 
-  = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
+    = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
