@@ -23,7 +23,6 @@
               = t ".#{tab}"
 
   .p-4.md:p-8
-    = form_for [:admin_journal, @article], html: { autocomplete: 'off' } do |f|
-      - @tabs.each_with_index do |tab, i|
-        %div{ 'data-tabs-target': 'pane', id: tab, hidden: i != 0 }
-          = render "form_#{tab}", f: f
+    - @tabs.each_with_index do |tab, i|
+      %div{ 'data-tabs-target': 'pane', id: tab, hidden: i != 0 }
+        = render "form_#{tab}"

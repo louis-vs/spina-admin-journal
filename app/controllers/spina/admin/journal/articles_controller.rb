@@ -71,31 +71,17 @@ module Spina
         end
 
         def sort
-          ActiveRecord::Base.transaction do
-            sort_params.each do |id, new_pos|
-              Article.find(id.to_i).update_attribute(:number, new_pos.to_i) # rubocop:disable Rails/SkipsModelValidations
-            end
-            validate_sort_order
+          params[:ids].each.with_index do |id, index|
+            Article.where(id: id).update_all(number: index + 1)
           end
-          render json: { success: true, message: t('.sort_success') }
-        rescue ActiveRecord::RecordInvalid
-          render json: { success: false, message: t('.sort_error') }
+          flash.now[:info] = t("spina.pages.sorting_saved")
+          render_flash
         end
 
         private
 
         def article_params
           params.require(:article).permit(PARAMS)
-        end
-
-        def sort_params
-          params.require(:admin_journal_articles).require(:list).permit!
-        end
-
-        def validate_sort_order
-          Article.where(issue_id: params[:issue_id]).each do |article|
-            raise ActiveRecord::RecordInvalid if article.invalid?
-          end
         end
 
         def set_breadcrumb

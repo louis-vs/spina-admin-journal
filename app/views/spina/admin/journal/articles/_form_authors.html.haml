@@ -1,2 +1,1 @@
-.sort-message
-= render Spina::Admin::Journal::AffiliationsListComponent.new(affiliations: @article.affiliations)
+= render Spina::Admin::Journal::AuthorshipsListComponent.new(authorships: @article.authorships.sorted_within_article, sortable: true)

@@ -1,14 +1,16 @@
 %li{data: { id: @id }}
   .flex.items-center.border-gray-200.border-b.bg-opacity-50.w-full
     - if sortable?
-      .p-4.text-gray-300.hover:text-gray-600.cursor-move
+      .p-4.text-gray-300.hover:text-gray-600.cursor-move{ data: { 'sortable-handle': true } }
         = helpers.heroicon('menu-alt-4', style: :solid, class: 'w-4 h-4 -mr-4')
 
     .flex-auto
       .block.text-spina.font-medium.text-sm.p-4{class: 'hover:text-spina-dark' }
-        = @label
+        = link_to @path do
+          = @label
 
     .flex-1
+
     = link_to @path, class: 'btn btn-link mr-4' do
       .flex.flex-nowrap.items-center.px-8.py-1
         = helpers.heroicon 'pencil-alt', style: :outline, class: 'w-4 h-4'

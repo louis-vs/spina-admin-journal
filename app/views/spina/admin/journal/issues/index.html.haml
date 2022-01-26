@@ -5,5 +5,5 @@
         = heroicon 'plus', style: :solid, class: 'w-7 h-7 -m1-2'
         = t '.new'
 
-= render Spina::Admin::Journal::IssuesListComponent.new(issues: @issues)
+= render Spina::Admin::Journal::IssuesListComponent.new(issues: @issues, sortable: false)
 

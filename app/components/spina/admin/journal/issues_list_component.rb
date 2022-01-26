@@ -3,8 +3,11 @@
 module Spina
   module Admin
     module Journal
+      # (issues are only sortable if they are within an issue)
       class IssuesListComponent < ListComponent
-        def initialize(issues:)
+        attr_reader :sortable
+
+        def initialize(issues:, sortable: false)
           @issues = issues
         end
 
@@ -13,7 +16,13 @@ module Spina
         end
 
         def call
-          render ListComponent.new(list_items: @list_items, sortable: false)
+          render ListComponent.new(list_items: @list_items,
+                                   sortable: sortable?,
+                                   sort_path: (@issues.any? ? helpers.spina.sort_admin_journal_issues_path(@issues.first.volume.id) : ''))
+        end
+
+        def sortable?
+          sortable
         end
 
         private

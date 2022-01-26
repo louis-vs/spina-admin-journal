@@ -5,6 +5,7 @@ en:
         navigation_title: Journal settings
         unnamed_journal: Unnamed journal
         edit: Edit
+        sort_info: "NB: item numbers will only update after you refresh the page."
         journals:
           index:
             new: New journal
