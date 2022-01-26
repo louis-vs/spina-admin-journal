@@ -41,7 +41,7 @@ module Spina
 
         def edit; end
 
-        def create
+        def create # rubocop:disable Metrics/AbcSize
           @article = Article.new(article_params)
           sister_articles = Article.where(issue: @article.issue_id)
           @article.number = sister_articles.any? ? sister_articles.sorted_desc.first.number + 1 : 1
@@ -74,9 +74,9 @@ module Spina
 
         def sort
           params[:ids].each.with_index do |id, index|
-            Article.where(id: id).update_all(number: index + 1)
+            Article.where(id: id).update_all(number: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          flash.now[:info] = t("spina.pages.sorting_saved")
+          flash.now[:info] = t('spina.pages.sorting_saved')
           render_flash
         end
 

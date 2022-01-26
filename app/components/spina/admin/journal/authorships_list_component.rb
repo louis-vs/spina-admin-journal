@@ -18,7 +18,7 @@ module Spina
         def call
           render ListComponent.new(list_items: @list_items,
                                    sortable: sortable?,
-                                   sort_path: (@authorships.any? ? helpers.spina.sort_admin_journal_authors_path(@authorships.first.article.id) : ''))
+                                   sort_path: generate_sort_path)
         end
 
         def sortable?
@@ -33,6 +33,10 @@ module Spina
               label: authorship.affiliation.reversed_name,
               path: helpers.spina.edit_admin_journal_author_path(authorship.affiliation.author) }
           end
+        end
+
+        def generate_sort_path
+          @authorships.any? ? helpers.spina.sort_admin_journal_authors_path(@authorships.first.article.id) : ''
         end
       end
     end

@@ -19,7 +19,7 @@ module Spina
         def call
           render ListComponent.new(list_items: @list_items,
                                    sortable: sortable?,
-                                   sort_path: (@issues.any? ? helpers.spina.sort_admin_journal_issues_path(@issues.first.volume.id) : ''))
+                                   sort_path: generate_sort_path)
         end
 
         def sortable?
@@ -35,6 +35,10 @@ module Spina
                                                                   issue_number: issue.number),
               path: helpers.spina.edit_admin_journal_issue_path(issue.id) }
           end
+        end
+
+        def generate_sort_path
+          @issues.any? ? helpers.spina.sort_admin_journal_issues_path(@issues.first.volume.id) : ''
         end
       end
     end

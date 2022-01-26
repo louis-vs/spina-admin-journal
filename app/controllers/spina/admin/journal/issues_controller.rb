@@ -5,7 +5,7 @@ module Spina
     module Journal
       # Controller for {Issue} records.
       # TODO: extract methods to helpers to reduce class length
-      class IssuesController < ApplicationController # rubocop:disable Metrics/ClassLength
+      class IssuesController < ApplicationController
         PARTS_PARAMS = [
           :name, :title, :type, :content, :filename, :signed_blob_id, :alt, :attachment_id, :image_id,
           { images_attributes: %i[filename signed_blob_id image_id alt],
@@ -46,7 +46,7 @@ module Spina
           add_breadcrumb t('spina.admin.journal.issues.issue_number', number: @issue.number)
         end
 
-        def create
+        def create # rubocop:disable Metrics/AbcSize
           @issue = Issue.new(issue_params)
           sister_issues = Issue.where(volume: @issue.volume_id)
           @issue.number = sister_issues.any? ? sister_issues.sorted_desc.first.number + 1 : 1
@@ -79,9 +79,9 @@ module Spina
 
         def sort
           params[:ids].each.with_index do |id, index|
-            Issue.where(id: id).update_all(number: index + 1)
+            Issue.where(id: id).update_all(number: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          flash.now[:info] = t("spina.pages.sorting_saved")
+          flash.now[:info] = t('spina.pages.sorting_saved')
           render_flash
         end
 

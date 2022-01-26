@@ -73,7 +73,7 @@ module Spina
         end
 
         test 'should sort if given valid order' do
-          data = { ids: [ @empty_issue.id, @issue.id ] }
+          data = { ids: [@empty_issue.id, @issue.id] }
           post sort_admin_journal_issues_url(@issue.volume), params: data
           assert_equal 1, Issue.find(@empty_issue.id).number
           assert_equal 2, Issue.find(@issue.id).number

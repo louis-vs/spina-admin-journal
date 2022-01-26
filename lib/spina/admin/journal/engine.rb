@@ -9,7 +9,8 @@ module Spina
 
         initializer 'spina.admin.journal.assets' do
           Spina.config.importmap.draw do
-            pin_all_from Spina::Admin::Journal::Engine.root.join("app/assets/javascripts/spina/admin/journal/controllers"), under: "controllers", to: "spina/admin/journal/controllers"
+            pin_all_from Spina::Admin::Journal::Engine.root.join('app/assets/javascripts/spina/admin/journal/controllers'), # rubocop:disable Layout/LineLength
+                         under: 'controllers', to: 'spina/admin/journal/controllers'
           end
 
           Spina.config.tailwind_content.concat(["#{Spina::Admin::Journal::Engine.root}/app/views/**/*.*",

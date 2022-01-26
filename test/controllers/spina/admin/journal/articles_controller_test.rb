@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Journal
-      class ArticlesControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
+      class ArticlesControllerTest < ActionDispatch::IntegrationTest
         include ::Spina::Engine.routes.url_helpers
 
         setup do
@@ -98,7 +98,7 @@ module Spina
         end
 
         test 'should sort if given valid order' do
-          data = { ids: [ @article2.id, @article.id ] }
+          data = { ids: [@article2.id, @article.id] }
           post sort_admin_journal_articles_url(@article.issue), params: data
           assert_equal 1, Article.find(@article2.id).number
           assert_equal 2, Article.find(@article.id).number

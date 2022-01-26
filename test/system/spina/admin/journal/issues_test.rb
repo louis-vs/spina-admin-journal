@@ -79,9 +79,9 @@ module Spina
           click_button 'Articles', class: 'bg-transparent'
           assert_text 'NB: item numbers will only update after you refresh the page.'
 
-          #first_handle = find("li[data-id=\"#{@issue.id}\"] .cursor-move")
-          #last_handle = find("li[data-id=\"#{@issue2.id}\"] .cursor-move")
-          #first_handle.drag_to last_handle
+          # first_handle = find("li[data-id=\"#{@issue.id}\"] .cursor-move")
+          # last_handle = find("li[data-id=\"#{@issue2.id}\"] .cursor-move")
+          # first_handle.drag_to last_handle
           list = find_all('.cursor-move')
           list.last.drag_to list.first
 

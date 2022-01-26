@@ -19,7 +19,7 @@ module Spina
         def call
           render ListComponent.new(list_items: @list_items,
                                    sortable: sortable?,
-                                   sort_path: (@articles.any? ? helpers.spina.sort_admin_journal_issues_path(@articles.first.issue.id) : ''))
+                                   sort_path: generate_sort_path)
         end
 
         def sortable?
@@ -36,12 +36,16 @@ module Spina
           end
         end
 
-        def generate_label(article)
+        def generate_label(article) # rubocop:disable Metrics/AbcSize
           t('spina.admin.journal.articles.article_number', volume_number: article.issue.volume.number, # rubocop:disable Style/StringConcatenation
                                                            issue_number: article.issue.number,
                                                            article_number: article.number
           ) + ' | ' + t('spina.admin.journal.articles.title_author', title: article.title, # rubocop:disable Layout/MultilineMethodCallBraceLayout Layout/SpaceInsideParens
-                        author: article.authorships.sorted_within_article.map{ |authorship| authorship.affiliation.surname }.join(', ')) # rubocop:disable Layout/LineLength
+                                                                     author: article.authorships.sorted_within_article.map { |authorship| authorship.affiliation.surname }.join(', ')) # rubocop:disable Layout/LineLength
+        end
+
+        def generate_sort_path
+          @articles.any? ? helpers.spina.sort_admin_journal_issues_path(@articles.first.issue.id) : ''
         end
       end
     end

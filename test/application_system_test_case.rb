@@ -20,9 +20,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     @user = spina_users :admin
 
     visit spina.admin_login_path
-    fill_in "Email", with: @user.email
-    fill_in "Password", with: 'password'
-    click_button "Login"
-    assert_selector "div", text: "Pages"
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: 'password'
+    click_button 'Login'
+    assert_selector 'div', text: 'Pages'
   end
 end

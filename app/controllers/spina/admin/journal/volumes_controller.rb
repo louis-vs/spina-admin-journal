@@ -42,9 +42,9 @@ module Spina
 
         def sort
           params[:ids].each.with_index do |id, index|
-            Volume.where(id: id).update_all(number: index + 1)
+            Volume.where(id: id).update_all(number: index + 1) # rubocop:disable Rails/SkipsModelValidations
           end
-          flash.now[:info] = t("spina.pages.sorting_saved")
+          flash.now[:info] = t('spina.pages.sorting_saved')
           render_flash
         end
 
