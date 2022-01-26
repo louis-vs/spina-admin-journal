@@ -6,12 +6,14 @@ en:
         unnamed_journal: Unnamed journal
         edit: Edit
         sort_info: "NB: item numbers will only update after you refresh the page."
+        empty_list: There are no items.
         journals:
           index:
             new: New journal
             no_journals: There are currently no journals saved.
           update:
             saved: Journal saved.
+            failed: Failed to save journal.
           destroy:
             deleted: Journal deleted.
           form:
@@ -28,6 +30,8 @@ en:
             date: Year
             view: View
             empty: There are no volumes.
+          new:
+            created: Volume %{number} created.
           create:
             created: Volume <strong>%{number}</strong> created.
           update:
@@ -55,8 +59,10 @@ en:
             new: New issue
           create:
             saved: Issue saved.
+            failed: Failed to create issue.
           update:
             saved: Issue saved.
+            failed: Failed to save issue.
           destroy:
             deleted: Issue deleted.
           form:
@@ -77,8 +83,10 @@ en:
             new: New article
           create:
             saved: Article saved.
+            failed: Failed to create article.
           update:
             saved: Article saved.
+            failed: Failed to save article.
           destroy:
             deleted: Article deleted.
           form:
@@ -104,8 +112,10 @@ en:
             new: New author
           create:
             saved: Author saved.
+            failed: Failed to create author.
           update:
             saved: Author saved.
+            failed: Failed to save author.
           destroy:
             deleted: Author deleted.
           sort:
@@ -129,8 +139,10 @@ en:
             new: New institution
           create:
             saved: Institution saved.
+            failed: Failed to create institution.
           update:
             saved: Institution saved.
+            failed: Failed to save institution.
           destroy:
             deleted: Institution deleted.
           form:
@@ -147,8 +159,10 @@ en:
             new: New licence
           create:
             saved: Licence saved.
+            failed: Failed to create licence.
           update:
             saved: Licence saved.
+            failed: Failed to save licence.
           destroy:
             deleted: Licence deleted.
           form:
