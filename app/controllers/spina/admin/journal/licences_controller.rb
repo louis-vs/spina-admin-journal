@@ -27,6 +27,8 @@ module Spina
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
+        admin_section :journal_settings
+
         def index
           @licences = Licence.sorted
         end

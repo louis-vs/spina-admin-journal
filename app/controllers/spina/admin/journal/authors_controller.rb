@@ -9,6 +9,8 @@ module Spina
         before_action :set_tabs, except: %i[index destroy]
         before_action :set_author, only: %i[edit update destroy]
 
+        admin_section :journal_settings
+
         def index
           @authors = Author.all
         end
