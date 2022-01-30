@@ -1,8 +1,9 @@
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:first_name)) do
+.-mt-6
+= render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:first_name)) do
   = render Spina::Forms::TextFieldComponent.new(ff, :first_name)
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:surname)) do
+= render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:surname)) do
   = render Spina::Forms::TextFieldComponent.new(ff, :surname)
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:institution)) do
+= render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:institution)) do
   = ff.collection_select :institution_id, Spina::Admin::Journal::Institution.sorted, :id, :name, {}, class: 'form-select'
-= render Spina::Forms::GroupComponent.new(label: t('.primary'), description: t('.primary_explanation')) do
+= render Spina::Admin::Journal::FormGroupComponent.new(label: t('.primary'), description: t('.primary_explanation')) do
   = radio_button_tag 'author[primary_affiliation_index]', ff.index, ff.object.status == 'primary', class: 'form-radio'

@@ -15,7 +15,8 @@
 .p-4.md:p-8
   .max-w-5xl
     = form_with model: [spina, :admin_journal, @journal], id: dom_id(@journal), html: { autocomplete: 'off' } do |f|
-      = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Journal.human_attribute_name(:name)) do
+      .-mt-6
+      = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Journal.human_attribute_name(:name)) do
         = render Spina::Forms::TextFieldComponent.new(f, :name)
 
       = f.fields_for :"#{@locale}_content", @parts do |ff|

@@ -7,7 +7,9 @@ en:
         navigation_title: Journal settings
         unnamed_journal: Unnamed journal
         edit: Edit
-        sort_info: "NB: item numbers will only update after you refresh the page."
+        sort_info:
+          "Click and drag items by the handles to reorder. NB: item names will only update after
+          you refresh the page."
         empty_list: There are no items.
         journals:
           index:
@@ -102,6 +104,7 @@ en:
             delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_details:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
+            name_institution: "%{name} (%{institution})"
             unchangeable: Article order can be changed in the issue.
           form_authors:
             no_authors: There are no authors.

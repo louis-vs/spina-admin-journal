@@ -1,3 +1,4 @@
-= render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Institution.human_attribute_name(:name)) do
+.-mt-6
+= render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Institution.human_attribute_name(:name)) do
   = render Spina::Forms::TextFieldComponent.new(f, :name)
 
