@@ -22,3 +22,7 @@
     .flex-1.pl-6.md:pl-0{ 'data-repeater-target': 'content' }
       = f.fields_for :affiliations do |affiliation_fields|
         = render 'form_affiliation', f: affiliation_fields
+
+= render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Author.human_attribute_name(:orcid),
+                                                       description: t('.orcid_info')) do
+  = render Spina::Forms::TextFieldComponent.new(f, :orcid)

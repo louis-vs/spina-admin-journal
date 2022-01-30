@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Journal
-      class ArticlesControllerTest < ActionDispatch::IntegrationTest
+      class ArticlesControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
         include ::Spina::Engine.routes.url_helpers
 
         setup do

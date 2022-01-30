@@ -26,6 +26,7 @@ module Spina
         has_many :articles, through: :affiliations
 
         validate :must_have_one_primary_affiliation
+        validates :orcid, format: { with: /\A((\d{4}-){3}\d{3}(\d|X))?\z/ }
 
         # @!attribute [r] primary_affiliation
         #   @return [ActiveRecord::Relation] The author's primary affiliation.

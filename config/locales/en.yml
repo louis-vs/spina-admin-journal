@@ -143,9 +143,12 @@ en:
           form_details:
             explanation:
               "An author represents an individual person. A person may change names and/or
-            institutions over time. This is represented in Journal with
-            'affiliations'. An affiliation consists of an author's name and institution at a
-            particular time, or generally within a particular context."
+              institutions over time. This is represented in Journal with
+              'affiliations'. An affiliation consists of an author's name and institution at a
+              particular time, or generally within a particular context."
+            orcid_info:
+              It is highly recommended to provide an ORCID iD for each author. Find out more at
+              orcid.org.
           form_affiliation:
             primary: Primary?
             primary_explanation:
@@ -247,11 +250,18 @@ en:
         position: Position
       spina/admin/journal/author:
         affiliations: Affiliations
+        orcid: ORCID iD
       spina/admin/journal/institution:
         name: Institution Name
       spina/admin/journal/licence:
         name: Licence Name
         abbreviated_name: Short Name
+    errors:
+      models:
+        author:
+          attributes:
+            orcid:
+              invalid: Invalid format for ORCID iD
 
   date:
     formats:

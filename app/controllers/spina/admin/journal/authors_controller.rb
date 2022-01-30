@@ -62,7 +62,7 @@ module Spina
         private
 
         def author_params
-          params.require(:author).permit(:primary_affiliation_index,
+          params.require(:author).permit(:primary_affiliation_index, :orcid,
                                          affiliations_attributes: %i[id institution_id first_name
                                                                      surname])
         end
