@@ -13,16 +13,17 @@
       = t '.save'
 
 .p-4.md:p-8
-  = form_with model: [spina, :admin_journal, @licence], id: dom_id(@licence), html: { autocomplete: 'off' } do |f|
-    = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:name)) do
-      = render Spina::Forms::TextFieldComponent.new(f, :name)
-    = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:abbreviated_name)) do
-      = render Spina::Forms::TextFieldComponent.new(f, :abbreviated_name)
+  .max-w-5xl
+    = form_with model: [spina, :admin_journal, @licence], id: dom_id(@licence), html: { autocomplete: 'off' } do |f|
+      = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:name)) do
+        = render Spina::Forms::TextFieldComponent.new(f, :name)
+      = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Licence.human_attribute_name(:abbreviated_name)) do
+        = render Spina::Forms::TextFieldComponent.new(f, :abbreviated_name)
 
-    = f.fields_for :"#{@locale}_content", @parts do |ff|
-      = ff.hidden_field :type, value: ff.object.class
-      = ff.hidden_field :title
-      = ff.hidden_field :name
+      = f.fields_for :"#{@locale}_content", @parts do |ff|
+        = ff.hidden_field :type, value: ff.object.class
+        = ff.hidden_field :title
+        = ff.hidden_field :name
 
-      = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
+        = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
 

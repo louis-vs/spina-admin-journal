@@ -136,6 +136,9 @@ en:
             delete_confirmation: "Are you sure you want to delete the author %{name}?"
           form_affiliation:
             primary: Primary?
+            primary_explanation:
+              If checked, this affiliation will be marked as the author's primary affiliation. An
+              author can only have one primary affiliation.
           form_articles:
             no_articles: There are no articles.
         institutions:

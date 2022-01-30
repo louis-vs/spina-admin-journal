@@ -25,5 +25,5 @@
   .p-4.md:p-8
     - @tabs.each_with_index do |tab, i|
       %div{ 'data-tabs-target': 'pane', id: tab, hidden: i != 0 }
-        = render "form_#{tab}"
+        .max-w-5xl.max-w-5xl= render "form_#{tab}"
 

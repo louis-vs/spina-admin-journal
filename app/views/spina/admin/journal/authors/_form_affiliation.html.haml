@@ -3,6 +3,6 @@
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:surname)) do
   = render Spina::Forms::TextFieldComponent.new(ff, :surname)
 = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Affiliation.human_attribute_name(:institution)) do
-  = ff.collection_select :institution_id, Spina::Admin::Journal::Institution.sorted, :id, :name
-= render Spina::Forms::GroupComponent.new(label: t('.primary')) do
-  = radio_button_tag 'author[primary_affiliation_index]', ff.index, ff.object.status == 'primary'
+  = ff.collection_select :institution_id, Spina::Admin::Journal::Institution.sorted, :id, :name, {}, class: 'form-select'
+= render Spina::Forms::GroupComponent.new(label: t('.primary'), description: t('.primary_explanation')) do
+  = radio_button_tag 'author[primary_affiliation_index]', ff.index, ff.object.status == 'primary', class: 'form-radio'

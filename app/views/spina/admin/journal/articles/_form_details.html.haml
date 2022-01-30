@@ -1,15 +1,20 @@
 = form_with model: [spina, :admin_journal, @article], id: dom_id(@article), html: { autocomplete: 'off' } do |f|
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.model_name.human(count: :one)) do
-    = f.collection_select :issue_id, ::Spina::Admin::Journal::Issue.sorted_desc, :id, ->(issue) { t '.volume_issue', volume_number: issue.volume.number, issue_number: issue.number }
+    = f.collection_select(:issue_id,
+                          ::Spina::Admin::Journal::Issue.sorted_desc,
+                          :id,
+                          ->(issue) { t '.volume_issue', volume_number: issue.volume.number, issue_number: issue.number },
+                          {},
+                          class: 'form-select')
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:number),
                                             description: t('.unchangeable')) do
-    = f.number_field :number, disabled: true
+    = f.number_field :number, disabled: true, class: 'form-input'
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:title)) do
     = render Spina::Forms::TextFieldComponent.new(f, :title)
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:status)) do
-    = f.select :status, Spina::Admin::Journal::Article.statuses.keys.map { |key| [key.humanize, key] }
+    = f.select :status, Spina::Admin::Journal::Article.statuses.keys.map { |key| [key.humanize, key] }, {}, class: 'form-select'
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:licence)) do
-    = f.collection_select :licence_id, Spina::Admin::Journal::Licence.sorted, :id, :name, prompt: true
+    = f.collection_select :licence_id, Spina::Admin::Journal::Licence.sorted, :id, :name, { prompt: true }, { class: 'form-select' }
   = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Author.model_name.human(count: :many)) do
     %table.table{ style: 'margin: 0' }
       %tbody.collection-check-boxes
