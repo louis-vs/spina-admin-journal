@@ -1,5 +1,7 @@
 en:
   spina:
+    languages:
+      en-GB: British English
     admin:
       journal:
         navigation_title: Journal settings
@@ -38,6 +40,8 @@ en:
             saved: Volume saved.
           form:
             save: Save
+            details: Details
+            issues: Issues
             delete_confirmation: "Are you sure you want to delete Volume <strong>#%{number}</strong>?"
           form_details:
             unchangeable: The volume number can be changed by clicking 'Change Order' in the index view.
@@ -67,6 +71,8 @@ en:
             deleted: Issue deleted.
           form:
             save: Save issue
+            details: Details
+            articles: Articles
             delete_confirmation: "Are you sure you want to delete Issue <strong>#%{number}</strong>?"
           form_details:
             issue_unchangeable: The issue order can be changed in the 'Volumes' tab.
@@ -91,6 +97,8 @@ en:
             deleted: Article deleted.
           form:
             save: Save article
+            details: Details
+            authors: Authors
             delete_confirmation: "Are you sure you want to delete '<strong>%{title}</strong>'?"
           form_details:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
@@ -123,7 +131,8 @@ en:
             sort_error: There was an error when sorting. Check the server logs for more information.
           form:
             save: Save author
-          form_details:
+            details: Details
+            articles: Articles
             delete_confirmation: "Are you sure you want to delete the author %{name}?"
           form_affiliation:
             primary: Primary?
@@ -147,14 +156,17 @@ en:
             deleted: Institution deleted.
           form:
             save: Save institution
-          form_view_affiliations:
-            no_affiliations: This institution has no associated affiliations.
-            number_of_articles: "# articles"
-          form_details:
+            details: Details
+            view_affiliations: Affiliations
             delete_confirmation:
               "Are you sure you want to delete the institution <strong>%{name}</strong>?
               This action is irreversible, and will delete all associated affiliations. Authors will not be deleted."
+          form_view_affiliations:
+            no_affiliations: This institution has no associated affiliations.
+            number_of_articles: "# articles"
         licences:
+          index:
+            new: New licence
           new:
             new: New licence
           create:
