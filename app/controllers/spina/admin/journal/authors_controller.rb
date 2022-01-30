@@ -9,6 +9,8 @@ module Spina
         before_action :set_tabs, except: %i[index destroy]
         before_action :set_author, only: %i[edit update destroy]
 
+        admin_section :journal_settings
+
         def index
           @authors = Author.all
         end
@@ -60,7 +62,7 @@ module Spina
         private
 
         def author_params
-          params.require(:author).permit(:primary_affiliation_index,
+          params.require(:author).permit(:primary_affiliation_index, :orcid,
                                          affiliations_attributes: %i[id institution_id first_name
                                                                      surname])
         end

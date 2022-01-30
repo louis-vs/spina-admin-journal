@@ -1,27 +1,37 @@
 = form_with model: [spina, :admin_journal, @article], id: dom_id(@article), html: { autocomplete: 'off' } do |f|
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Issue.model_name.human(count: :one)) do
-    = f.collection_select :issue_id, ::Spina::Admin::Journal::Issue.sorted_desc, :id, ->(issue) { t '.volume_issue', volume_number: issue.volume.number, issue_number: issue.number }
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:number),
-                                            description: t('.unchangeable')) do
-    = f.number_field :number, disabled: true
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:title)) do
+  .-mt-6
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Issue.model_name.human(count: :one)) do
+    = f.collection_select(:issue_id,
+                          ::Spina::Admin::Journal::Issue.sorted_desc,
+                          :id,
+                          ->(issue) { t '.volume_issue', volume_number: issue.volume.number, issue_number: issue.number },
+                          {},
+                          class: 'form-select')
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:number),
+                                                         description: t('.unchangeable')) do
+    = f.number_field :number, disabled: true, class: 'form-input'
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:title)) do
     = render Spina::Forms::TextFieldComponent.new(f, :title)
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:status)) do
-    = f.select :status, Spina::Admin::Journal::Article.statuses.keys.map { |key| [key.humanize, key] }
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:licence)) do
-    = f.collection_select :licence_id, Spina::Admin::Journal::Licence.sorted, :id, :name, prompt: true
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Author.model_name.human(count: :many)) do
-    %table.table{ style: 'margin: 0' }
-      %tbody.collection-check-boxes
-        = f.collection_check_boxes :affiliation_ids, Spina::Admin::Journal::Affiliation.sorted, :id, :name do |builder|
-          %tr
-            %td{ style: "padding-left: 16px" }
-              .form-checkbox
-                = builder.check_box
-                = builder.label
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:url)) do
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:status)) do
+    = f.select :status, Spina::Admin::Journal::Article.statuses.keys.map { |key| [key.humanize, key] }, {}, class: 'form-select'
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:licence)) do
+    = f.collection_select :licence_id, Spina::Admin::Journal::Licence.sorted, :id, :name, { prompt: true }, { class: 'form-select' }
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Author.model_name.human(count: :many),
+                                                         description: t('.affiliation_info')) do
+    %ul.list-none.ml-4
+      = f.collection_check_boxes(:affiliation_ids,
+                                 Spina::Admin::Journal::Affiliation.sorted,
+                                 :id,
+                                 ->(affiliation) { t '.name_institution', name: affiliation.name, institution: affiliation.institution.name },
+                                 {},
+                                 class: 'form-checkbox rounded') do |builder|
+        %li
+          .form-checkbox
+            = builder.check_box
+            %span.text-sm.font-medium.text-gray-600= builder.label
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:url)) do
     = render Spina::Forms::TextFieldComponent.new(f, :url)
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:doi)) do
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Article.human_attribute_name(:doi)) do
     = render Spina::Forms::TextFieldComponent.new(f, :doi)
 
   = f.fields_for :"#{@locale}_content", @parts do |ff|

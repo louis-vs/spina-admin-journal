@@ -30,6 +30,8 @@ module Spina
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
+        admin_section :journal
+
         def index
           @issues = Issue.sorted_desc
         end

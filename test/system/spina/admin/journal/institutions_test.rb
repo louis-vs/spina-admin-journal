@@ -23,7 +23,7 @@ module Spina
           fill_in 'institution_name', with: 'New institution'
 
           # check that affiliations list is empty
-          click_button 'View Affiliations', class: 'bg-transparent'
+          click_button 'Affiliations', class: 'bg-transparent'
           assert_text 'There are no items.'
 
           click_on 'Save institution'

@@ -26,4 +26,4 @@
     = form_with model: [spina, :admin_journal, @author], id: dom_id(@author), html: { autocomplete: 'off' } do |f|
       - @tabs.each_with_index do |tab, i|
         %div{ 'data-tabs-target': 'pane', id: tab, hidden: i != 0 }
-          = render "form_#{tab}", f: f
+          .max-w-5xl= render "form_#{tab}", f: f

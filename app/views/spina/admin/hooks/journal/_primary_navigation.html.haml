@@ -1,8 +1,8 @@
-= render Spina::MainNavigation::SubNavComponent.new(:journal_content) do |nav|
+= render Spina::MainNavigation::SubNavComponent.new(:journal) do |nav|
   - nav.icon do
-    = heroicon 'document-add', style: :solid, class: 'w-8 h-8 text-white md:mr-3'
+    = heroicon 'document-duplicate', style: :solid, class: 'w-8 h-8 text-white md:mr-3'
     .text-white.font-semibold.hidden{class: 'md:block transform -translate-x-2 ease-in-out duration-300 absolute md:relative opacity-0 transition-all', 'data-navigation-target': 'label'}
-      = Spina::Admin::Journal::Journal.instance.name
+      = Spina::Admin::Journal::Journal.instance.has_content?(:journal_abbreviation) ? Spina::Admin::Journal::Journal.instance.content(:journal_abbreviation) : Spina::Admin::Journal::Journal.instance.name
 
   - nav.links do
     = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Volume.model_name.human(count: :many),
@@ -18,7 +18,7 @@
 
 = render Spina::MainNavigation::SubNavComponent.new(:journal_settings) do |nav|
   - nav.icon do
-    = heroicon 'dots-horizontal', style: :solid, class: 'w-8 h-8 text-white md:mr-3'
+    = heroicon 'view-grid', style: :solid, class: 'w-8 h-8 text-white md:mr-3'
     .text-white.font-semibold.hidden{class: 'md:block transform -translate-x-2 ease-in-out duration-300 absolute md:relative opacity-0 transition-all', 'data-navigation-target': 'label'}
       = t 'spina.admin.journal.navigation_title'
 

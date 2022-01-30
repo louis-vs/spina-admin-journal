@@ -27,6 +27,8 @@ module Spina
         before_action :set_parts_attributes
         before_action :build_parts, only: %i[edit]
 
+        admin_section :journal_settings
+
         def edit
           add_breadcrumb @journal.name
         end

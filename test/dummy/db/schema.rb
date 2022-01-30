@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_153728) do
+ActiveRecord::Schema.define(version: 2022_01_30_171603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_153728) do
   create_table "spina_admin_journal_authors", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "orcid", default: "", null: false
   end
 
   create_table "spina_admin_journal_authorships", force: :cascade do |t|

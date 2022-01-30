@@ -1,6 +1,5 @@
-.page-form-label= f.object.title
-.page-form-control
-  = f.number_field :first_page, style: 'width: 10%;'
+= render Spina::Admin::Journal::FormGroupComponent.new(label: f.object.title) do
+  = f.number_field :first_page, style: 'width: 10%;', class: 'form-input'
   &ndash;
-  = f.number_field :last_page, style: 'width: 10%;'
+  = f.number_field :last_page, style: 'width: 10%;', class: 'form-input'
 

@@ -5,7 +5,7 @@ require 'test_helper'
 module Spina
   module Admin
     module Journal
-      class ArticlesControllerTest < ActionDispatch::IntegrationTest
+      class ArticlesControllerTest < ActionDispatch::IntegrationTest # rubocop:disable Metrics/ClassLength
         include ::Spina::Engine.routes.url_helpers
 
         setup do
@@ -46,6 +46,19 @@ module Spina
           assert_equal 'Article saved.', flash[:success]
         end
 
+        test 'should create article with multiple authors' do
+          attributes = {}
+          attributes[:title] = 'New Article'
+          attributes[:number] = 3
+          attributes[:issue_id] = @article.issue_id
+          attributes[:affiliation_ids] = [@article2.affiliations.first.id, @article2.affiliations.last.id]
+          assert_difference 'Article.count' do
+            post admin_journal_articles_url, params: { article: attributes }
+          end
+          assert_redirected_to %r{articles/\d+/edit}
+          assert_equal 'Article saved.', flash[:success]
+        end
+
         test 'should not create invalid article' do
           attributes = @article.attributes
           attributes[:title] = nil
@@ -59,6 +72,14 @@ module Spina
         test 'should update article' do
           attributes = @article.attributes
           attributes[:title] = 'New name'
+          patch admin_journal_article_url(@article), params: { article: attributes }
+          assert_redirected_to edit_admin_journal_article_url(@article)
+          assert_equal 'Article saved.', flash[:success]
+        end
+
+        test 'should update article to have multiple authors' do
+          attributes = @article.attributes
+          attributes[:affiliation_ids] = [@article2.affiliations.first.id, @article2.affiliations.last.id]
           patch admin_journal_article_url(@article), params: { article: attributes }
           assert_redirected_to edit_admin_journal_article_url(@article)
           assert_equal 'Article saved.', flash[:success]

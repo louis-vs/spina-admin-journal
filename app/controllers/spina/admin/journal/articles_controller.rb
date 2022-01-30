@@ -29,6 +29,8 @@ module Spina
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
+        admin_section :journal
+
         def index
           @articles = Article.sorted_desc
         end

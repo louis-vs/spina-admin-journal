@@ -16,9 +16,18 @@ module Spina
         # @!attribute [rw] position
         #   @return [Integer] used to order the affiliations for each article
 
+        before_validation :set_default_position, unless: :persisted?
         validates :position, presence: true, uniqueness: { scope: :article_id }
 
         scope :sorted_within_article, -> { order(position: :asc) }
+
+        private
+
+        def set_default_position
+          return if article.authorships.sorted_within_article.last.nil?
+
+          self.position = article.authorships.sorted_within_article.last.position + 1
+        end
       end
     end
   end

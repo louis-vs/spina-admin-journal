@@ -1,4 +1,5 @@
 = form_with model: [spina, :admin_journal, @volume], id: dom_id(@volume), html: { autocomplete: 'off' } do |f|
-  = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Volume.human_attribute_name(:number),
+  .-mt-6
+  = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Volume.human_attribute_name(:number),
                                             description: t('.unchangeable')) do
-    = f.number_field :number, disabled: true
+    = f.number_field :number, disabled: true, class: 'form-input'

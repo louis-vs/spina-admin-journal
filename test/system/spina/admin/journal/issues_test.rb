@@ -77,7 +77,6 @@ module Spina
           fill_in 'issue_date', with: Time.zone.today
 
           click_button 'Articles', class: 'bg-transparent'
-          assert_text 'NB: item numbers will only update after you refresh the page.'
 
           # first_handle = find("li[data-id=\"#{@issue.id}\"] .cursor-move")
           # last_handle = find("li[data-id=\"#{@issue2.id}\"] .cursor-move")

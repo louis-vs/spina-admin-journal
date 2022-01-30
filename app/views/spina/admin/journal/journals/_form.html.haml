@@ -13,13 +13,15 @@
       = t '.save'
 
 .p-4.md:p-8
-  = form_with model: [spina, :admin_journal, @journal], id: dom_id(@journal), html: { autocomplete: 'off' } do |f|
-    = render Spina::Forms::GroupComponent.new(label: Spina::Admin::Journal::Journal.human_attribute_name(:name)) do
-      = render Spina::Forms::TextFieldComponent.new(f, :name)
+  .max-w-5xl
+    = form_with model: [spina, :admin_journal, @journal], id: dom_id(@journal), html: { autocomplete: 'off' } do |f|
+      .-mt-6
+      = render Spina::Admin::Journal::FormGroupComponent.new(label: Spina::Admin::Journal::Journal.human_attribute_name(:name)) do
+        = render Spina::Forms::TextFieldComponent.new(f, :name)
 
-    = f.fields_for :"#{@locale}_content", @parts do |ff|
-      = ff.hidden_field :type, value: ff.object.class
-      = ff.hidden_field :title
-      = ff.hidden_field :name
+      = f.fields_for :"#{@locale}_content", @parts do |ff|
+        = ff.hidden_field :type, value: ff.object.class
+        = ff.hidden_field :title
+        = ff.hidden_field :name
 
-      = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff
+        = render "spina/admin/parts/#{parts_partial_namespace(ff.object.class.to_s)}/form", f: ff

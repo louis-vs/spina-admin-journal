@@ -9,6 +9,8 @@ module Spina
         before_action :set_tabs, except: %i[index destroy]
         before_action :set_volume, only: %i[edit destroy]
 
+        admin_section :journal
+
         def index
           @volumes = Volume.sorted_asc
         end

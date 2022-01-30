@@ -51,6 +51,36 @@ module Spina
           invalid_author = Author.new attributes
           assert invalid_author.invalid?
         end
+
+        test 'authorship has a valid orcid' do
+          assert @author.valid?
+          assert_empty @author.errors[:orcid]
+          @author.orcid = '0000-0001-5237-5153'
+          assert @author.valid?
+          assert_empty @author.errors[:orcid]
+          @author.orcid = '0000-0001-5237-515X'
+          assert @author.valid?
+          assert_empty @author.errors[:orcid]
+        end
+
+        test 'orcid should have correct format' do
+          assert @author.valid?
+          assert_empty @author.errors[:orcid]
+          @author.orcid = '0000-00+01-5237-5153'
+          assert @author.invalid?
+          assert_not_empty @author.errors[:orcid]
+          @author.orcid = '0000--5237-5153'
+          assert @author.invalid?
+          assert_not_empty @author.errors[:orcid]
+        end
+
+        test 'orcid may be blank' do
+          assert @author.valid?
+          assert_empty @author.errors[:orcid]
+          @author.orcid = ''
+          assert @author.valid?
+          assert_empty @author.errors[:orcid]
+        end
       end
     end
   end
