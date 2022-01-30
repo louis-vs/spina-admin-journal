@@ -23,10 +23,8 @@ module Spina
           assert_text 'New article'
           fill_in 'article_title', with: 'New article'
           select 'Volume 1 Issue 1', from: 'article_issue_id'
-          within '.collection-check-boxes' do
-            @article.affiliations.each do |affiliation|
-              find("label[for=article_affiliation_ids_#{affiliation.id}]").click
-            end
+          @article.affiliations.each do |affiliation|
+            find("label[for=article_affiliation_ids_#{affiliation.id}]").click
           end
 
           # check that authors list is empty
