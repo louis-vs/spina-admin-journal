@@ -106,6 +106,9 @@ en:
             volume_issue: "Volume %{volume_number} Issue %{issue_number}"
             name_institution: "%{name} (%{institution})"
             unchangeable: Article order can be changed in the issue.
+            affiliation_info:
+              All affiliations are listed here. You can select multiple affiliations for co-authored
+              articles, but these must be from different authors.
           form_authors:
             no_authors: There are no authors.
             number_of_articles: "# Articles"
@@ -137,11 +140,18 @@ en:
             details: Details
             articles: Articles
             delete_confirmation: "Are you sure you want to delete the author %{name}?"
+          form_details:
+            explanation:
+              "An author represents an individual person. A person may change names and/or
+            institutions over time. This is represented in Journal with
+            'affiliations'. An affiliation consists of an author's name and institution at a
+            particular time, or generally within a particular context."
           form_affiliation:
             primary: Primary?
             primary_explanation:
               If checked, this affiliation will be marked as the author's primary affiliation. An
-              author can only have one primary affiliation.
+              author can only have one primary affiliation. It is the primary affiliation that will
+              be shown most prominently on the author's page.
           form_articles:
             no_articles: There are no articles.
         institutions:
@@ -166,7 +176,8 @@ en:
             view_affiliations: Affiliations
             delete_confirmation:
               "Are you sure you want to delete the institution <strong>%{name}</strong>?
-              This action is irreversible, and will delete all associated affiliations. Authors will not be deleted."
+              This action is irreversible, and will delete all associated affiliations. Authors
+              will not be deleted."
           form_view_affiliations:
             no_affiliations: This institution has no associated affiliations.
             number_of_articles: "# articles"
@@ -235,6 +246,7 @@ en:
       spina/admin/journal/authorship:
         position: Position
       spina/admin/journal/author:
+        affiliations: Affiliations
       spina/admin/journal/institution:
         name: Institution Name
       spina/admin/journal/licence:

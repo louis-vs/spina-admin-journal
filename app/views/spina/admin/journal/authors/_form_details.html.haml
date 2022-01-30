@@ -1,2 +1,24 @@
-= f.fields_for :affiliations, @author.affiliations do |ff|
-  .well= render 'form_affiliation', ff: ff
+.text-gray-700.text-sm.font-light= t '.explanation'
+.mt-6{ 'data-controller': 'repeater' }
+  %label.block.text-sm.leading-5.font-medium.text-gray-700= Spina::Admin::Journal::Author.human_attribute_name :affiliations
+  .-mt-4.flex.flex-col.md:flex-row{ data: { 'controller': 'tabs', 'tabs-active': 'bg-spina-dark bg-opacity-10 text-gray-900', 'tabs-inactive': 'text-gray-500' }  }
+    .md:w-64.md:pr-6
+
+      -# Fields for new affiliation
+      - new_affiliation = Spina::Admin::Journal::Affiliation.new
+      - fields = f.fields_for(:affiliations, [new_affiliation], child_index: new_affiliation.object_id) { |ff| render('form_affiliation', f: ff) }.gsub('\n', '')
+
+      -# Tabs
+      .pt-6.-ml-3
+        %div{ data: { action: 'exists->tabs#added', 'repeater-target' => 'list', 'tabs-target' => 'list' } }
+          - (f.object.affiliations || []).each.with_index do |affiliation, index|
+            %button.text-gray-500.hover:text-gray-900.rounded-md.px-3.truncate.text-sm.font-medium.flex.items-center.w-full.h-9{ data: { 'action': 'tabs#show', 'pane-id': "pane_#{affiliation.object_id}", 'repeater-target': 'listItem', 'tabs-target': 'button' }, type: 'button' }
+              = affiliation&.name
+        %button.text-gray-400.pl-2.hover:text-gray-900.rounded-md.truncate.text-sm.font-medium.flex.items-center.w-full.h-10{ data: { 'action': 'repeater#addFields', 'child-index': "#{new_affiliation.object_id}", 'fields': fields }, type: 'button' }
+          = heroicon 'plus', style: :solid, class: 'w-6 h-6 mr-1'
+          = t 'spina.ui.new_entry'
+
+    -# Content
+    .flex-1.pl-6.md:pl-0{ 'data-repeater-target': 'content' }
+      = f.fields_for :affiliations do |affiliation_fields|
+        = render 'form_affiliation', f: affiliation_fields
