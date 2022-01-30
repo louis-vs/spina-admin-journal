@@ -24,9 +24,9 @@ module Spina
         private
 
         def set_default_position
-          return unless self.article.authorships.sorted_within_article.last.present?
+          return if article.authorships.sorted_within_article.last.nil?
 
-          self.position = self.article.authorships.sorted_within_article.last.position + 1
+          self.position = article.authorships.sorted_within_article.last.position + 1
         end
       end
     end
