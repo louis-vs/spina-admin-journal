@@ -25,8 +25,8 @@ module Spina
 
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
-        before_action :set_issue, only: %i[edit update destroy]
-        before_action :set_articles, only: %i[edit update]
+        before_action :set_issue, only: %i[edit view_articles update destroy]
+        before_action :set_articles, only: %i[edit view_articles update]
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
@@ -46,6 +46,10 @@ module Spina
           add_breadcrumb t('spina.admin.journal.volumes.volume_number', number: @issue.volume.number),
                          edit_admin_journal_volume_path(@issue.volume)
           add_breadcrumb t('spina.admin.journal.issues.issue_number', number: @issue.number)
+        end
+
+        def view_articles
+          render layout: false
         end
 
         def create # rubocop:disable Metrics/AbcSize

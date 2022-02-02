@@ -7,7 +7,7 @@ module Spina
       class InstitutionsController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy]
-        before_action :set_institution, only: %i[edit update destroy]
+        before_action :set_institution, only: %i[edit view_affiliations update destroy]
 
         admin_section :journal_settings
 
@@ -21,6 +21,10 @@ module Spina
         end
 
         def edit; end
+
+        def view_affiliations
+          render layout: false
+        end
 
         def create
           @institution = Institution.new(institution_params)

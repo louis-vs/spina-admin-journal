@@ -26,7 +26,9 @@ module Spina
 
           # check that articles list is empty
           click_on 'Articles'
-          assert_text 'There are no items.'
+          within '#articles' do
+            assert_no_text
+          end
 
           click_on 'Save author'
           assert_text 'Author saved.'

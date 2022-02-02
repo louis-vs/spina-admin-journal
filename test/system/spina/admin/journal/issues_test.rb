@@ -26,7 +26,9 @@ module Spina
 
           # check that articles list is empty
           click_button 'Articles', class: 'bg-transparent'
-          assert_text 'There are no items.'
+          within '#articles' do
+            assert_no_text
+          end
 
           click_on 'Save issue'
           assert_text 'Issue saved'

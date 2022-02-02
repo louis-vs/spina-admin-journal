@@ -24,7 +24,9 @@ module Spina
 
           # check that affiliations list is empty
           click_button 'Affiliations', class: 'bg-transparent'
-          assert_text 'There are no items.'
+          within '#view_affiliations' do
+            assert_no_text
+          end
 
           click_on 'Save institution'
           assert_text 'Institution saved.'

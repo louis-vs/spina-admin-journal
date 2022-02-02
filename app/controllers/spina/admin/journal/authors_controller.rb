@@ -7,7 +7,7 @@ module Spina
       class AuthorsController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy]
-        before_action :set_author, only: %i[edit update destroy]
+        before_action :set_author, only: %i[edit view_articles update destroy]
 
         admin_section :journal_settings
 
@@ -22,6 +22,10 @@ module Spina
         end
 
         def edit; end
+
+        def view_articles
+          render layout: false
+        end
 
         def create
           @author = Author.new(modified_params)
