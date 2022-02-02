@@ -1,5 +1,9 @@
 # Spina::Admin::Journal
 
+*Journal* is a plugin for [Spina](https://www.spinacms.com/) that provides a fully-fledged journal management package, intended to provide a more streamlined, easy-to-use, modern alternative to [OJS](https://pkp.sfu.ca/ojs/).
+
+Spina is a content management system built in [Ruby on Rails](http://rubyonrails.org/). *Journal* augments Spina by providing an admin interface for managing an academic journal.
+
 ![Rails tests](https://github.com/louis-vs/spina-admin-journal/workflows/Verify/badge.svg?branch=master&event=push)
 [![codecov](https://codecov.io/gh/louis-vs/spina-admin-journal/branch/master/graph/badge.svg?token=9TZ9QGGLAH)](https://codecov.io/gh/louis-vs/spina-admin-journal)
 [![CodeFactor](https://www.codefactor.io/repository/github/louis-vs/spina-admin-journal/badge)](https://www.codefactor.io/repository/github/louis-vs/spina-admin-journal)
@@ -7,69 +11,48 @@
 [![Code quality: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/louis-vs/spina-admin-journal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/louis-vs/spina-admin-journal/context:javascript)
 [![Inline docs](http://inch-ci.org/github/louis-vs/spina-admin-journal.svg?branch=master)](http://inch-ci.org/github/louis-vs/spina-admin-journal)
 
-*Journal* is a plugin for [Spina](https://www.spinacms.com/), a content management system built in [Ruby on Rails](http://rubyonrails.org/). *Journal* augments Spina by providing an admin interface for managing an academic journal.
+## Features
+
+The journal plugin covers many of the needs of a professional online journal publication, including:
+
+- Simple, responsive, intuitive interface that builds upon Spina's own.
+- Seamlessly integrate published content with other information about the journal.
+- Manage volumes, issues, articles and authors in a highly structured and organised manner.
+- Keep track of individual authors with multiple affiliations, e.g. if they change name or institution, connecting with [ORCID](https://orcid.org/).
+
+Currently, a submissions management system is not included, but this is planned for a future release. This will allow you to manage the submissions process for the journal in a streamlined manner in parallel to publication.
 
 ## Usage
 
 The plugin adds two menus to Spina's primary navigation:
 
-* **Journal settings** provides access to global properties of the journal. It is divided into 3 submenus:
-  * **Journal** allows you to change the name of the journal.
-  * **Institutions** allows you to add institutions, to which authors can be affiliated.
-  * **Authors** allows you to add authors, who can then be added to articles.
-* The **journal content** menu will be named after the journal as specified in Journal Settings. It provides a means of editing the content of the journal and is divided into three submenus:
-  * **Volumes** allows you to add and remove volumes of the journal, and edit their respective issues.
-  * **Issues** allows you to add, edit and remove issues of particular volumes of the journal, and edit their respective articles.
-  * **Articles** allows you to add, edit and remove articles belonging to particular issues.
+- **Journal settings** provides access to global properties of the journal. It is divided into 3 submenus:
+  - **Journal** allows you to change metadata such as the name of the journal, as well as content that will appear on the journal homepage.
+  - **Institutions** allows you to add institutions, to which authors can be affiliated.
+  - **Authors** allows you to add authors and their affiliations, which can then be added to articles.
+  - **Licences** allows you to add licences and association information, which can be associated with individual articles, representing the licence under which the content is released.
+- The **journal content** menu will be named after the journal as specified in Journal Settings. It provides a means of editing the content of the journal and is divided into three submenus:
+  - **Volumes** allows you to add and remove volumes of the journal, and edit their respective issues.
+  - **Issues** allows you to add, edit and remove issues of particular volumes of the journal, and edit their respective articles.
+  - **Articles** allows you to add, edit and remove articles belonging to particular issues.
 
-The plugin does not provide any public-facing frontend. However, an example implementation can be found at **[TBC]**.
+**NB:** This release of the plugin does not provide any public-facing frontend or Spina theme. An example implementation can be found within the [Conferences Primer Theme](https://github.com/louis-vs/spina-conferences-primer_theme-fork). Note that this theme also contains frontends for two other Spina plugins, [Spina Conferences Blog](https://github.com/louis-vs/spina-admin-conferences-blog) and [Spina Admin Conferences](https://github.com/louis-vs/spina-admin-conferences-fork/). You can use the theme in your project as is, or copy whichever parts of the code you need.
 
-**NB this plugin is currently a work in progress**: please wait until an official release to use this plugin in production.
+A dedicated journal theme, coupled with an automatic installer, is being planned. A system to manage submissions is also on the roadmap.
 
 ## Installation
 
-### From scratch
+Make sure you have a working installation of Ruby on Rails 7. You can find a setup guide [here](https://guides.rubyonrails.org/getting_started.html).
 
-Make sure you have a working installation of Ruby on Rails 6.1. You can find a setup guide [here](https://guides.rubyonrails.org/getting_started.html).
+You then need to install Spina, following the guide [on the Spina website](https://spinacms.com/docs).
 
-Then run:
-
-```bash
-$ rails new your-app --database=postgresql
-$ cd your-app
-$ bin/rails db:create
-$ bin/rails active_storage:install
-```
-
-Add this line to your new application's Gemfile:
+To install the plugin, add this line to your application's Gemfile:
 
 ```ruby
-gem 'spina', '~> 2.0'
+gem 'spina-admin-journal', '~> 1.0'
 ```
 
-And then execute:
-
-```bash
-$ bundle install
-```
-
-Run the Spina install generator:
-
-```bash
-$ bin/rails g spina:install
-```
-
-And follow the prompts. Once this is complete, follow the instructions below.
-
-### For existing Spina installations
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'spina-admin-journal', '~> 0.1'
-```
-
-And then execute:
+Then execute:
 
 ```bash
 $ bundle install
@@ -78,7 +61,7 @@ $ bundle install
 You'll then need to install and run the migrations for the journal:
 
 ```bash
-$ bin/rails spina_admin_journal_engine:install:migrations
+$ bin/rails spina_admin_journal:install:migrations
 $ bin/rails db:migrate
 ```
 
@@ -93,6 +76,11 @@ You can manually populate the database from within the app, or alternatively you
 ## Contributing
 
 Bug reports and feature requests are welcome in the [Issues](https://github.com/louis-vs/spina-admin-journal/issues) section. Translations are also very welcome!
+
+### Planned features
+
+- [ ] Submissions management
+- [ ] Translations
 
 ## License
 
