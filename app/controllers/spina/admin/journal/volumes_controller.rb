@@ -7,7 +7,7 @@ module Spina
       class VolumesController < ApplicationController
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy]
-        before_action :set_volume, only: %i[edit destroy]
+        before_action :set_volume, only: %i[edit view_issues destroy]
 
         admin_section :journal
 
@@ -16,6 +16,10 @@ module Spina
         end
 
         def edit; end
+
+        def view_issues
+          render layout: false
+        end
 
         def new
           create

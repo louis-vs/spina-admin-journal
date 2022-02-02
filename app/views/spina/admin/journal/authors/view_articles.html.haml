@@ -1,0 +1,2 @@
+%turbo-frame#author_articles
+  = render Spina::Admin::Journal::ArticlesListComponent.new(articles: @author.affiliations.reduce([]) { |memo, affiliation| memo << affiliation.articles.to_a }.flatten )

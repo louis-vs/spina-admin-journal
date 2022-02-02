@@ -25,7 +25,7 @@ module Spina
 
         before_action :set_breadcrumb
         before_action :set_tabs, except: %i[index destroy sort]
-        before_action :set_article, only: %i[edit update destroy]
+        before_action :set_article, only: %i[edit view_authors update destroy]
         before_action :set_parts_attributes, only: %i[new edit]
         before_action :build_parts, only: %i[edit]
 
@@ -42,6 +42,10 @@ module Spina
         end
 
         def edit; end
+
+        def view_authors
+          render layout: false
+        end
 
         def create # rubocop:disable Metrics/AbcSize
           @article = Article.new(article_params)

@@ -16,3 +16,8 @@ AllCops:
 Lint/MissingSuper:
   Exclude:
     - app/components/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - spina-admin-journal.gemspec
