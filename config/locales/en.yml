@@ -147,7 +147,7 @@ en:
               'affiliations'. An affiliation consists of an author's name and institution at a
               particular time, or generally within a particular context."
             orcid_info:
-              It is highly recommended to provide an ORCID iD for each author. Find out more at
+              It is strongly recommended to provide an ORCID iD for each author. Find out more at
               orcid.org.
           form_affiliation:
             primary: Primary?
