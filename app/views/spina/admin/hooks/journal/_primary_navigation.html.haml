@@ -23,7 +23,7 @@
       = t 'spina.admin.journal.navigation_title'
 
   - nav.links do
-    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Journal.model_name.human(count: :one),
+    = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Journal.model_name.human(count: 1),
                                                       spina.edit_admin_journal_journal_path(Spina::Admin::Journal::Journal.instance.id),
                                                       active: controller_name == 'journals')
     = render Spina::MainNavigation::LinkComponent.new(Spina::Admin::Journal::Author.model_name.human(count: :many),
