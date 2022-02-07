@@ -1,3 +1,3 @@
 - if @author.persisted?
   .-mt-4.md:-mt-8
-  %turbo-frame#author_articles{ src: spina.view_articles_admin_journal_author_path(@author), loading: 'lazy' }
+  %turbo-frame#author_articles{ src: spina.view_articles_admin_journal_author_path(@author), loading: 'lazy', target: '_top' }
